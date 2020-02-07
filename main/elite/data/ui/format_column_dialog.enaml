@@ -1,0 +1,101 @@
+from atom.api import Atom, Int, Str, set_default
+from enaml.core.api import Include
+from enaml.layout.api import vbox, hbox, spacer
+from enaml.widgets.api import (Dialog, Container, ObjectCombo, Label, Form,
+                               PushButton, SpinBox, GroupBox)
+
+class ColumnFormat(Atom):
+    title = Str('General')
+
+    def format_data(self, data):
+        return data
+
+    def config_widget(self):
+        return Container()
+
+
+enamldef NumberFormatConfig(GroupBox):
+    attr model
+    Form:
+        Label:
+            text = 'Decimal places'
+        SpinBox:
+            value := model.decimals
+
+
+class NumberFormat(ColumnFormat):
+    title = set_default('Number')
+    decimals = Int(3)
+
+    def format_data(self, data):
+        try:
+            return round(float(data), self.decimals)
+        except (ValueError, TypeError):
+            return data
+
+    def config_widget(self):
+        return NumberFormatConfig(model=self)
+
+
+enamldef PercentageFormatConfig(GroupBox):
+    attr model
+    Form:
+        Label:
+            text = 'Decimal places'
+        SpinBox:
+            value := model.decimals
+
+
+class PercentageFormat(ColumnFormat):
+    title = set_default('Percentage')
+    decimals = Int(3)
+
+    def format_data(self, data):
+        try:
+            num = float(data) * 100
+            return '{}%'.format(round(num, self.decimals))
+        except (ValueError, TypeError):
+            return data
+
+    def config_widget(self):
+        return PercentageFormatConfig(model=self)
+
+
+FORMATS = [
+    ColumnFormat,
+    NumberFormat,
+    PercentageFormat
+]
+
+
+def get_formats(current):
+    return [
+        current if current.__class__ == cls else cls()
+        for cls in FORMATS
+    ]
+
+
+enamldef FormatColumnDialog(Dialog): dlg:
+    attr formatter : ColumnFormat = ColumnFormat()
+    title = 'Format Column'
+    Container:
+        constraints << [vbox(
+            hbox(type_label, type_select, spacer),
+            inc.objects[0],
+            actions
+        )]
+        Label: type_label:
+            text = 'Type:'
+        ObjectCombo: type_select:
+            items << get_formats(formatter)
+            to_string = lambda c: c.title
+            selected := formatter
+        Include: inc:
+            objects << [formatter.config_widget()]
+        Container: actions:
+            constraints = [
+                hbox(spacer, ok_button)
+            ]
+            PushButton: ok_button:
+                text = 'Ok'
+                clicked :: dlg.accept()

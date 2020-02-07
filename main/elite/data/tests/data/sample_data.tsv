@@ -1,0 +1,4 @@
+id	foo	bar	baz
+2	a	0	TRUE
+1	a	0.5	FALSE
+3	b	1	TRUE

@@ -1,0 +1,187 @@
+from __future__ import absolute_import
+import os.path
+from enaml.core.api import Conditional, Looper, Include
+from enaml.styling import StyleSheet, Style, Setter
+from enaml.widgets.api import MainWindow, Container, DockArea, MenuBar, Menu, Action, ToolButton, StatusBar
+from elite.model import ModelObject, Control, Metric, CompositeScore
+from elite.object_registry import ObjectRegistry
+from elite.ui.toolbar import ToolBar
+from ..common.about_dialog import show_about_dialog
+from ..common.app_window import ApplicationWindow
+from ..common.resources import get_toolbar_icon
+            
+            
+enamldef Main(ApplicationWindow): window:
+    name = 'builder'
+    title << 'Nemesis Model Builder - ' + main_controller.file_title
+#    initial_size = (800, 600)
+    closing :: main_controller.confirm_window_close(change['value'])
+    StyleSheet:
+    # Font
+        Style:
+            Setter:
+                field = 'font-family'
+                value = 'Arial'
+    # Light purple
+        Style:
+            element = 'ApplicationWindow'
+            Setter:
+                field = 'background'
+                value = '#efedf5'
+    # Dark purple
+        Style:
+            element = 'Main'
+            Setter:
+                field = 'background'
+                value = '#673AB7'
+    Container:
+        padding = 0
+        DockArea:
+            name = 'dock_area'
+            style = 'grey-wind'
+            layout << main_controller.layout
+            Include:
+                objects << main_controller.dock_items
+    MenuBar:
+        Menu:
+            title = '&File'
+            Action:
+                text = 'New Model\tCtrl+N'
+                triggered :: main_controller.new_file()
+            Action:
+                text = 'Open Model...\tCtrl+O'
+                triggered :: main_controller.open_file()
+            Menu:
+                title = 'Open Recent Model'
+                Looper:
+                    iterable << main_controller.recent_files
+                    Action:
+                        text = os.path.basename(loop_item)
+                        tool_tip = loop_item
+                        triggered :: main_controller.load_file(loop_item)
+            Action:
+                text = 'Save Model\tCtrl+S'
+                enabled << main_controller.file_dirty
+                triggered :: main_controller.save_file()
+            Action:
+                text = 'Save Model As...'
+                triggered :: main_controller.save_file_as()
+            Action:
+                separator = True
+            Action:
+                text = 'Select Data Sources...'
+                triggered :: main_controller.select_data_sources()
+            Action:
+                separator = True
+            Action:
+                text = 'Close\tCtrl+W'
+                triggered :: window.close()
+        Menu:
+            title = '&View'
+            Action:
+                text = 'Reset Layout'
+                enabled << main_controller.input_data is not None
+                triggered :: main_controller.reset_full_layout()
+        Menu:
+            title = '&Run'
+            Action:
+                text = 'Generate R Program...'
+                triggered :: main_controller.write_model()
+            Action:
+                text = 'Run Model\tCtrl+R'
+                enabled << not main_controller.file_dirty
+                triggered :: main_controller.run_model()
+        Conditional:
+            condition << main_controller.debug_mode
+            Menu:
+                title = '&Tools'
+                Action:
+                    text = 'Debug Console'
+                    triggered :: main_controller.show_debug_console()
+        Menu:
+            title = '&Help'
+            Action:
+                text = 'About'
+                triggered :: show_about_dialog(parent=window)
+    ToolBar:
+        title = 'File'
+        ToolButton:
+            text = 'New model'
+            tool_tip = 'Create new model'
+            icon = get_toolbar_icon('document')
+            clicked :: main_controller.new_file()
+        ToolButton:
+            text = 'Open model'
+            tool_tip = 'Open an existing model'
+            icon = get_toolbar_icon('open')
+            clicked :: main_controller.open_file()
+        ToolButton:
+            text = 'Save model'
+            tool_tip = 'Save model to disk'
+            icon = get_toolbar_icon('save')
+            enabled << main_controller.file_dirty
+            clicked :: main_controller.save_file()
+        ToolButton:
+            text = 'Run model'
+            tool_tip = 'Run model'
+            icon = get_toolbar_icon('run')
+            enabled << not main_controller.file_dirty
+            clicked :: main_controller.run_model()
+        ToolButton:
+            text = 'Generate R program'
+            tool_tip = 'Generate R program'
+            icon = get_toolbar_icon('export')
+            clicked :: main_controller.write_model()
+    ToolBar:
+        title = 'Model'
+        ToolButton:
+            text = 'Add metric'
+            tool_tip = 'Add metric to model'
+            tool_tip = 'Add metric to model'
+            icon = get_toolbar_icon('metric')
+            popup_mode = 'instant'
+            Menu:
+                Looper:
+                    iterable = ObjectRegistry.instance().get_by_type(Metric)
+                    Action:
+                        text = loop_item.name
+                        tool_tip = loop_item.description
+                        triggered ::
+                            main_controller.add_model_object(loop_item.create())
+        ToolButton:
+            text = 'Add control'
+            tool_tip = 'Add control to model'
+            icon = get_toolbar_icon('control')
+            popup_mode = 'instant'
+            Menu:
+                Looper:
+                    iterable = ObjectRegistry.instance().get_by_type(Control)
+                    Action:
+                        text = loop_item.name
+                        tool_tip = loop_item.description
+                        triggered ::
+                            main_controller.add_model_object(loop_item.create())
+        ToolButton:
+            text = 'Add composite score'
+            tool_tip = 'Add composite score to model'
+            icon = get_toolbar_icon('composite_score')
+            popup_mode = 'instant'
+            Menu:
+                Looper:
+                    iterable = ObjectRegistry.instance().get_by_type(CompositeScore)
+                    Action:
+                        text = loop_item.name
+                        tool_tip = loop_item.description
+                        triggered ::
+                            main_controller.add_model_object(loop_item.create())
+        ToolButton:
+            text = 'Remove'
+            tool_tip = 'Remove selected object from model'
+            icon = get_toolbar_icon('remove')
+            enabled << isinstance(
+                main_controller.model_controller.selected_object, ModelObject)
+            clicked ::
+                main_controller.remove_model_object(main_controller.model_controller.selected_object)
+                main_controller.model_controller.selected_object = None
+    StatusBar:
+        size_grip_enabled = True

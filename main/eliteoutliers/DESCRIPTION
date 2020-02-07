@@ -1,0 +1,25 @@
+Package: EliteOutliers
+Type: Package
+Title: Elite Analytics' outlier detection engine
+Version: 0.5-2
+Description: Detects outliers by Z-scores of user specified metrics.
+Date: 2017-03-21
+Author: Elite Analytics
+Maintainer: Elite Analytics <info@eliteanalytics.com>
+Imports:
+    bit,
+    data.table,
+    dplyr,
+    DBI,
+    ff,
+    pryr,
+    methods,
+    Rcpp
+LinkingTo: Rcpp
+SystemRequirements: C++11
+Suggests:
+    roxygen2,
+    testthat,
+    RSQLite
+License: Proprietary
+RoxygenNote: 6.1.1

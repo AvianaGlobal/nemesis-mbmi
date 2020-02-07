@@ -1,0 +1,173 @@
+from __future__ import absolute_import
+from enaml.core.api import Include
+from enaml.layout.api import vbox, hbox
+from enaml.widgets.api import Action, Container, DockItem, ToolButton, PopupView, Label
+from elite.app.common.resources import get_toolbar_icon
+from elite.object_registry import ObjectRegistry
+from elite.ui.flat_button import FlatToolBar
+from .plots.bar_plot_widget import BarPlotWidget
+from .plots.box_plot_widget import BoxPlotWidget
+from .plots.histogram_widget import HistogramWidget
+from .plots.matplotlib_widget import MatplotlibWidget
+from .plots.scatter_plot_widget import ScatterPlotWidget
+
+
+enamldef PlotToolBar(FlatToolBar):
+    orientation = 'vertical'
+
+
+enamldef PlotSettingsButton(ToolButton):
+    attr plot_widget
+    text = 'Settings'
+    icon = get_toolbar_icon('settings')
+    status_tip = 'Configure plot settings'
+    clicked ::
+        if plot_widget.can_edit():
+            dialog = PlotSettings(self, plot_widget=plot_widget)
+            dialog.show()
+
+
+enamldef PlotSaveButton(ToolButton):
+    attr plot_widget
+    text = 'Save'
+    icon = get_toolbar_icon('save')
+    status_tip = 'Save figure to disk'
+    clicked :: plot_widget.save()
+
+
+enamldef PlotResetButton(ToolButton):
+    attr plot_widget
+    text = 'Reset'
+    icon = get_toolbar_icon('home')
+    status_tip = 'Reset plot settings to defaults'
+    clicked :: plot_widget.restore_settings()
+
+
+def _get_settings_widget(plot_widget):
+    factory = ObjectRegistry.instance()[plot_widget.editor_id]
+    return factory.create(model=plot_widget)
+
+
+enamldef PlotSettings(PopupView):
+    attr plot_widget
+    arrow_edge = 'right'
+    arrow_size = 10
+    anchor = (0.0, 1.0)
+    parent_anchor = (0.0, 0.5)
+    Container: container:
+        constraints = [
+            vbox(title, *inc.objects)
+        ]
+        Label: title:
+            text = 'Plot Settings'
+            align = 'center'
+        Include: inc:
+            objects << [_get_settings_widget(plot_widget)]
+
+
+enamldef BarPlotItem(DockItem):
+    title = 'Bar Plot'
+    Container:
+        constraints = [
+            hbox(toolbar, plot_widget, spacing=0)
+        ]
+        padding = 0
+        PlotToolBar: toolbar:
+            PlotSaveButton:
+                plot_widget = plot_widget
+            PlotResetButton:
+                plot_widget = plot_widget
+            PlotSettingsButton:
+                plot_widget = plot_widget
+        BarPlotWidget: plot_widget:
+            group_by << main_controller.results.group_name
+            load_drop => (drag_data):
+                return main_controller.entity_plot_drop(plot_widget, drag_data)
+            validate_drag_enter => (drag_data):
+                return main_controller.entity_plot_drag(plot_widget, drag_data)
+
+
+enamldef BoxPlotItem(DockItem):
+    title = 'Box Plot'
+    Container:
+        constraints = [
+            hbox(toolbar, plot_widget, spacing=0)
+        ]
+        padding = 0
+        PlotToolBar: toolbar:
+            PlotSaveButton:
+                plot_widget = plot_widget
+            PlotResetButton:
+                plot_widget = plot_widget
+            PlotSettingsButton:
+                plot_widget = plot_widget
+        BoxPlotWidget: plot_widget:
+            group_by << main_controller.results.group_name
+            load_drop => (drag_data):
+                return main_controller.entity_plot_drop(plot_widget, drag_data)
+            validate_drag_enter => (drag_data):
+                return main_controller.entity_plot_drag(plot_widget, drag_data)
+
+
+enamldef HistogramItem(DockItem):
+    title = 'Histogram'
+    Container:
+        constraints = [
+            hbox(toolbar, plot_widget, spacing=0)
+        ]
+        padding = 0
+        PlotToolBar: toolbar:
+            PlotSaveButton:
+                plot_widget = plot_widget
+            PlotResetButton:
+                plot_widget = plot_widget
+            PlotSettingsButton:
+                plot_widget = plot_widget
+        HistogramWidget: plot_widget:
+            group_by << main_controller.results.group_name
+            load_drop => (drag_data):
+                return main_controller.entity_plot_drop(plot_widget, drag_data)
+            validate_drag_enter => (drag_data):
+                return main_controller.entity_plot_drag(plot_widget, drag_data)
+
+
+enamldef ScatterPlotItem(DockItem):
+    title = 'Scatter Plot'
+    Container:
+        constraints = [
+            hbox(toolbar, plot_widget, spacing=0)
+        ]
+        padding = 0
+        PlotToolBar: toolbar:
+            ToolButton:
+                text = 'Pointer'
+                status_tip = 'Pointer tool for scatter plots'
+                icon = get_toolbar_icon('tool_pointer')
+                checkable = True
+                checked << plot_widget.tool == 'pointer'
+                clicked :: plot_widget.tool = 'pointer'
+            ToolButton:
+                text = 'Lasso'
+                status_tip = 'Lasso tool for scatter plots'
+                icon = get_toolbar_icon('tool_lasso')
+                checkable = True
+                checked << plot_widget.tool == 'lasso'
+                clicked :: plot_widget.tool = 'lasso'
+            ToolButton:
+                text = 'Zoom'
+                status_tip = 'Zoom tool for scatter plots'
+                icon = get_toolbar_icon('tool_zoom_in')
+                checkable = True
+                checked << plot_widget.tool == 'zoom'
+                clicked :: plot_widget.tool = 'zoom'
+            Action:
+                separator = True
+            PlotSaveButton:
+                plot_widget = plot_widget
+            PlotResetButton:
+                plot_widget = plot_widget
+            PlotSettingsButton:
+                plot_widget = plot_widget
+        ScatterPlotWidget: plot_widget:
+            model << main_controller.results_model
+            selected := main_controller.selected_groups

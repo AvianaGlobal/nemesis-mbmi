@@ -1,0 +1,10 @@
+from __future__ import absolute_import
+from enaml.widgets.api import MainWindow
+from .app_window_controller import ApplicationWindowController
+from .resources import get_enaml_icon
+
+
+enamldef ApplicationWindow(MainWindow):
+    attr main_controller : ApplicationWindowController = None
+    closed :: main_controller.window_closed(change['value'])
+    icon = get_enaml_icon('window-icon')

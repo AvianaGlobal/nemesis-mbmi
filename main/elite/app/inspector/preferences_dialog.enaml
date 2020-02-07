@@ -1,0 +1,80 @@
+from __future__ import absolute_import
+
+from enaml.layout.api import align, vbox, hbox, spacer
+from enaml.widgets.api import Dialog, Container, GroupBox, Form, Label, CheckBox, PushButton
+from enaml.stdlib.fields import IntField
+
+from elite.app.common.preferences import Preferences, INSPECTOR
+
+
+enamldef PreferencesDialog(Dialog): dlg:
+    attr model = Preferences.instance(INSPECTOR)
+
+    title = 'Preferences'
+
+    closed ::
+        model.save()
+
+    Container:
+        constraints = [
+            vbox(prefs, buttons)
+        ]
+
+        Container: prefs:
+            GroupBox:
+               title = 'Data'
+               constraints = [
+                   hbox(sample_data_label, sample_data_threshold),
+                   align('v_center', sample_data_label, sample_data_threshold)
+               ]
+
+               Label: sample_data_label:
+                   text = 'Input data sample threshold'
+               IntField: sample_data_threshold:
+                   value << model.get('sample_data_threshold')
+                   value ::
+                       model.set('sample_data_threshold', change['value'])
+
+            GroupBox:
+                title = 'Plotting'
+
+                constraints = [
+                    vbox(
+                        hbox(sample_pop_label, sample_pop, spacer),
+                        sample_pop_help,
+                        hbox(pop_size_label, pop_size)
+                    ),
+
+                    pop_size_label.left == sample_pop_label.left + 30,
+                    align('v_center', sample_pop_label, sample_pop),
+                    align('v_center', pop_size_label, pop_size)
+                ]
+
+                Label: sample_pop_label:
+                    text = 'Randomly sample population data?'
+                CheckBox: sample_pop:
+                    checked << model.get('sample_pop')
+                    checked ::
+                        model.set('sample_pop', change['value'])
+
+                Label: sample_pop_help:
+                    foreground = 'grey'
+                    text = 'Note: Disabling this can seriously impact plotting performance'
+
+                Label: pop_size_label:
+                    enabled << sample_pop.checked
+                    text = 'Population sample size'
+                IntField: pop_size:
+                    enabled << sample_pop.checked
+                    value << model.get('sample_pop_size')
+                    value ::
+                        model.set('sample_pop_size', change['value'])
+
+        Container: buttons:
+            constraints = [
+                hbox(spacer, done)
+            ]
+
+            PushButton: done:
+                text = 'Done'
+                clicked :: dlg.close()

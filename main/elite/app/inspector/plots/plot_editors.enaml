@@ -1,0 +1,182 @@
+from __future__ import absolute_import
+
+from enaml.core.api import Looper
+from enaml.layout.api import hbox, vbox
+from enaml.stdlib.fields import FloatField, IntField
+from enaml.validator import FloatValidator
+from enaml.widgets.api import CheckBox, Container, Form, Field, HGroup, Label, \
+    ObjectCombo
+
+
+enamldef PlotLimitsEditor(HGroup):
+    attr settings
+    attr member_name
+    align_widths = False
+    padding = 0
+    
+    constraints = [
+        low_field.width == high_field.width,
+    ]
+
+    Label:
+        hug_width = 'strong'
+        text = 'min'
+
+    FloatField: low_field:
+        value := getattr(settings, member_name).low
+        validator << FloatValidator(maximum=getattr(settings, member_name).high)
+    
+    Label:
+        hug_width = 'strong'
+        text = 'max'
+
+    FloatField: high_field:
+        value := getattr(settings, member_name).high
+        validator << FloatValidator(minimum=getattr(settings, member_name).low)
+
+
+enamldef ScatterPlotEditor(Container):
+    attr model
+    padding = 0
+
+    Form:
+        Label:
+            text = 'Title'
+        Field:
+            text := model.settings.title
+
+
+enamldef BarPlotEditor(Container):
+    attr model
+    padding = 0
+
+    Form:
+        Label:
+            text = 'Title'
+        Field:
+            text := model.settings.title
+        
+        Label:
+            text = 'Show groups'
+        ObjectCombo:
+            items = list(model.settings.members()['style'].items)
+            to_string = lambda s: s.capitalize()
+            selected := model.settings.style
+
+        Label:
+            text = 'Show bar labels'
+        CheckBox:
+            checked := model.settings.show_labels
+
+        Label:
+            text = 'Y axis'
+        PlotLimitsEditor:
+            settings = model.settings
+            member_name = 'y_limits'
+
+
+BIN_METHODS = [
+    ('rice', 'Rice rule'),
+    ('sqrt', 'Square root choice'),
+    ('sturges', 'Sturges\' formula'),
+    ('fd', 'Freedman-Diaconis\' choice'),
+    ('custom', 'Custom')
+]
+
+
+enamldef HistogramPlotEditor(Container):
+    attr model
+
+    padding = 0
+
+    Form:
+        Label:
+            text = 'Title'
+        Field:
+            text := model.settings.title
+        
+        Label:
+            text = 'Features'
+        Container:
+            constraints = [
+                hbox(show_hist, show_kde, show_rug)
+            ]
+            padding = 0
+            
+            CheckBox: show_hist:
+                text = 'Histogram'
+                checked := model.settings.show_hist
+                
+            CheckBox: show_kde:
+                text = 'Kernel estimate'
+                checked := model.settings.show_kde
+            
+            CheckBox: show_rug:
+                text = 'Rug'
+                checked := model.settings.show_rug
+
+        Label:
+            text = 'X axis'
+        PlotLimitsEditor:
+            settings = model.settings
+            member_name = 'x_limits'
+
+        Label:
+            text = 'Y axis'
+        PlotLimitsEditor:
+            settings = model.settings
+            member_name = 'y_limits'
+
+        Label:
+            text = 'Bins'
+        Container:
+            constraints = [
+                vbox(bin_method, bin_fields)
+            ]
+            padding = 0
+
+            func to_method_name(item):
+                methods, names = zip(*BIN_METHODS)
+                return names[methods.index(item)]
+
+            ObjectCombo: bin_method:
+                items = [method[0] for method in BIN_METHODS]
+                to_string = to_method_name
+                selected := model.settings.bin_method
+
+            Form: bin_fields:
+                Looper:
+                    iterable << model.settings.bins.items()
+
+                    Label:
+                        text = loop_item[0]
+
+                    IntField:
+                        enabled << model.settings.bin_method == 'custom'
+                        value << loop_item[1]
+                        value ::
+                            model.settings.set_bins(loop_item[0], value)
+
+
+enamldef BoxPlotEditor(Container):
+    attr model
+    padding = 0
+
+    Form:
+        Label:
+            text = 'Title'
+        Field:
+            text := model.settings.title
+        
+        Label:
+            text = 'Style'
+        ObjectCombo:
+            items = list(model.settings.members()['style'].items)
+            to_string = lambda s: s.capitalize()
+            selected := model.settings.style
+
+        Label:
+            text = 'Y axis'
+        PlotLimitsEditor:
+            settings = model.settings
+            member_name = 'y_limits'

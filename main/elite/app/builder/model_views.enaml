@@ -1,0 +1,133 @@
+from __future__ import absolute_import
+from enaml.widgets.api import Container, Form, GroupBox, HGroup, CheckBox, Label, PopupView
+from traitsui.api import View, Item, CheckListEditor
+from traits_enaml.widgets.traits_view import TraitsView
+from elite.app.common.resources import get_enaml_icon
+from elite.model import Model, Control, Metric, CompositeScore
+from elite.r.ui.code_editor import RCodeEditor
+from elite.r.ui.validators import RNameValidator
+from enaml.styling import StyleSheet, Style, Setter
+from elite.ui.drop_field import DropField
+from elite.ui.field import Field, IntField, FloatField
+from elite.ui.flat_button import FlatButton
+
+
+enamldef TopLevelModelView(Container):
+    attr model : Model
+    padding = 0   
+    StyleSheet:
+    # Light purple background
+        Style: 
+            element = 'TopLevelModelView'
+            Setter:
+                field = 'background'
+                value = '#efedf5'        
+    GroupBox:
+        title = 'Required'
+        Form:
+            padding = 0
+            Label:
+                text = 'Entity column'
+            DropField:
+                text := model.entity_name
+                validator = RNameValidator()
+            Label:
+                text = 'Group column'
+            DropField:
+                text := model.group_name
+                validator = RNameValidator()
+    GroupBox:
+        title = 'Additional settings'
+        Form:
+            padding = 0
+            CheckBox:
+                text = 'Cap entity scores'
+                checked := model.cap_entity_score
+            FloatField:
+                enabled << model.cap_entity_score
+                value := model.max_entity_score
+                minimum = 0.0
+            CheckBox:
+                text = 'Minimum group size'
+                checked := model.limit_group_size
+            IntField:
+                enabled << model.limit_group_size
+                value := model.min_group_size
+                minimum = 1
+        CheckBox:
+            text = 'Copy input data to results database'
+            checked := model.store_input
+
+
+enamldef UserCodeView(Container):
+    attr model : Model
+    Label:
+        text = 'Custom model code'
+    RCodeEditor:
+        text := model.user_code
+    StyleSheet:
+    # Light purple background
+        Style:
+            element = 'UserCodeView'
+            Setter:
+                field = 'background'
+                value = '#efedf5'
+
+
+enamldef BaseControlView(Form):
+    attr obj : Control
+    Label:
+        text = 'Name'
+    Field:
+        text := obj.name
+        validator = RNameValidator()
+
+
+enamldef BaseMetricView(Form):
+    attr obj : Metric
+    Label:
+        text = 'Name'
+    Field:
+        text := obj.name
+        validator = RNameValidator()
+
+
+enamldef BaseControlMetricView(BaseMetricView):
+    Label:
+        text = 'Control for'
+    HGroup:
+        align_widths = False
+        padding = 0
+        spacing = 5
+        Label:
+            text << (', '.join([c.name for c in obj.control_for])
+                     if obj.control_for else 'nothing')
+        FlatButton:
+            icon = get_enaml_icon('control', size=(16, 16))
+            clicked :: ControlSelectionPopup(self, obj=obj).show()
+
+
+enamldef BaseCompositeScoreView(Form):
+    attr obj : CompositeScore
+    Label:
+        text = 'Name'
+    Field:
+        text := obj.name
+        validator = RNameValidator()
+
+
+enamldef ControlSelectionPopup(PopupView):
+    attr obj : Metric
+    arrow_edge = 'left'
+    arrow_size = 10
+    parent_anchor = (1.0, 0.5)
+    Container:
+        TraitsView:
+            model << obj
+            view <<  View(Item('control_for',
+                               editor = CheckListEditor(
+                                   values = [(c, c.name) for c in 
+                                             model_controller.model.controls]),
+                               style = 'custom',
+                               show_label = False),
+                          resizable=True)
