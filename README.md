@@ -1,5 +1,5 @@
 # Nemesis-MBMI
-Base repository for Nemesis Model Builder and Nemesis Model Inspector
+Base repository for `Nemesis Model Builder` and `Nemesis Model Inspector`
 
 ## Installation
 
