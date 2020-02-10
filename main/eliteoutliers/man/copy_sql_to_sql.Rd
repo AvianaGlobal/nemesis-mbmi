@@ -4,8 +4,14 @@
 \alias{copy_sql_to_sql}
 \title{Copy SQL table}
 \usage{
-copy_sql_to_sql(in_conn, in_table, out_conn, out_table,
-  initial_rows = 10000L, batch_bytes = getOption("ffbatchbytes"))
+copy_sql_to_sql(
+  in_conn,
+  in_table,
+  out_conn,
+  out_table,
+  initial_rows = 10000L,
+  batch_bytes = getOption("ffbatchbytes")
+)
 }
 \arguments{
 \item{\code{in_conn}}{database to copy from (DBI connection)}

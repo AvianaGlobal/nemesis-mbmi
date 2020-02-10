@@ -3,7 +3,6 @@
 \docType{package}
 \name{EliteOutliers}
 \alias{EliteOutliers}
-\alias{EliteOutliers-package}
 \title{Elite Analytics' Model Execution Engine}
 \description{
 Elite Analytics' Model Execution Engine

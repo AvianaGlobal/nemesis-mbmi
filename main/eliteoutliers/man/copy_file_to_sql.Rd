@@ -4,8 +4,14 @@
 \alias{copy_file_to_sql}
 \title{Copy file to SQL table}
 \usage{
-copy_file_to_sql(in_file, out_conn, out_table, initial_rows = 10000L,
-  batch_bytes = getOption("ffbatchbytes"), ...)
+copy_file_to_sql(
+  in_file,
+  out_conn,
+  out_table,
+  initial_rows = 10000L,
+  batch_bytes = getOption("ffbatchbytes"),
+  ...
+)
 }
 \arguments{
 \item{\code{in_file}}{input path or connection}

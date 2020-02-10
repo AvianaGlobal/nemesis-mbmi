@@ -4,9 +4,15 @@
 \alias{run_model}
 \title{Run the model}
 \usage{
-run_model(input, input_table = NULL, input_stats = TRUE,
-  output = NULL, create_indices = TRUE, store_input = FALSE,
-  env = NULL)
+run_model(
+  input,
+  input_table = NULL,
+  input_stats = TRUE,
+  output = NULL,
+  create_indices = TRUE,
+  store_input = FALSE,
+  env = NULL
+)
 }
 \arguments{
 \item{\code{input}}{input data source, of one of the following types:

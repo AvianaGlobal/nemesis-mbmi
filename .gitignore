@@ -1,5 +1,6 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+__enamlcache__/
 *.py[cod]
 *$py.class
 
@@ -127,3 +128,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+.Rproj.user
+/main/EliteOutliers_0.5-2.tar.gz
+/main/EliteOutliers_0.5-2.zip
+/main/EliteOutliers.Rcheck/
+/nemesis_env/
