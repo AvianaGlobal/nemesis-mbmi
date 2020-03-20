@@ -74,7 +74,7 @@ class SQLDataSource(DataSource):
         else:
             args = [ast.Call(ast.Name('dbDriver'), ast.Constant(R_DBI_DRIVERS[self.dialect]))]
         args += call_args
-        # args += [(ast.Name('dbname'), ast.Constant(self.database))]
+        args += [(ast.Name('dbname'), ast.Constant(self.database))]
         # if self.dialect != 'sqlite':
         #     args += [(ast.Name('user'), ast.Constant(self.username)),
         #              (ast.Name('password'), ast.Constant(self.password)),

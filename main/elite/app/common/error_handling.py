@@ -7,9 +7,9 @@ import sys
 import traceback
 
 from traits.api import push_exception_handler
+import enaml
 
-from elite.ui.message_box import critical, details_escape
-
+from elite.ui.message_box import details_escape,critical, DialogButton
 
 def init_error_handlers(debug = False):
     """ Initialize application error handlers.
