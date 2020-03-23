@@ -39,7 +39,7 @@ def gui_except_hook(exc_type, exc_value, exc_tb):
 An unexpected error has occurred. You are recommended to restart the application.
 We apologize for the inconvenience.
         
-If the error persists, please contact Elite Analytics, LLC.'''
+If the error persists, please contact Aviana Global Technologies, Inc.'''
     exc_lines = traceback.format_exception(exc_type, exc_value, exc_tb)
     critical(text = 'Unexpected error', title = 'Error',
              content = content,
