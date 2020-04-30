@@ -47,6 +47,7 @@ class RunResults(HasTraits):
         """ Read a value from the run summary table.
         """
         if self.run_summary is not None:
+            print('fail')
             return self.run_summary.loc[key,'value']
         return ''
     

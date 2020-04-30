@@ -10,6 +10,7 @@ from .data_source import DataSource
 from .sql import read_sql_table, sample_sql_table
 from .variable import Variable
 
+# f = open("log.txt", "a")
 
 class SQLDataSource(DataSource):
     """ A data source associated with a SQL database.
@@ -17,15 +18,15 @@ class SQLDataSource(DataSource):
     # The type of database.
     dialect = Enum('db2', 'mssql', 'sqlite')
     # Connection information.
-    host = Str('dashdb-txn-sbox-yp-dal09-03.services.dal.bluemix.net')
+    host = Str('AVIANATEMP1218')
     port = Int(50000)
-    # Login information.
-    username = Str('dvs84291')
-    password = Str('t1^5r6kv329pg6dv')
+    username = Str('sa')
+    password = Str('Password123$')
     # The database and table to load from.
     # Note: When using sqlite, `database` is the filename.
-    database = Str('BLUDB')
-    table = Str('zip_profiles')
+    database = Str('demodb')
+    table = Str('Alphabet')
+    query = Str('')
     conn = Str('odbc()')
     driver = Str('IBM DB2 ODBC DRIVER - DB2COPY1')
     dsn = Str('BLUDB')
@@ -34,8 +35,23 @@ class SQLDataSource(DataSource):
                  "HOSTNAME=dashdb-txn-sbox-yp-dal09-03.services.dal.bluemix.net;"
                  "PORT=50000;"
                  "PROTOCOL=TCPIP;"
-                 "UID=dvs84291;"
-                 "PWD=t1^5r6kv329pg6dv;")
+                 "UID=xjv23492;"
+                 "PWD=fhg^61d4pw6114j3;")
+
+    msconn = Str("DRIVER={SQL Server Native Client 11.0};" 
+                 "SERVER=AVIANATEMP1218;"
+                 "DATABASE=demodb;"
+                 "UID=sa;"
+                 "PWD=Password123$;")
+
+    def get_connection_str(self):
+        return 'DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+str(self.host)+';DATABASE='+str(self.database)+';UID='+str(self.username)+';PWD='+str(self.password)
+
+    def mssql_table(self):
+        if self.table != 'NA':
+            return "select * from " + str(self.table)
+        else:
+            return self.query
 
     # Whether there is enough information to connect to the database.
     can_connect = Property(Bool, depends_on=['dialect', 'host', 'username', 'password', 'database'])
@@ -44,10 +60,27 @@ class SQLDataSource(DataSource):
 
     def ast(self):
         conn = self.ast_for_dbi_call(ast.Name('dbConnect'))
-        return [(ast.Name('input'), conn),
-                (ast.Name('input_table'), ast.Constant(self.table))]
+        print('ast')
+        # f.write("ast \n")
+        # f.close()
+        if self.dialect == 'mssql':
+            return [(ast.Name('ConnStr'), ast.Constant(self.get_connection_str())),
+                    (ast.Name('input_table'), ast.Constant(self.mssql_table())),
+                    (ast.Name('MSSQL'), ast.Constant(1))]
+
+        elif self.dialect == 'sqlite':
+            return [(ast.Name('sqlitepath'), ast.Constant(self.database)),
+                    (ast.Name('input_table'), ast.Constant(self.table)),
+                    (ast.Name('Sqlite'), ast.Constant(1))]
+        else:
+            return [(ast.Name('input'), conn),
+                    (ast.Name('input_table'), ast.Constant(self.table)),
+                    (ast.Name('MSSQL'), ast.Constant(0)),
+                    (ast.Name('Sqlite'), ast.Constant(0))]
 
     def load(self, variables=None):
+        # f.write("load \n")
+        # f.close()
         return self.load_table(
             self.table,
             columns=variables,
@@ -58,13 +91,14 @@ class SQLDataSource(DataSource):
         # based on DB's column type.
         df = self.load_table(self.table, limit=10)
         self.variables = Variable.from_data_frame(df)
+        # f.write("load metadata \n")
+        # f.close()
         return self.variables
-
     # SQLDataSource interface
     def ast_for_dbi_call(self, call_name, *call_args):
         """ Returns a Call to an R function supporting the DBI connections parameters.
         """
-        if self.dialect == 'mssql' or self.dialect == 'db2':
+        if self.dialect == 'db2':
             args = [
                 (ast.Name(self.conn)),
                 (ast.Name('.connection_string'), ast.Constant(self.db2dsn)),
@@ -74,11 +108,13 @@ class SQLDataSource(DataSource):
         else:
             args = [ast.Call(ast.Name('dbDriver'), ast.Constant(R_DBI_DRIVERS[self.dialect]))]
         args += call_args
-        # args += [(ast.Name('dbname'), ast.Constant(self.database))]
+        args += [(ast.Name('dbname'), ast.Constant(self.database))]
         # if self.dialect != 'sqlite':
         #     args += [(ast.Name('user'), ast.Constant(self.username)),
         #              (ast.Name('password'), ast.Constant(self.password)),
         #              (ast.Name('host'), ast.Constant(self.host)), ]
+        # f.write("ast for dbi call \n")
+        # f.close()
         return ast.Call(call_name, args, libraries=['DBI', R_DBI_LIBRARIES[self.dialect]])
 
     def create_engine(self):
@@ -93,12 +129,16 @@ class SQLDataSource(DataSource):
             engine_str = 'ibm_db_sa://{username}:{password}@{host}:{port}/{database}'.format(**self.__dict__)
         else:
             engine_str = '{dialect}://{username}:{password}@{host}:{port}/{database}'.format(**self.__dict__)
+        # f.write("create engine \n")
+        # f.close()
         return sqlalchemy.create_engine(engine_str, echo=True)
 
     def load_table(self, table, **kw):
         """ Load a table from the database.
         """
         engine = self.create_engine()
+        # f.write("load table \n")
+        # f.close()
         return read_sql_table(engine, table, **kw)
 
     def sample_table(self, table, n, **kw):

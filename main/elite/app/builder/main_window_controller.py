@@ -14,7 +14,9 @@ from elite.data.data_source import DataSource
 from elite.data.sql_data_source import SQLDataSource
 from elite.model import Model, ModelError
 from elite.runner import Runner
-from elite.ui.message_box import warning
+import enaml
+with enaml.imports():
+    from enaml.stdlib.message_box import warning
 from ..common.app_window_controller import ApplicationWindowController
 from ..common.data_source_wizard import DataSourceWizard
 from .gui_runner import GUIRunner

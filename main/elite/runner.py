@@ -26,7 +26,7 @@ logger = logging.getLogger(__name__)
 class Runner(HasTraits):
     """ Runs a model on data.
     """
-    
+
     # The model to run.
     model = Instance(Model)
     
@@ -131,6 +131,7 @@ class Runner(HasTraits):
         return False
 
     def _ast_impl(self):
+        self.model.store_input = True
         nodes = [ self.model.ast() ]
         if self.input_source:
             run_args = self.input_source.ast()

@@ -70,6 +70,7 @@ def read_sql_table(engine, table_name, index_col=None, columns=None,
 
     pd_db = SQLDatabase(engine, meta=meta)
     pd_tbl = SQLTable(table_name, pd_db, index=None)
+    # pd_tbl = pd.read_sql_query(query, pd_db, index=None)
     
     # Adapted from pandas.io.SQLTable.read:
     if columns is not None and len(columns) > 0:

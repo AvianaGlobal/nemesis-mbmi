@@ -6,7 +6,7 @@ composite.pca <- function(env, top = 1, percent = TRUE) {
     is.numeric(x) & # Remove non-numeric columns
       all(duplicated(x)[-1L]) == FALSE # Remove constant columns
   })
-  pca <- prcomp(dt, scale. = TRUE) # Run PCA
+  pca <- prcomp(na.omit(dt), scale. = TRUE) # Run PCA
   var <- pca$sdev^2 
   prop <- var / sum(var)
   
