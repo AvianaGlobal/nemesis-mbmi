@@ -1,7 +1,6 @@
 """ Generic functions for interacting with SQL databases.
 """
 from __future__ import absolute_import
-
 import numpy as np
 import pandas
 import sqlalchemy
@@ -70,7 +69,28 @@ def read_sql_table(engine, table_name, index_col=None, columns=None,
 
     pd_db = SQLDatabase(engine, meta=meta)
     pd_tbl = SQLTable(table_name, pd_db, index=None)
-    # pd_tbl = pd.read_sql_query(query, pd_db, index=None)
+
+    # table, query = SQLDataSource.table, SQLDataSource.query
+    #
+    # if SQLDataSource.dialect == 'mssql':
+    #     import pyodbc
+    #     SERVER = SQLDataSource.host
+    #     DATABASE = SQLDataSource.database
+    #     UID = SQLDataSource.username
+    #     PWD = SQLDataSource.password
+    #
+    #     path = 'DRIVER={ODBC Driver 17 for SQL Server}; SERVER=' + str(SERVER) + ';DATABASE=' + str(
+    #         DATABASE) + ';Trusted_Connection=yes;UID=' + str(UID) + ';PWD=' + str(PWD)
+    #     conn = pyodbc.connect(path)
+    #
+    #     if table != 'NA':
+    #         query = "select * from " + str(table)
+    #     else:
+    #         query = self.query
+    #
+    #     # use read_sql_table
+    #     pd_tbl = pd.read_sql(query, conn)
+
     
     # Adapted from pandas.io.SQLTable.read:
     if columns is not None and len(columns) > 0:

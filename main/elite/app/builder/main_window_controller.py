@@ -264,14 +264,14 @@ class MainWindowController(ApplicationWindowController):
     def _input_source_changed(self, ds):
         data = None
         if ds and ds.can_load:
-            try:
-                ds.load_metadata()
-                data = ds.load()
-            except Exception as exc:
-                warning(parent=self.window,
-                        title='Load error',
-                        text='Error loading data',
-                        content=str(exc))
+            # try:
+            ds.load_metadata()
+            data = ds.load()
+            # except Exception as exc:
+            #     warning(parent=self.window,
+            #             title='Load error',
+            #             text='Error loading data',
+            #             content=str(exc))
 
         self.input_data = data
 
