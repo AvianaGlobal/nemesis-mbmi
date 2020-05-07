@@ -86,8 +86,9 @@ run_model <- function(input = NULL, input_table=NULL, input_stats=TRUE, output=N
 
   # Read table from SQLite
   if(Sqlite == 1){
+  library(RSQLite)
   conn = dbConnect(SQLite(), sqlitepath)
-  input = dbReadTable(conn, input_table)
+  input = dbGetQuery(conn, input_table)
   }
 
    # Validate function parameters.
