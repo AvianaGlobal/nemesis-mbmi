@@ -73,6 +73,7 @@ class SQLDataSource(DataSource):
 
     def load(self, variables=None):
 
+        # if self.table is not None and self.table != "NA":
         print('load')
         return self.load_table(
             self.table,
@@ -117,7 +118,6 @@ class SQLDataSource(DataSource):
             engine_str = 'ibm_db_sa://{username}:{password}@{host}:{port}/{database}'.format(**self.__dict__)
         else:
             engine_str = '{dialect}://{username}:{password}@{host}:{port}/{database}'.format(**self.__dict__)
-
         return sqlalchemy.create_engine(engine_str, echo=True)
 
     def load_table(self, table, **kw):
@@ -136,8 +136,6 @@ class SQLDataSource(DataSource):
         else:
             print('loadtable')
             return read_sql_table(engine, table, **kw)
-
-
 
 
     def sample_table(self, table, n, **kw):
