@@ -4,6 +4,3 @@
 \name{EliteOutliers}
 \alias{EliteOutliers}
 \title{Elite Analytics' Model Execution Engine}
-\description{
-Elite Analytics' Model Execution Engine
-}

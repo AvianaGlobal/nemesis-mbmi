@@ -66,22 +66,44 @@
 #' All other tables have type \code{ffdf}.
 #' 
 #' @export
-run_model <- function(input, input_table=NULL, input_stats=TRUE, output=NULL,
-                      create_indices=TRUE, store_input=FALSE, env=NULL) {
-  # Validate function parameters.
-  if (is.data.frame(input) || is.environment(input))
-    data = input
-  else if (is.character(input))
-    data = lazy_fread(input)
-  else if (is(input, 'DBIConnection')) {
-    stopifnot(!is.null(input_table))
-    data = lazy_sql(input, input_table)
-  } else
-    stop('Unknown input type', str(input))
-  if (!is.null(output))
-    stopifnot(is(output, 'DBIConnection'))
-  if (is.null(env))
-    env <- engine_env
+run_model <- function(input = NULL, input_table=NULL, input_stats=TRUE, output=NULL,
+                      create_indices=TRUE, store_input=FALSE, env=NULL, ConnStr = NULL, MSSQL = 0, Sqlite = 0, sqlitepath = NULL) {
+
+  # Read table from csv file
+  isString = function(a){
+  is.character(a) & length(a) == 1
+  }
+  if(isString(input) == TRUE){
+  input = read.csv(input)
+  }
+
+  # Read table from MSSQL Server
+  if(MSSQL == 1){
+  library(RODBC)
+  conn = odbcDriverConnect(ConnStr)
+  input = sqlQuery(conn,input_table)
+  }
+
+  # Read table from SQLite
+  if(Sqlite == 1){
+  conn = dbConnect(SQLite(), sqlitepath)
+  input = dbReadTable(conn, input_table)
+  }
+
+   # Validate function parameters.
+   if (is.data.frame(input) || is.environment(input))
+     data = input
+   else if (is.character(input))
+     data = lazy_fread(input)
+   else if (is(input, 'RODBC')) {
+     stopifnot(!is.null(input_table))
+     data = lazy_sql(input, input_table)
+   } else
+     stop('Unknown input type', str(input))
+   if (!is.null(output))
+     stopifnot(is(output, 'DBIConnection'))
+   if (is.null(env))
+     env <- engine_env
   
   # Validate model parameters.
   in_env <- function(name) exists(name, envir=env, inherits=FALSE)
