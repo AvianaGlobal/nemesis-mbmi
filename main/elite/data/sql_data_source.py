@@ -77,15 +77,6 @@ class SQLDataSource(DataSource):
                     (ast.Name('MSSQL'), ast.Constant(0)),
                     (ast.Name('Sqlite'), ast.Constant(0))]
 
-    # def load(self, variables=None):
-    #     # f.write("load \n")
-    #     # f.close()
-    #     if self.table is not None and self.table != "NA":
-    #         return self.load_table(
-    #             self.table,
-    #             columns=variables,
-    #             limit=self.num_rows if self.limit_rows else None)
-
     def load(self, variables=None):
 
         # if self.table is not None and self.table != "NA":
