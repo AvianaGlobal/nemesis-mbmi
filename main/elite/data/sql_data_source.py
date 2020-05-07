@@ -46,7 +46,7 @@ class SQLDataSource(DataSource):
     def get_connection_str(self):
         return 'DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+str(self.host)+';DATABASE='+str(self.database)+';UID='+str(self.username)+';PWD='+str(self.password)
 
-    def mssql_table(self):
+    def query_table(self):
         if self.table != 'NA':
             return "select * from " + str(self.table)
         else:
@@ -64,12 +64,12 @@ class SQLDataSource(DataSource):
         # f.close()
         if self.dialect == 'mssql':
             return [(ast.Name('ConnStr'), ast.Constant(self.get_connection_str())),
-                    (ast.Name('input_table'), ast.Constant(self.mssql_table())),
+                    (ast.Name('input_table'), ast.Constant(self.query_table())),
                     (ast.Name('MSSQL'), ast.Constant(1))]
 
         elif self.dialect == 'sqlite':
             return [(ast.Name('sqlitepath'), ast.Constant(self.database)),
-                    (ast.Name('input_table'), ast.Constant(self.table)),
+                    (ast.Name('input_table'), ast.Constant(self.query_table())),
                     (ast.Name('Sqlite'), ast.Constant(1))]
         else:
             return [(ast.Name('input'), conn),
