@@ -17,18 +17,18 @@ class SQLDataSource(DataSource):
     # The type of database.
     dialect = Enum('db2', 'mssql', 'sqlite')
     # Connection information.
-    host = Str('AVIANAMONSUR\\SQLEXPRESS')
-    port = Int(55894)
-    username = Str('test')
-    password = Str('Aa123456789.')
+    host = Str('AVIANATEMP1218')
+    port = Int(1334)
+    username = Str('sa')
+    password = Str('Password123$')
     # The database and table to load from.
     # Note: When using sqlite, `database` is the filename.
-    database = Str('creditcard')
-    table = Str('card')
+    database = Str('demodb')
+    table = Str('')
     query = Str('')
     conn = Str('odbc()')
     driver = Str('IBM DB2 ODBC DRIVER - DB2COPY1')
-    dsn = Str('testmssql')
+    dsn = Str('Nemesis SQL odbc')
     db2dsn = Str("Driver={IBM DB2 ODBC DRIVER};"
                  "DATABASE=BLUDB;"
                  "HOSTNAME=dashdb-txn-sbox-yp-dal09-03.services.dal.bluemix.net;"
@@ -36,12 +36,6 @@ class SQLDataSource(DataSource):
                  "PROTOCOL=TCPIP;"
                  "UID=xjv23492;"
                  "PWD=fhg^61d4pw6114j3;")
-
-    msconn = Str("DRIVER={SQL Server Native Client 11.0};" 
-                 "SERVER=AVIANATEMP1218;"
-                 "DATABASE=demodb;"
-                 "UID=sa;"
-                 "PWD=Password123$;")
 
     def get_connection_str(self):
         return 'DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+str(self.host)+';DATABASE='+str(self.database)+';UID='+str(self.username)+';PWD='+str(self.password)
@@ -77,53 +71,18 @@ class SQLDataSource(DataSource):
                     (ast.Name('MSSQL'), ast.Constant(0)),
                     (ast.Name('Sqlite'), ast.Constant(0))]
 
-    # def load(self, variables=None):
-    #     # f.write("load \n")
-    #     # f.close()
-    #     if self.table is not None and self.table != "NA":
-    #         return self.load_table(
-    #             self.table,
-    #             columns=variables,
-    #             limit=self.num_rows if self.limit_rows else None)
-
     def load(self, variables=None):
 
-        # if self.table is not None and self.table != "NA":
         print('load')
         return self.load_table(
             self.table,
             columns=variables,
             limit=self.num_rows if self.limit_rows else None)
-        # else:
-        #     print('load1')
-        #     return self.load_table(
-        #         self.query,
-        #         columns=variables,
-        #         limit=self.num_rows if self.limit_rows else None)
 
     def load_metadata(self):
-        # Use pandas type inference, rather than trying it ourselves
-        # based on DB's column type.
-        # if self.table is not None and self.table != "NA":
         df = self.load_table(self.table, limit=10)
-        # else:
-        #     df = self.load_table(self.query)
         self.variables = Variable.from_data_frame(df)
-        # f.write("load metadata \n")
-        # f.close()
         return self.variables
-
-    # def load_metadata(self):
-    #     # Use pandas type inference, rather than trying it ourselves
-    #     # based on DB's column type.
-    #     if self.query is None:
-    #         df = self.load_table(self.table, limit=10)
-    #     else:
-    #         df = self.load_table(self.query)
-    #     self.variables = Variable.from_data_frame(df)
-    #     # f.write("load metadata \n")
-    #     # f.close()
-    #     return self.variables
 
     # SQLDataSource interface
     def ast_for_dbi_call(self, call_name, *call_args):
@@ -144,8 +103,6 @@ class SQLDataSource(DataSource):
         #     args += [(ast.Name('user'), ast.Constant(self.username)),
         #              (ast.Name('password'), ast.Constant(self.password)),
         #              (ast.Name('host'), ast.Constant(self.host)), ]
-        # f.write("ast for dbi call \n")
-        # f.close()
         return ast.Call(call_name, args, libraries=['DBI', R_DBI_LIBRARIES[self.dialect]])
 
     def create_engine(self):
@@ -160,8 +117,7 @@ class SQLDataSource(DataSource):
             engine_str = 'ibm_db_sa://{username}:{password}@{host}:{port}/{database}'.format(**self.__dict__)
         else:
             engine_str = '{dialect}://{username}:{password}@{host}:{port}/{database}'.format(**self.__dict__)
-        # f.write("create engine \n")
-        # f.close()
+
         return sqlalchemy.create_engine(engine_str, echo=True)
 
     def load_table(self, table, **kw):
@@ -173,27 +129,16 @@ class SQLDataSource(DataSource):
             query = self.query
             conn = engine.connect()
             data = pd.read_sql(query, conn)
-            data.to_sql('test_data', conn, if_exists='replace', index=False)
-            table = 'test_data'
+            data.to_sql('NemesisData', conn, if_exists='replace', index=False)
+            table = 'NemesisData'
             return read_sql_table(engine, table, **kw)
-            # path = "C:\Users\rishengp\Desktop\testdata.csv"
-            # data.to_csv(path, index=False, header=True)
-            # CsvFileReader(path)
 
         else:
             print('loadtable')
             return read_sql_table(engine, table, **kw)
-            #return read_sql_table(engine, query, **kw)
 
-    # def load_table(self, table=None, query=None, **kw):
-    #     """ Load a table from the database.
-    #     """
-    #     engine = self.create_engine()
-    #     if self.query is None:
-    #         return read_sql_table(engine, table, **kw)
-    #     else:
-    #         con = engine.connect()
-    #         return pd.read_sql_query(query, con)
+
+
 
     def sample_table(self, table, n, **kw):
         """ Randomly sample from a table in the database.
