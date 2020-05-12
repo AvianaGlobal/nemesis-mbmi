@@ -67,7 +67,8 @@
 #' 
 #' @export
 run_model <- function(input = NULL, input_table=NULL, input_stats=TRUE, output=NULL,
-                      create_indices=TRUE, store_input=FALSE, env=NULL, ConnStr = NULL, MSSQL = 0, Sqlite = 0, sqlitepath = NULL) {
+                      create_indices=TRUE, store_input=FALSE, env=NULL, ConnStr = NULL, MSSQL = 0, Sqlite = 0, db2 = 0,
+                      sqlitepath = NULL) {
 
   # Read table from csv file
   isString = function(a){
@@ -89,6 +90,14 @@ run_model <- function(input = NULL, input_table=NULL, input_stats=TRUE, output=N
   library(RSQLite)
   conn = dbConnect(SQLite(), sqlitepath)
   input = dbGetQuery(conn, input_table)
+  }
+
+  # Read table from db2
+  if(db2 == 1){
+  library(DBI)
+  conn = dbConnect(odbc::odbc(), .connection_string = ConnStr)
+  input = dbGetQuery(conn, input_table)
+  # dbDisconnect(conn)
   }
 
    # Validate function parameters.

@@ -17,18 +17,18 @@ class SQLDataSource(DataSource):
     # The type of database.
     dialect = Enum('db2', 'mssql', 'sqlite')
     # Connection information.
-    host = Str('AVIANATEMP1218')
-    port = Int(1334)
-    username = Str('sa')
-    password = Str('Password123$')
+    host = Str()
+    port = Int()
+    username = Str()
+    password = Str()
     # The database and table to load from.
     # Note: When using sqlite, `database` is the filename.
-    database = Str('demodb')
-    table = Str('')
-    query = Str('')
+    database = Str()
+    table = Str()
+    query = Str()
     conn = Str('odbc()')
-    driver = Str('IBM DB2 ODBC DRIVER - DB2COPY1')
-    dsn = Str('Nemesis SQL odbc')
+    driver = Str('IBM DB2 ODBC DRIVER')
+    dsn = Str()
     db2dsn = Str("Driver={IBM DB2 ODBC DRIVER};"
                  "DATABASE=BLUDB;"
                  "HOSTNAME=dashdb-txn-sbox-yp-dal09-03.services.dal.bluemix.net;"
@@ -37,8 +37,13 @@ class SQLDataSource(DataSource):
                  "UID=xjv23492;"
                  "PWD=fhg^61d4pw6114j3;")
 
-    def get_connection_str(self):
-        return 'DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+str(self.host)+';DATABASE='+str(self.database)+';UID='+str(self.username)+';PWD='+str(self.password)
+    def sql_connection_str(self):
+        return 'DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+str(self.host)+';DATABASE='+str(self.database)+\
+               ';UID='+str(self.username)+';PWD='+str(self.password)
+
+    def DB2_connection_str(self):
+        return 'DRIVER={IBM DB2 ODBC DRIVER}; DATABASE='+str(self.database)+';HOSTNAME='+str(self.host)+';PORT='+\
+               str(self.port)+';PROTOCOL=TCPIP;UID='+str(self.username)+';PWD='+str(self.password)
 
     def query_table(self):
         if self.table != 'NA':
@@ -54,10 +59,8 @@ class SQLDataSource(DataSource):
     def ast(self):
         conn = self.ast_for_dbi_call(ast.Name('dbConnect'))
         print('ast')
-        # f.write("ast \n")
-        # f.close()
         if self.dialect == 'mssql':
-            return [(ast.Name('ConnStr'), ast.Constant(self.get_connection_str())),
+            return [(ast.Name('ConnStr'), ast.Constant(self.sql_connection_str())),
                     (ast.Name('input_table'), ast.Constant(self.query_table())),
                     (ast.Name('MSSQL'), ast.Constant(1))]
 
@@ -65,11 +68,18 @@ class SQLDataSource(DataSource):
             return [(ast.Name('sqlitepath'), ast.Constant(self.database)),
                     (ast.Name('input_table'), ast.Constant(self.query_table())),
                     (ast.Name('Sqlite'), ast.Constant(1))]
+
+        elif self.dialect == 'db2':
+            return [(ast.Name('ConnStr'), ast.Constant(self.DB2_connection_str())),
+                    (ast.Name('input_table'), ast.Constant(self.query_table())),
+                    (ast.Name('db2'), ast.Constant(1))]
         else:
             return [(ast.Name('input'), conn),
                     (ast.Name('input_table'), ast.Constant(self.table)),
                     (ast.Name('MSSQL'), ast.Constant(0)),
-                    (ast.Name('Sqlite'), ast.Constant(0))]
+                    (ast.Name('Sqlite'), ast.Constant(0)),
+                    (ast.Name('db2'), ast.Constant(0))]
+
 
     def load(self, variables=None):
 
@@ -81,6 +91,8 @@ class SQLDataSource(DataSource):
             limit=self.num_rows if self.limit_rows else None)
 
     def load_metadata(self):
+        # Use pandas type inference, rather than trying it ourselves
+        # based on DB's column type.
         df = self.load_table(self.table, limit=10)
         self.variables = Variable.from_data_frame(df)
         return self.variables
@@ -92,7 +104,7 @@ class SQLDataSource(DataSource):
         if self.dialect == 'db2':
             args = [
                 (ast.Name(self.conn)),
-                (ast.Name('.connection_string'), ast.Constant(self.db2dsn)),
+                (ast.Name('.connection_string'), ast.Constant(self.DB2_connection_str())),
                 # (ast.Name('dsn'), ast.Constant(self.dsn)),
                 # (ast.Name('driver'), ast.Constant(self.driver)),
             ]
@@ -129,8 +141,8 @@ class SQLDataSource(DataSource):
             query = self.query
             conn = engine.connect()
             data = pd.read_sql(query, conn)
-            data.to_sql('NemesisData', conn, if_exists='replace', index=False)
-            table = 'NemesisData'
+            data.to_sql('Nemesis_data', conn, if_exists='replace', index=False)
+            table = 'Nemesis_data'
             return read_sql_table(engine, table, **kw)
 
         else:

@@ -15,6 +15,7 @@ run_model(
   ConnStr = NULL,
   MSSQL = 0,
   Sqlite = 0,
+  db2 = 0,
   sqlitepath = NULL
 )
 }
