@@ -160,6 +160,9 @@ enamldef DataSourceSelector(Container):
         GroupBox:
             SQLDataSourceView:
                 data_source << sql_data_source
+        GroupBox:
+            Label:
+                text = 'Note: input either table name or SQL query. If using sql query, type NA in table field'
 
 
 enamldef DataSourceDialog(Dialog): dialog:
