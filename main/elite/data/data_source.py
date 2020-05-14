@@ -2,7 +2,6 @@ from __future__ import absolute_import
 from traits.api import HasTraits, Bool, List, Range
 from .variable import Variable
 
-
 class DataSource(HasTraits):
     """ An (abstract) data source that can be loaded in both R and Python.
     """
@@ -13,7 +12,8 @@ class DataSource(HasTraits):
     # Whether data can be loaded.
     can_load = Bool(False)
     
-    # Whether to limit the numbers of rows loaded.
+    # Whe
+    # class DataSource(HasTraitther to limit the numbers of rows loaded.
     # This does not apply to the ast() method, only to load().
     limit_rows = Bool(False)
     num_rows = Range(low=1, value=1000)

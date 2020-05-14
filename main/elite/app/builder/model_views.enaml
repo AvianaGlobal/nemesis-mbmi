@@ -54,9 +54,6 @@ enamldef TopLevelModelView(Container):
                 enabled << model.limit_group_size
                 value := model.min_group_size
                 minimum = 1
-        CheckBox:
-            text = 'Copy input data to results database'
-            checked := model.store_input
 
 
 enamldef UserCodeView(Container):

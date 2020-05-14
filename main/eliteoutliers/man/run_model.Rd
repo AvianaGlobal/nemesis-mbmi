@@ -5,13 +5,18 @@
 \title{Run the model}
 \usage{
 run_model(
-  input,
+  input = NULL,
   input_table = NULL,
   input_stats = TRUE,
   output = NULL,
   create_indices = TRUE,
   store_input = FALSE,
-  env = NULL
+  env = NULL,
+  ConnStr = NULL,
+  MSSQL = 0,
+  Sqlite = 0,
+  db2 = 0,
+  sqlitepath = NULL
 )
 }
 \arguments{
