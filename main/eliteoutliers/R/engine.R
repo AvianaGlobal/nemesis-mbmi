@@ -97,7 +97,7 @@ run_model <- function(input = NULL, input_table=NULL, input_stats=TRUE, output=N
   library(DBI)
   conn = dbConnect(odbc::odbc(), .connection_string = ConnStr)
   input = dbGetQuery(conn, input_table)
-  # dbDisconnect(conn)
+  dbDisconnect(conn)
   }
 
    # Validate function parameters.
