@@ -1,3 +1,9 @@
+# PyCharm config folder
+.idea/
+
+# VS Code config folder
+.vscode/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 __enamlcache__/
