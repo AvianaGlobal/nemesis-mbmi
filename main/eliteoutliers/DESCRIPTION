@@ -1,11 +1,11 @@
-Package: EliteOutliers
+Package: NemesisOutliers
 Type: Package
-Title: Elite Analytics' outlier detection engine
-Version: 0.5-2
+Title: Nemesis outlier detection engine
+Version: 0.6-1
 Description: Detects outliers by Z-scores of user specified metrics.
-Date: 2017-03-21
-Author: Elite Analytics
-Maintainer: Elite Analytics <info@eliteanalytics.com>
+Date: 2020-05-25
+Author: Aviana Global
+Maintainer: Aviana Global <info@avianaglobal.com>
 Imports:
     bit,
     data.table,
