@@ -2,8 +2,8 @@ from __future__ import absolute_import
 
 import unittest
 
-from ..model import ModelError
-from ..system_tests.preparer_model import preparer_model
+from nemesis.model import ModelError
+from nemesis.tests.system_tests import preparer_model
 
 
 class TestModel(unittest.TestCase):

@@ -4,7 +4,8 @@ from atom.api import Bool, Enum, List, ForwardTyped, Typed, observe, set_default
 from enaml.core.declarative import d_, d_func
 from enaml.widgets.api import RawWidget
 
-from enaml.qt.QtGui import QItemSelectionModel
+from enaml.qt.QtGui import *
+from enaml.qt.QtCore import *
 
 from .base_table_model import BaseTableModel
 from .table_view import TableView

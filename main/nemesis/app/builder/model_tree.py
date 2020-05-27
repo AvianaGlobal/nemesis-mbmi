@@ -6,9 +6,8 @@ from traits.api import HasStrictTraits, Unicode, Instance, List, Type, Dict, Any
 from traitsui.api import Menu, Action
 
 from enaml.core.declarative import d_
-from enaml.qt.QtCore import QAbstractItemModel, QModelIndex, Qt
-from enaml.qt.QtGui import QTreeView, QFileIconProvider, QIcon, \
-    QAbstractItemView, QItemSelectionModel
+from enaml.qt.QtCore import *
+from enaml.qt.QtGui import *
 from enaml.widgets.raw_widget import RawWidget
 
 from nemesis.model import ModelObject

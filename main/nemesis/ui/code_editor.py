@@ -17,7 +17,8 @@ from atom.api import Bool, Enum, Range, Typed, Unicode, observe, set_default
 from enaml.core.declarative import d_
 from enaml.fonts import FontMember, parse_font
 from enaml.widgets.api import RawWidget
-from enaml.qt import QtCore, QtGui
+from enaml.qt.QtCore import *
+from enaml.qt.QtGui import *
 from enaml.qt.q_resource_helpers import get_cached_qfont
 
 from .pygments_highlighter import PygmentsHighlighter
@@ -75,8 +76,8 @@ class CodeEditor(RawWidget):
     hug_height = set_default('ignore')
     
     # Underlying Qt objects.
-    _highlighter = Typed(QtGui.QSyntaxHighlighter)
-    _text_edit = Typed(QtGui.QTextEdit)
+    _highlighter = Typed(QSyntaxHighlighter)
+    _text_edit = Typed(QTextEdit)
     _text_locked = Bool(False)
     
     #--------------------------------------------------------------------------
@@ -88,7 +89,7 @@ class CodeEditor(RawWidget):
         """
         self._text_edit = text_edit = _CodeEditor(self, parent=parent)
         text_edit.textChanged.connect(self._signal_text_changed)
-        text_edit.setWordWrapMode(QtGui.QTextOption.NoWrap)
+        text_edit.setWordWrapMode(QTextOption.NoWrap)
         
         self._highlighter = PygmentsHighlighter(
             parent = text_edit,
@@ -186,12 +187,12 @@ class CodeEditor(RawWidget):
             if self.text_font is not None:
                 qfont = get_cached_qfont(self.text_font)
             else:
-                qfont = QtGui.QFont()
+                qfont = QFont()
             
             document = self._text_edit.document()
             document.setDefaultFont(qfont)
             
-            fm = QtGui.QFontMetrics(qfont)
+            fm = QFontMetrics(qfont)
             self._text_edit.setTabStopWidth(self.tab_width * fm.width(' '))
     
     @observe('text')
@@ -207,7 +208,7 @@ class CodeEditor(RawWidget):
             self._text_locked = False
 
 
-class _CodeEditor(QtGui.QTextEdit):
+class _CodeEditor(QTextEdit):
     
     def __init__(self, editor, parent=None):
         super(_CodeEditor, self).__init__(parent)
@@ -216,19 +217,19 @@ class _CodeEditor(QtGui.QTextEdit):
     def keyPressEvent(self, event):
         """ Reimplemented to intercept certain key presses.
         """
-        key_sequence = QtGui.QKeySequence(event.key()+int(event.modifiers()))
+        key_sequence = QKeySequence(event.key()+int(event.modifiers()))
         
-        if key_sequence.matches(QtGui.QKeySequence(QtCore.Qt.Key_Return)):
+        if key_sequence.matches(QKeySequence(QtCore.Qt.Key_Return)):
             event.accept()
             self.editor.newline()
             return
         
-        elif key_sequence.matches(QtGui.QKeySequence(QtCore.Qt.Key_Backspace)):
+        elif key_sequence.matches(QKeySequence(QtCore.Qt.Key_Backspace)):
             event.accept()
             self.editor.backspace()
             return
         
-        elif key_sequence.matches(QtGui.QKeySequence(QtCore.Qt.Key_Tab)):
+        elif key_sequence.matches(QKeySequence(QtCore.Qt.Key_Tab)):
             event.accept()
             self.editor.indent()
             return

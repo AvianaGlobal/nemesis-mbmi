@@ -1,10 +1,9 @@
 from __future__ import absolute_import
 
 import unittest
+
 from pandas import DataFrame, Series
 from pandas.util.testing import assert_series_equal
-
-from nemesis.data.data_frame_expression import DataFrameExpression
 
 
 class TestDFExpression(unittest.TestCase):
@@ -42,5 +41,3 @@ class TestDFExpression(unittest.TestCase):
         actual = DataFrameExpression.execute(self.df, 'col("a") < 2')
         expected = Series([True, False, False])
         assert_series_equal(expected, actual, check_names=False)
-
-
