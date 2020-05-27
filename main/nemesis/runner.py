@@ -168,7 +168,7 @@ class Runner(HasTraits):
     
     def _run_start(self):
         # Create output directory.
-        self._output_dir = tempfile.mkdtemp(prefix='elite_')
+        self._output_dir = tempfile.mkdtemp(prefix='nemesis_')
         
         # Write the R script to disk.
         prog_path = os.path.join(self._output_dir, 'model.R')

@@ -3,7 +3,5 @@
 \docType{package}
 \name{NemesisOutliers}
 \alias{NemesisOutliers}
-\title{Elite Analytics' Model Execution Engine}
-\description{
-Elite Analytics' Model Execution Engine
-}
+\title{Nemesis Model Execution Engine}
+\description{Nemesis Model Execution Engine}

@@ -1,4 +1,4 @@
-#' Elite Analytics' Model Execution Engine
+#' Nemesis Model Execution Engine
 #'
 #' @docType package
 #' @name NemesisOutliers

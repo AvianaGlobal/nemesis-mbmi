@@ -30,9 +30,7 @@ def create_inspector(**traits):
 
 def main():
     # Parse command-line arguments.
-    parser = argparse.ArgumentParser(
-        description = 'Results Inspector for Elite Analytics anomaly detection',
-    )
+    parser = argparse.ArgumentParser(description = 'Nemesis Results Inspector',)
     parser.add_argument('--input', metavar='PATH', dest='input_path',
                         help='input database to load')
     parser.add_argument('--output', metavar='PATH', dest='output_path',

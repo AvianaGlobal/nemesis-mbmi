@@ -55,7 +55,7 @@ class MainWindowController(ApplicationWindowController):
     label_pop = Str('Population')
 
     # The valid types of files for this application
-    file_filters = ['Elite Anomaly Session (*.eas)']
+    file_filters = ['Nemesis Anomaly Session (*.nas)']
     
     # --- Window state ---
 
