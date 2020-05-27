@@ -134,3 +134,6 @@ dmypy.json
 /main/NemesisOutliers.Rcheck/
 /nemesis_env/
 /examples/
+launch_builder.bat
+launch_inspector.bat
+/**/src-*/
