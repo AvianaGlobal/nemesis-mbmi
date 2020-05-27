@@ -9,8 +9,8 @@ setup(
 
         ],
         'gui_scripts': [
-            'elite-modeler = elite.app.builder.main:main',
-            'elite-inspector = elite.app.inspector.main:main',
+            'nemesis-modeler = nemesis.app.builder.main:main',
+            'nemesis-inspector = nemesis.app.inspector.main:main',
         ],
     }
 )

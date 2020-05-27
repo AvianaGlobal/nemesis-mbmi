@@ -1,0 +1,56 @@
+from __future__ import absolute_import
+import pandas as pd
+from pandas import DataFrame, Index, Series
+from numpy import ndarray
+from atom.api import Instance
+from enaml.layout.api import vbox, hbox, spacer
+from enaml.validator import Validator
+from enaml.widgets.api import Container, HGroup, PushButton, Field
+from nemesis.app.common.resources import get_toolbar_icon, get_enaml_icon
+from nemesis.data.variable import Variable
+from nemesis.ui.drop_field import DropField
+from nemesis.ui.flat_button import FlatButton
+from nemesis.ui.palette_popup import PalettePopup
+from .data_explorer_base import DataExplorerBase
+from .data_table_widget import DataTableWidget
+
+
+enamldef DataExplorerWidget(DataExplorerBase): explorer:
+    """ An Enaml widget that displays a data table with controls for filtering for rows and columns.
+    """
+    func decoration(row, column, value):
+        return None
+    padding = 0
+    HGroup:
+        align_widths = False
+        padding = 0
+        spacing = 5
+        FlatButton:
+            tool_tip = 'Show all columns'
+            icon = get_toolbar_icon('column_add')
+            clicked :: explorer.model.reset_columns()
+        FlatButton:
+            tool_tip = 'Clear columns'
+            icon = get_toolbar_icon('column_remove')
+            clicked :: explorer.model.set_columns([])
+        DropField: query_field:
+            placeholder = 'Filter...'
+            submit_triggers = ['lost_focus', 'return_pressed', 'auto_sync']
+            text := filter_text
+            valid_types = (Variable,)
+            to_string => (data):
+                return data.name
+        FlatButton:
+            tool_tip = 'Clear filters'
+            icon = get_toolbar_icon('close')
+            clicked ::
+                query_field.set_field_text(u'')
+    DataTableWidget:
+        model << parent.model
+        columns_editable = True
+        selected := parent.selected
+        multiselect << parent.multiselect
+        selection_drag << parent.selection_drag
+        selection_mode << parent.selection_mode
+        decoration => (row, col, value):
+            return parent.decoration(row, col, value)

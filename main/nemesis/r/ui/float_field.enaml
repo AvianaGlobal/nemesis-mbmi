@@ -1,0 +1,16 @@
+from __future__ import absolute_import
+
+from nemesis.ui.field import Field
+from ..float import r_float, r_format_number
+from .validators import RFloatValidator
+
+
+enamldef RFloatField(Field):
+    """ A Field that accepts only floating point values (with R formatting).
+    """
+    attr value : float = 0.0
+    attr converter = r_format_number
+    
+    text << converter(value)
+    text :: self.value = r_float(text)
+    validator << RFloatValidator()

@@ -34,12 +34,6 @@ share/python-wheels/
 *.egg
 MANIFEST
 
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
-
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
@@ -137,5 +131,5 @@ dmypy.json
 .Rproj.user
 /main/EliteOutliers_0.5-2.tar.gz
 /main/EliteOutliers_0.5-2.zip
-/main/EliteOutliers.Rcheck/
+/main/NemesisOutliers.Rcheck/
 /nemesis_env/
