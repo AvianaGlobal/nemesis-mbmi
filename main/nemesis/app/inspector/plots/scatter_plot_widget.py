@@ -6,14 +6,14 @@ import numpy as np
 # and chaco. points_in_polygon returns an ndarray of dtype int32 and chaco
 # attempts to OR this with an ndarray of dtype bool. In the most recent
 # versions of numpy, this implicit casting raises an exception.
-from kiva import agg
-_points_in_polygon = agg.points_in_polygon
-
-def patched_points_in_polygon(*args, **kwargs):
-    results = _points_in_polygon(*args, **kwargs)
-    return results.astype(np.bool_)
-
-agg.points_in_polygon = patched_points_in_polygon
+# from kiva import agg
+# _points_in_polygon = agg.points_in_polygon
+#
+# def patched_points_in_polygon(*args, **kwargs):
+#     results = _points_in_polygon(*args, **kwargs)
+#     return results.astype(np.bool_)
+#
+# agg.points_in_polygon = patched_points_in_polygon
 
 from atom.api import Atom, Bool, Enum, List, Typed, ForwardTyped, set_default
 from enaml.core.api import d_
