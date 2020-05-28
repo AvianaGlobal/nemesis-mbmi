@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // chisq_test
 NumericVector chisq_test(SEXP values, SEXP groups);
-RcppExport SEXP _EliteOutliers_chisq_test(SEXP valuesSEXP, SEXP groupsSEXP) {
+RcppExport SEXP _NemesisOutliers_chisq_test(SEXP valuesSEXP, SEXP groupsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -19,7 +19,7 @@ END_RCPP
 }
 // entropy_disc
 NumericVector entropy_disc(SEXP values, SEXP groups, std::string type);
-RcppExport SEXP _EliteOutliers_entropy_disc(SEXP valuesSEXP, SEXP groupsSEXP, SEXP typeSEXP) {
+RcppExport SEXP _NemesisOutliers_entropy_disc(SEXP valuesSEXP, SEXP groupsSEXP, SEXP typeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -32,7 +32,7 @@ END_RCPP
 }
 // graph_density
 NumericVector graph_density(SEXP values, SEXP groups);
-RcppExport SEXP _EliteOutliers_graph_density(SEXP valuesSEXP, SEXP groupsSEXP) {
+RcppExport SEXP _NemesisOutliers_graph_density(SEXP valuesSEXP, SEXP groupsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -44,7 +44,7 @@ END_RCPP
 }
 // uniq_cont
 NumericVector uniq_cont(SEXP values, SEXP groups);
-RcppExport SEXP _EliteOutliers_uniq_cont(SEXP valuesSEXP, SEXP groupsSEXP) {
+RcppExport SEXP _NemesisOutliers_uniq_cont(SEXP valuesSEXP, SEXP groupsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -56,7 +56,7 @@ END_RCPP
 }
 // uniq_disc
 NumericVector uniq_disc(SEXP values, SEXP groups, std::string type);
-RcppExport SEXP _EliteOutliers_uniq_disc(SEXP valuesSEXP, SEXP groupsSEXP, SEXP typeSEXP) {
+RcppExport SEXP _NemesisOutliers_uniq_disc(SEXP valuesSEXP, SEXP groupsSEXP, SEXP typeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -69,15 +69,15 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_EliteOutliers_chisq_test", (DL_FUNC) &_EliteOutliers_chisq_test, 2},
-    {"_EliteOutliers_entropy_disc", (DL_FUNC) &_EliteOutliers_entropy_disc, 3},
-    {"_EliteOutliers_graph_density", (DL_FUNC) &_EliteOutliers_graph_density, 2},
-    {"_EliteOutliers_uniq_cont", (DL_FUNC) &_EliteOutliers_uniq_cont, 2},
-    {"_EliteOutliers_uniq_disc", (DL_FUNC) &_EliteOutliers_uniq_disc, 3},
+    {"_NemesisOutliers_chisq_test", (DL_FUNC) &_NemesisOutliers_chisq_test, 2},
+    {"_NemesisOutliers_entropy_disc", (DL_FUNC) &_NemesisOutliers_entropy_disc, 3},
+    {"_NemesisOutliers_graph_density", (DL_FUNC) &_NemesisOutliers_graph_density, 2},
+    {"_NemesisOutliers_uniq_cont", (DL_FUNC) &_NemesisOutliers_uniq_cont, 2},
+    {"_NemesisOutliers_uniq_disc", (DL_FUNC) &_NemesisOutliers_uniq_disc, 3},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_EliteOutliers(DllInfo *dll) {
+RcppExport void R_init_NemesisOutliers(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

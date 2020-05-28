@@ -137,3 +137,6 @@ dmypy.json
 launch_builder.bat
 launch_inspector.bat
 /**/src-*/
+/**/*.Rproj
+/**/NemesisOutliers*.gz
+/**/NemesisOutliers*.zip

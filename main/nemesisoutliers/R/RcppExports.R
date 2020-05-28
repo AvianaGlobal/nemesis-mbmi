@@ -26,7 +26,7 @@ NULL
 #' @return A numeric vector of the statistic values for each group, named by group.
 #' @export
 chisq_test <- function(values, groups) {
-    .Call('_EliteOutliers_chisq_test', PACKAGE = 'NemesisOutliers', values, groups)
+    .Call('_NemesisOutliers_chisq_test', PACKAGE = 'NemesisOutliers', values, groups)
 }
 
 #' Compute the size of a group from its counts.
@@ -76,7 +76,7 @@ NULL
 #' See, eg, https://en.wikipedia.org/wiki/Entropy_(information_theory)
 #' @export
 entropy_disc <- function(values, groups, type) {
-    .Call('_EliteOutliers_entropy_disc', PACKAGE = 'NemesisOutliers', values, groups, type)
+    .Call('_NemesisOutliers_entropy_disc', PACKAGE = 'NemesisOutliers', values, groups, type)
 }
 
 #' @name _graph_density
@@ -92,7 +92,7 @@ NULL
 #' @return A numeric vector of the values for each group, named by group.
 #' @export
 graph_density <- function(values, groups) {
-    .Call('_EliteOutliers_graph_density', PACKAGE = 'NemesisOutliers', values, groups)
+    .Call('_NemesisOutliers_graph_density', PACKAGE = 'NemesisOutliers', values, groups)
 }
 
 #' Group a vector of values, using a corresponding group vector.
@@ -118,7 +118,7 @@ NULL
 #' @return A numeric vector of the ratio values for each group, named by group.
 #' @export
 uniq_cont <- function(values, groups) {
-    .Call('_EliteOutliers_uniq_cont', PACKAGE = 'NemesisOutliers', values, groups)
+    .Call('_NemesisOutliers_uniq_cont', PACKAGE = 'NemesisOutliers', values, groups)
 }
 
 #' @name _uniq_disc
@@ -134,6 +134,6 @@ NULL
 #' @return A numeric vector of the values for each group, named by group.
 #' @export
 uniq_disc <- function(values, groups, type) {
-    .Call('_EliteOutliers_uniq_disc', PACKAGE = 'NemesisOutliers', values, groups, type)
+    .Call('_NemesisOutliers_uniq_disc', PACKAGE = 'NemesisOutliers', values, groups, type)
 }
 

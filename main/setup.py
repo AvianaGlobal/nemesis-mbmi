@@ -7,7 +7,7 @@ setup(
     entry_points={
         'console_scripts': [],
         'gui_scripts': [
-            'nemesis-modeler = nemesis.app.builder.main:main',
+            'nemesis-builder = nemesis.app.builder.main:main',
             'nemesis-inspector = nemesis.app.inspector.main:main',
         ],
     }
