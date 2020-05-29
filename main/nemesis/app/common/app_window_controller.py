@@ -8,7 +8,7 @@ from traits.api import HasTraits, Bool, File, Instance, List, Property, \
     Unicode, on_trait_change
 from enaml.widgets.api import FileDialogEx
 from nemesis.ui.message_box import details_escape, warning, DialogButton
-from .etsconfig import ETSConfig
+from nemesis.app.common.etsconfig import ETSConfig
 
 logger = logging.getLogger('nemesis')
 

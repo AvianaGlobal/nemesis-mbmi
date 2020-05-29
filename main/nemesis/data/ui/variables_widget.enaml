@@ -7,7 +7,7 @@ from traitsui.api import View, Item, Handler, TabularEditor
 from traitsui.tabular_adapter import TabularAdapter
 from traits_enaml.widgets.traits_view import TraitsView
 
-from ..variable import Variable
+from nemesis.data.variable import Variable
 
 
 enamldef VariablesWidget(Splitter): widget:

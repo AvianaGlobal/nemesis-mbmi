@@ -3,7 +3,7 @@ from __future__ import absolute_import
 from enaml.qt.QtCore import Qt
 from enaml.qt.QtGui import QTableView, QAction
 
-from .data_frame_table import DataFrameTable
+from nemesis.data.ui.data_frame_table import DataFrameTable
 
 
 FROZEN_STYLE = """

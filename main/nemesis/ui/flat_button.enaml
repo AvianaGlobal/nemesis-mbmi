@@ -3,7 +3,7 @@ from enaml.core.api import Conditional
 from enaml.qt import QtGui
 from enaml.styling import StyleSheet, Style, Setter
 from enaml.widgets.api import PushButton
-from .toolbar import ToolBar
+from nemesis.ui.toolbar import ToolBar
 
 
 enamldef FlatButton(PushButton): button:

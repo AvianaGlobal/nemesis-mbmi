@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 from traits.api import HasTraits, Bool, List, Range
-from .variable import Variable
+from nemesis.data.variable import Variable
 
 class DataSource(HasTraits):
     """ An (abstract) data source that can be loaded in both R and Python.

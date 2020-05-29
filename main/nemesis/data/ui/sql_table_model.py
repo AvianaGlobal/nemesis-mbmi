@@ -4,7 +4,7 @@ from threading import Thread
 import sqlalchemy
 from enaml.qt.QtCore import Qt, QModelIndex
 
-from .base_table_model import BaseTableModel
+from nemesis.data.ui.base_table_model import BaseTableModel
 
 
 class SQLLazyCache(object):

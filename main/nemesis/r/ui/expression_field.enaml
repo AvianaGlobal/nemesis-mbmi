@@ -5,7 +5,7 @@ from nemesis.app.common.resources import get_enaml_icon
 from nemesis.ui.drop_field import DropField
 from nemesis.ui.flat_button import FlatButton
 from nemesis.ui.palette_popup import PalettePopup
-from .validators import RExpressionValidator
+from nemesis.r.ui.validators import RExpressionValidator
 
 
 enamldef RExpressionField(HGroup):

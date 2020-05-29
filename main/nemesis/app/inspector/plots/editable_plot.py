@@ -3,7 +3,7 @@ from __future__ import absolute_import
 from atom.api import Atom, Typed, Unicode, Signal, observe
 from enaml.core.api import d_
 
-from .plot_limits import PlotLimits
+from nemesis.app.inspector.plots.plot_limits import PlotLimits
 
 
 class PlotSettings(Atom):

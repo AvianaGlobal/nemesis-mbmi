@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 
-from . import ast
-from .pretty_print import print_ast
+from nemesis.r import ast
+from nemesis.r.pretty_print import print_ast
 
 
 def r_float(text):

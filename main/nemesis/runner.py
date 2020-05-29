@@ -15,10 +15,10 @@ from traits.api import (HasTraits, Bool, Callable, Directory, File, Instance,
 from .data.data_source import DataSource
 from .data.sql_data_source import SQLDataSource
 from .model import Model
-from .run_results import RunResults
-from .r import ast, ast_transform
-from .r.pretty_print import write_ast
-from .r import R_HOME
+from nemesis.run_results import RunResults
+from nemesis.r import ast, ast_transform
+from nemesis.r.pretty_print import write_ast
+from nemesis.r import R_HOME
 
 logger = logging.getLogger(__name__)
 

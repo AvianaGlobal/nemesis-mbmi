@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 from atom.api import Instance
 from enaml.validator import Validator
-from .field import Field
+from nemesis.ui.field import Field
 
 
 class ListValidator(Validator):

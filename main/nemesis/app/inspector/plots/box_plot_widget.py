@@ -3,8 +3,8 @@ from __future__ import absolute_import
 import seaborn
 from atom.api import Enum, observe, set_default
 
-from .editable_plot import XYPlotSettings
-from .matplotlib_widget import MatplotlibWidget
+from nemesis.app.inspector.plots.editable_plot import XYPlotSettings
+from nemesis.app.inspector.plots.matplotlib_widget import MatplotlibWidget
 
 
 class BoxPlotSettings(XYPlotSettings):

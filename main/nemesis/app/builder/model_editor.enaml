@@ -3,8 +3,8 @@ from enaml.core.api import Include
 from enaml.layout.api import vbox, spacer
 from enaml.styling import StyleSheet, Style, Setter
 from enaml.widgets.api import Container, Label, Splitter, SplitItem
-from ..common.resources import get_image_resource
-from .model_tree import ModelTree
+from nemesis.app.common.resources import get_image_resource
+from nemesis.app.builder.model_tree import ModelTree
 
 
 enamldef ModelEditor(Splitter):

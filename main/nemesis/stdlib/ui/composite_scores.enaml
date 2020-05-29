@@ -9,7 +9,7 @@ from traitsui.table_column import ObjectColumn
 from traits_enaml.widgets.traits_view import TraitsView
 from nemesis.app.builder.model_views import BaseCompositeScoreView
 from nemesis.r.ui.expression_field import RExpressionField
-from ..composite_scores import LinearTerm
+from nemesis.stdlib.composite_scores import LinearTerm
 
 
 enamldef CustomScoreView(BaseCompositeScoreView):

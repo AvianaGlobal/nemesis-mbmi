@@ -19,12 +19,12 @@ from nemesis.data.variable import Variable
 from nemesis.data.ui.sql_table_model import SQLTableModel
 from nemesis.run_results import RunResults
 from nemesis.ui.message_box import warning, question
-from ..common.app_window_controller import ApplicationWindowController
-from ..common.data_source_wizard import DataSourceWizard
-from ..common.resources import get_enaml_icon
+from nemesis.app.common.app_window_controller import ApplicationWindowController
+from nemesis.app.common.data_source_wizard import DataSourceWizard
+from nemesis.app.common.resources import get_enaml_icon
 
 with traits_enaml.imports():
-    from .dock_items import BarPlotItem, BoxPlotItem, HistogramItem, \
+    from nemesis.app.inspector.dock_items import BarPlotItem, BoxPlotItem, HistogramItem, \
         ScatterPlotItem
 
 

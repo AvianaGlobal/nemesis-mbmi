@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 from enaml.styling import StyleSheet, Style, Setter
 from enaml.widgets.api import Container, Dialog, ImageView, Label
-from .resources import get_enaml_image
+from nemesis.app.common.resources import get_enaml_image
 
 head_text = u'Nemesis Model Builder'
 about_text = u'Copyright \N{COPYRIGHT SIGN} 2019, Aviana Global Technologies, Inc.\n\

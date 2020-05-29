@@ -11,8 +11,8 @@ from nemesis.data.variable import Variable
 from nemesis.ui.drop_field import DropField
 from nemesis.ui.flat_button import FlatButton
 from nemesis.ui.palette_popup import PalettePopup
-from .data_explorer_base import DataExplorerBase
-from .data_table_widget import DataTableWidget
+from nemesis.data.ui.data_explorer_base import DataExplorerBase
+from nemesis.data.ui.data_table_widget import DataTableWidget
 
 
 enamldef DataExplorerWidget(DataExplorerBase): explorer:

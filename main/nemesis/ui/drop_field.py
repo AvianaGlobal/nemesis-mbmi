@@ -3,7 +3,7 @@ from atom.api import Tuple, set_default
 from enaml.core.api import d_, d_func
 from enaml.widgets.api import Feature
 from traitsui.qt4.clipboard import PyMimeData
-from .field import Field
+from nemesis.ui.field import Field
 
 
 class DropField(Field):

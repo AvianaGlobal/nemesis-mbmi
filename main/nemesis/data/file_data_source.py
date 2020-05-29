@@ -5,8 +5,8 @@ import os.path
 from nemesis.r import ast
 from traits.api import HasTraits, File, Instance, List, Str
 
-from .data_source import DataSource
-from .variable import Variable
+from nemesis.data.data_source import DataSource
+from nemesis.data..variable import Variable
 
 
 class FileDataSource(DataSource):

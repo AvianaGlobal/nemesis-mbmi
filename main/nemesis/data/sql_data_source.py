@@ -6,10 +6,10 @@ import sqlalchemy
 from nemesis.r import ast
 from traits.api import Bool, Enum, Int, Property, Str
 
-from .data_source import DataSource
-from .sql import read_sql_table, sample_sql_table
-from .variable import Variable
-from .file_data_source import FileDataSource, FileReader, CsvFileReader
+from nemesis.data.data_source import DataSource
+from nemesis.data.sql import read_sql_table, sample_sql_table
+from nemesis.data.variable import Variable
+from nemesis.data.file_data_source import FileDataSource, FileReader, CsvFileReader
 
 class SQLDataSource(DataSource):
     """ A data source associated with a SQL database.

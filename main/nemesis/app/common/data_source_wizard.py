@@ -10,7 +10,7 @@ from nemesis.data.data_source import DataSource
 from nemesis.data.sql_data_source import SQLDataSource
 
 with traits_enaml.imports():
-    from .data_source_wizard_views import InputOpenPageView, InputSavePageView, OutputOpenPageView, OutputSavePageView
+    from nemesis.app.common.data_source_wizard_views import InputOpenPageView, InputSavePageView, OutputOpenPageView, OutputSavePageView
 
 
 class DataSourceWizard(Wizard):

@@ -5,7 +5,7 @@ import os
 
 from traits.api import HasTraits, Property, Enum, File, Dict
 
-from .etsconfig import ETSConfig
+from nemesis.app.common.etsconfig import ETSConfig
 
 
 # Preferences kind constants

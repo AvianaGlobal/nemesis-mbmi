@@ -1,8 +1,8 @@
 from __future__ import absolute_import
 from traits.api import Bool, Either, Float, Int, List, Range, Str
-from ..model import Control, ModelError
-from ..r import ast, ast_macros
-from ..r.traits import RExpressionTrait
+from nemesis.model import Control, ModelError
+from nemesis.r import ast, ast_macros
+from nemesis.r.traits import RExpressionTrait
 
 
 class FactorControl(Control):

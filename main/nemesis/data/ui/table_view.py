@@ -6,7 +6,7 @@ from enaml.qt.QtGui import QAbstractItemView, QApplication, QHeaderView, \
 from traitsui.qt4.clipboard import PyMimeData
 
 from nemesis.data.variable import Variable
-from .base_table_model import BaseTableModel
+from nemesis.data.ui.base_table_model import BaseTableModel
 
 
 MODE_MAP = {

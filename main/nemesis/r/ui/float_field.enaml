@@ -1,8 +1,8 @@
 from __future__ import absolute_import
 
 from nemesis.ui.field import Field
-from ..float import r_float, r_format_number
-from .validators import RFloatValidator
+from nemesis.r.float import r_float, r_format_number
+from nemesis.r.ui.validators import RFloatValidator
 
 
 enamldef RFloatField(Field):

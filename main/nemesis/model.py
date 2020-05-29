@@ -6,9 +6,9 @@ from textwrap import dedent
 from traits.api import Bool, Instance, List, Range, Str, Unicode, \
     on_trait_change
 
-from .r import ast, ast_macros
-from .r.traits import RNameTrait
-from .serialize import DirtyMixin, json_to_obj, obj_to_json
+from nemesis.r import ast, ast_macros
+from nemesis.r.traits import RNameTrait
+from nemesis.serialize import DirtyMixin, json_to_obj, obj_to_json
 
 
 class Model(DirtyMixin):

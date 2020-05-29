@@ -6,9 +6,9 @@ from enaml.widgets.api import MainWindow, Container, DockArea, MenuBar, Menu, Ac
 from nemesis.model import ModelObject, Control, Metric, CompositeScore
 from nemesis.object_registry import ObjectRegistry
 from nemesis.ui.toolbar import ToolBar
-from ..common.about_dialog import show_about_dialog
-from ..common.app_window import ApplicationWindow
-from ..common.resources import get_toolbar_icon
+from nemesis.app.common.about_dialog import show_about_dialog
+from nemesis.app.common.app_window import ApplicationWindow
+from nemesis.app.common.resources import get_toolbar_icon
             
             
 enamldef Main(ApplicationWindow): window:

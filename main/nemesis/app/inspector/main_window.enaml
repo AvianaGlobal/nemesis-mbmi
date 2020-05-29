@@ -13,10 +13,10 @@ from nemesis.data.ui.data_frame_table_model import DataFrameTableModel
 from nemesis.data.ui.variables_widget import VariablesWidget
 from nemesis.ui.toolbar import ToolBar
 from enaml.styling import StyleSheet, Style, Setter
-from ..common.about_dialog import show_about_dialog
-from ..common.app_window import ApplicationWindow
-from ..common.resources import get_toolbar_icon
-from .preferences_dialog import PreferencesDialog
+from nemesis.app.common.about_dialog import show_about_dialog
+from nemesis.app.common.app_window import ApplicationWindow
+from nemesis.app.common.resources import get_toolbar_icon
+from nemesis.app.inspector.preferences_dialog import PreferencesDialog
 
 
 enamldef MainDockArea(DockArea):

@@ -2,7 +2,7 @@ from __future__ import absolute_import
 
 from enaml.validator import Validator
 
-from ..parse import is_expression
+from nemsis.r.parse import is_expression
 
 
 class RExpressionValidator(Validator):

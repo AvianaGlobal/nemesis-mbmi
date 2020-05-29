@@ -12,7 +12,7 @@ import math
 from cStringIO import StringIO
 from textwrap import TextWrapper
 
-from . import ast
+from nemesis.r import ast
 
 
 # Public API

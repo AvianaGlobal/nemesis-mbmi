@@ -1,8 +1,8 @@
 from pandas import DataFrame
 from traits.api import HasTraits, Instance, List, Property, Str
 
-from .data.sql_data_source import SQLDataSource
-from .data.variable import Variable
+from nemesis.data.sql_data_source import SQLDataSource
+from nemesis.data.variable import Variable
 
 
 class RunResults(HasTraits):

@@ -13,11 +13,11 @@ from enaml.widgets.raw_widget import RawWidget
 from nemesis.model import ModelObject
 from nemesis.app.common.resources import get_qt_icon
 from nemesis.object_registry import ObjectRegistry
-from .model_editor_controller import ModelEditorController
+from nemesis.app.builder.model_editor_controller import ModelEditorController
 
 import traits_enaml
 with traits_enaml.imports():
-    from .model_views import TopLevelModelView, UserCodeView
+    from nemesis.app.builder.model_views import TopLevelModelView, UserCodeView
 
 
 RemoveAction = Action(

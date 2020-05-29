@@ -5,11 +5,11 @@ from enaml.widgets.api import Action, Container, DockItem, ToolButton, PopupView
 from nemesis.app.common.resources import get_toolbar_icon
 from nemesis.object_registry import ObjectRegistry
 from nemesis.ui.flat_button import FlatToolBar
-from .plots.bar_plot_widget import BarPlotWidget
-from .plots.box_plot_widget import BoxPlotWidget
-from .plots.histogram_widget import HistogramWidget
-from .plots.matplotlib_widget import MatplotlibWidget
-from .plots.scatter_plot_widget import ScatterPlotWidget
+from nemesis.app.inspector.plots.bar_plot_widget import BarPlotWidget
+from nemesis.app.inspector.plots.box_plot_widget import BoxPlotWidget
+from nemesis.app.inspector.plots.histogram_widget import HistogramWidget
+from nemesis.app.inspector.plots.matplotlib_widget import MatplotlibWidget
+from nemesis.app.inspector.plots.scatter_plot_widget import ScatterPlotWidget
 
 
 enamldef PlotToolBar(FlatToolBar):

@@ -1,9 +1,9 @@
 from __future__ import absolute_import
 
 from traits.api import Bool, Enum, Float
-from ..model import Metric
-from ..r import ast
-from ..r.traits import RExpressionTrait, RNameTrait
+from nemesis.model import Metric
+from nemesis.r import ast
+from nemesis.r.traits import RExpressionTrait, RNameTrait
 
 
 class ValueMetric(Metric):

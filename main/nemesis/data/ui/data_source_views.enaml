@@ -10,9 +10,9 @@ from enaml.widgets.api import (
 from traitsui.api import View, Item, FileEditor
 from traits_enaml.widgets.traits_view import TraitsView
 from nemesis.ui.field import Field, IntField
-from ..data_source import DataSource
-from ..file_data_source import FileDataSource
-from ..sql_data_source import SQLDataSource
+from nemesis.data.data_source import DataSource
+from nemesis.data.file_data_source import FileDataSource
+from nemesis.data.sql_data_source import SQLDataSource
 
 
 enamldef DataSourceLimitRowsView(Container):

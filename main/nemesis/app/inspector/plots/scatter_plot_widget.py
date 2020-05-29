@@ -25,10 +25,10 @@ from chaco.tools.api import PanTool, ZoomTool, LassoSelection, ScatterInspector
 from traits.api import Instance
 
 from nemesis.data.ui.base_table_model import BaseTableModel
-from .chaco_canvas import ChacoCanvas
-from .drop_axis import DropAxis
-from .editable_plot import EditablePlot, PlotSettings
-from .table_model_plot_data import TableModelPlotData
+from nemesis.app.inspector.plots.chaco_canvas import ChacoCanvas
+from nemesis.app.inspector.plots.drop_axis import DropAxis
+from nemesis.app.inspector.plots.editable_plot import EditablePlot, PlotSettings
+from nemesis.app.inspector.plots.table_model_plot_data import TableModelPlotData
 
 
 class ScatterPlotWidget(ChacoCanvas, EditablePlot):

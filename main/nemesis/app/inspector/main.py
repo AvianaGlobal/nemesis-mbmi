@@ -9,10 +9,10 @@ from nemesis.app.inspector import init_plot_config, init_plot_editors
 from nemesis.data.sql_data_source import SQLDataSource
 from nemesis.run_results import RunResults
 
-from ..common.error_handling import init_error_handlers
-from .main_window_controller import MainWindowController
+from nemesis.app.common.error_handling import init_error_handlers
+from nemesis.app.inspector.main_window_controller import MainWindowController
 with traits_enaml.imports():
-    from .main_window import Main
+    from nemesis.app.inspector.main_window import Main
 
 
 def create_inspector(**traits):

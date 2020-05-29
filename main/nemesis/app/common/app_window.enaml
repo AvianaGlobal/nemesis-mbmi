@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 from enaml.widgets.api import MainWindow
-from .app_window_controller import ApplicationWindowController
-from .resources import get_enaml_icon
+from nemesis.app.common.app_window_controller import ApplicationWindowController
+from nemesis.app.common.resources import get_enaml_icon
 
 
 enamldef ApplicationWindow(MainWindow):

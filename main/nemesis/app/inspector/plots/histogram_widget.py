@@ -11,9 +11,9 @@ from enaml.core.api import d_
 
 from nemesis.data.heuristics import is_discrete
 from nemesis.ui.message_box import question
-from .editable_plot import XYPlotSettings
-from .histogram import auto_bin
-from .matplotlib_widget import MatplotlibWidget
+from nemesis.app.inspector.plots.editable_plot import XYPlotSettings
+from nemesis.app.inspector.plots.histogram import auto_bin
+from nemesis.app.inspector.plots.matplotlib_widget import MatplotlibWidget
 
 
 class HistogramPlotSettings(XYPlotSettings):

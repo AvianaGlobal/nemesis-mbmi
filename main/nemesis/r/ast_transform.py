@@ -4,7 +4,7 @@ from __future__ import absolute_import
 
 from collections import deque
 
-from . import ast
+from nemesis.r import ast
 
 
 def find_libraries(node):
