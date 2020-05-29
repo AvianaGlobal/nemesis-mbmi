@@ -24,7 +24,7 @@ requirements = [
     'seaborn',
     'sqlalchemy',
     'traits_enaml',
-    'rpy2>=2.7.8'
+    # 'rpy2>=2.7.8'
 ]
 
 setup_requirements = []
