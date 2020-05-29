@@ -7,7 +7,7 @@ from enaml.widgets.api import RawWidget
 from enaml.qt.QtGui import *
 from enaml.qt.QtCore import *
 
-from nemesis.data.base_table_model import BaseTableModel
+from nemesis.data.ui.base_table_model import BaseTableModel
 from nemesis.data.ui.table_view import TableView
 
 

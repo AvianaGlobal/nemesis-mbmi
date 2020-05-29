@@ -4,7 +4,7 @@ from atom.api import Typed, List, Bool, Str, Event, observe
 from enaml.core.api import d_
 from enaml.widgets.api import Container
 
-from nemesis.tests.ui.base_table_model import BaseTableModel
+from nemesis.data.ui.base_table_model import BaseTableModel
 
 
 class DataExplorerBase(Container):

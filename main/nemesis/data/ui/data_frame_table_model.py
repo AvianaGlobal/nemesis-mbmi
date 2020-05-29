@@ -2,8 +2,8 @@ import numpy as np
 
 from enaml.qt.QtCore import QModelIndex, Qt
 
-from nemesis.data.ui.data_frame_query import DataFrameQuery
-from nemesis.data.base_table_model import BaseTableModel
+from nemesis.data.data_frame_query import DataFrameQuery
+from nemesis.data.ui.base_table_model import BaseTableModel
 
 
 class DataFrameTableModel(BaseTableModel):

@@ -2,7 +2,7 @@
 """
 from __future__ import absolute_import
 
-from nemsis.r.ast import Constant, Name, Call, star_args_to_list
+from nemesis.r.ast import Constant, Name, Call, star_args_to_list
 
 
 def Assign(name, value):

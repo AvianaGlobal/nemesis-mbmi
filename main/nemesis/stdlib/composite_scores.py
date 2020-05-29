@@ -4,7 +4,7 @@ from traits.api import Bool, Float, Instance, Int, List, on_trait_change
 from nemesis.model import CompositeScore, Metric
 from nemesis.r import ast, ast_macros
 from nemesis.r.traits import RExpressionTrait
-from nemesis.stdlib.serialize import DirtyMixin
+from nemesis.serialize import DirtyMixin
 
 
 class CustomScore(CompositeScore):
