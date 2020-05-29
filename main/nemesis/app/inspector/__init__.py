@@ -2,7 +2,7 @@ def init_plot_config():
     """ Configure global plotting settings.
     """
     import matplotlib
-    matplotlib.use('Qt4Agg')
+    # matplotlib.use('Qt4Agg')
 
     import seaborn
     seaborn.set_palette('deep')

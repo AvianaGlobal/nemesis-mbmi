@@ -8,6 +8,8 @@ from traitsui.api import Menu, Action
 from enaml.core.declarative import d_
 from enaml.qt.QtCore import *
 from enaml.qt.QtGui import *
+from enaml.qt.QtWidgets import *
+
 from enaml.widgets.raw_widget import RawWidget
 
 from nemesis.model import ModelObject

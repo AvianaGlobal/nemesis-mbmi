@@ -1,8 +1,9 @@
 import sys
 
-from enaml.qt.QtCore import Qt
-from enaml.qt.QtGui import QAbstractItemView, QApplication, QHeaderView, \
-    QMenu, QTableView, QAction
+from enaml.qt.QtGui import *
+from enaml.qt.QtCore import *
+from enaml.qt.QtWidgets import *
+
 from traitsui.qt4.clipboard import PyMimeData
 
 from nemesis.data.variable import Variable
