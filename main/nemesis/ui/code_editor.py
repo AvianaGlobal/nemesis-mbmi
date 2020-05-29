@@ -22,7 +22,7 @@ from enaml.qt.QtGui import *
 from enaml.qt.QtWidgets import *
 from enaml.qt.q_resource_helpers import get_cached_qfont
 
-from .pygments_highlighter import PygmentsHighlighter
+from nemesis.ui.pygments_highlighter import PygmentsHighlighter
 
 
 def _get_language_enum_items():
