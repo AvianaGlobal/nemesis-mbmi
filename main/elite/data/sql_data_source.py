@@ -141,9 +141,7 @@ class SQLDataSource(DataSource):
             query = self.query
             conn = engine.connect()
             data = pd.read_sql(query, conn)
-            data.to_sql('Nemesis_data', conn, if_exists='replace', index=False)
-            table = 'Nemesis_data'
-            return read_sql_table(engine, table, **kw)
+            return data
 
         else:
             print('loadtable')
