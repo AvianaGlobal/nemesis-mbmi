@@ -120,7 +120,12 @@ enamldef SQLDataSourceView(Form):
         Label:
             text = 'Table'
         Field:
-            text := data_source.table        
+            text := data_source.table
+
+        Label:
+                text = 'Query'
+        Field:
+            text := data_source.query
 
     Conditional:
         condition << open_mode and show_limit_rows
@@ -155,6 +160,9 @@ enamldef DataSourceSelector(Container):
         GroupBox:
             SQLDataSourceView:
                 data_source << sql_data_source
+        GroupBox:
+            Label:
+                text = 'Note: input either table name or SQL query. If using sql query, type NA in table field'
 
 
 enamldef DataSourceDialog(Dialog): dialog:

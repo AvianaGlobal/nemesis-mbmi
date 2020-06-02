@@ -7,7 +7,7 @@ import os
 from traits.api import HasTraits, Bool, File, Instance, List, Property, \
     Unicode, on_trait_change
 from enaml.widgets.api import FileDialogEx
-from elite.ui.message_box import warning, details_escape, DialogButton
+from elite.ui.message_box import details_escape, warning, DialogButton
 from .etsconfig import ETSConfig
 
 logger = logging.getLogger('elite')
@@ -46,7 +46,7 @@ class ApplicationWindowController(HasTraits):
                 self.restore_state(state)
             except:
                 logger.exception('Error restoring application state')
-    
+
     def destroy(self):
         """ Called immediately before the window is destroyed.
         Can be used to save state and clean up resources.
@@ -57,7 +57,7 @@ class ApplicationWindowController(HasTraits):
             logger.exception('Error creating application state object')
         else:
             self._save_state(state)
-    
+
     def create_state(self):
         """ Create a dictionary capturing the current application state.
         Must be JSON-serializable.
@@ -67,21 +67,21 @@ class ApplicationWindowController(HasTraits):
         state['size'] = self.window.size()
         state['recent_files'] = self.recent_files
         return state
-    
+
     def restore_state(self, state):
         """ Restore the application state from a state dictionary.
         """
         position = state.get('position')
         size = state.get('size')
         window = self.window
-        
+
         if window is not None:
             if position is not None:
                 window.initial_position = tuple(position)
-                #window.set_position(position)
+                # window.set_position(position)
             if size is not None:
                 window.initial_size = tuple(size)
-                #window.set_size(size)
+                # window.set_size(size)
 
         self.recent_files = state.get('recent_files', [])
 
@@ -203,16 +203,16 @@ class ApplicationWindowController(HasTraits):
                                button.text == 'No')
         else:
             return True
-        
+
     # --- Application actions ---
-    
+
     def window_closed(self, event):
         """ Called when the window is closed, immediately before destruction.
         """
         self.destroy()
-    
+
     # --- Private interface ---
-    
+
     def _load_state(self):
         """ Load application state dictionary from previous run.
         """
@@ -227,7 +227,7 @@ class ApplicationWindowController(HasTraits):
             return None
         else:
             return state
-    
+
     def _save_state(self, state):
         """ Save application state dictionary for next run.
         """
@@ -236,9 +236,9 @@ class ApplicationWindowController(HasTraits):
                 json.dump(state, f)
         except IOError:
             logger.exception('Error saving application state to disk')
-    
+
     # Trait defaults
-    
+
     def __state_path_default(self):
         home = ETSConfig.application_data
         if not os.path.exists(home):
@@ -259,9 +259,9 @@ class ApplicationWindowController(HasTraits):
         if self.file_dirty:
             title += '*'
         return title
-    
+
     # Trait change handlers
-    
+
     @on_trait_change('window')
     def _replace_controller(self):
         if self.window:
