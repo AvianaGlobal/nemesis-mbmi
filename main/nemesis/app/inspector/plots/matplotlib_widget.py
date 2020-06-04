@@ -109,7 +109,7 @@ class MatplotlibWidget(MPLCanvas, EditablePlot):
         # pandas plotting methods
         figure = pyplot.figure(facecolor = 'white')
         pyplot.subplots_adjust(left=0.05, right=0.99, top=0.95, wspace=0.1, hspace=0.4)
-        pyplot.rcParams['axes.color_cycle'] = ['#b88dd8', '#808080', '#e8d9f3','#999999', '#d0e2b6',]
+        # pyplot.rcParams['axes.color_cycle'] = ['#b88dd8', '#808080', '#e8d9f3','#999999', '#d0e2b6',]
         
         if self.data_frame is None or not self.data_columns:
             if self.multi_column:

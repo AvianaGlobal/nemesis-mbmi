@@ -98,7 +98,8 @@ class HistogramWidget(MatplotlibWidget):
                 axis.grid(True)
                 seaborn.despine(figure, axis, right=False)
 
-                hist_kws = dict(normed=True, range=pop_range)
+                # hist_kws = dict(normed=True, range=pop_range)
+                hist_kws = dict(range=pop_range)
                 kde_kws = dict(cut=np.inf, clip=pop_range)
                 seaborn.distplot(group[col_name].dropna(),
                     hist=s.show_hist, kde=s.show_kde, rug=s.show_rug,
