@@ -4,8 +4,7 @@ from enaml.core.api import Looper
 from enaml.layout.api import hbox, vbox
 from enaml.stdlib.fields import FloatField, IntField
 from enaml.validator import FloatValidator
-from enaml.widgets.api import CheckBox, Container, Form, Field, HGroup, Label, \
-    ObjectCombo
+from enaml.widgets.api import *
 
 
 enamldef PlotLimitsEditor(HGroup):

@@ -40,6 +40,7 @@ setup(
         'nemesis.app.builder': ['*.enaml'],
         'nemesis.app.common': ['*.enaml'],
         'nemesis.app.inspector': ['*.enaml'],
+        'nemesis.app.inspector.plots': ['*.enaml'],
         'nemesis.data.ui': ['*.enaml'],
         'nemesis.r.ui': ['*.enaml'],
         'nemesis.stdlib.ui': ['*.enaml'],

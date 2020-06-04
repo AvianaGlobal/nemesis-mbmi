@@ -15,7 +15,7 @@ def init_plot_editors():
 
     import enaml
     with enaml.imports():
-        from .plots.plot_editors import (ScatterPlotEditor, BarPlotEditor,
+        from nemesis.app.inspector.plots.plot_editors import (ScatterPlotEditor, BarPlotEditor,
                                          HistogramPlotEditor, BoxPlotEditor)
 
     ObjectRegistry.instance().add(
