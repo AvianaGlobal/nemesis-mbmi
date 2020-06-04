@@ -141,7 +141,7 @@ class TableView(QTableView):
         hheader = self.horizontalHeader()
         hheader.setContextMenuPolicy(Qt.CustomContextMenu)
         hheader.setStretchLastSection(False)
-        hheader.setMovable(True)
+        hheader.setSectionsMovable(True)
         hheader.customContextMenuRequested.connect(self._on_context_menu)
 
         vheader = self.verticalHeader()
@@ -149,7 +149,7 @@ class TableView(QTableView):
         if sys.platform == 'win32':
             font_metrics = vheader.fontMetrics()
             vheader.setDefaultSectionSize(font_metrics.height() + 6)
-        vheader.setResizeMode(QHeaderView.Fixed)
+        vheader.setSectionResizeMode(QHeaderView.Fixed)
         vheader.setStretchLastSection(False)
 
     def _setup_style(self):
