@@ -36,7 +36,7 @@ class MainWindowController(ApplicationWindowController):
     # The model being edited.
     model = Instance(Model)
     model_controller = Instance(ModelEditorController)
-    file_filters = ['Elite Anomaly Model (*.eam)']
+    file_filters = ['Nemesis Analysis Model (*.eam)']
     # Whether the application is in debug mode.
     debug_mode = Bool(False)
     # The layout for the main window.
