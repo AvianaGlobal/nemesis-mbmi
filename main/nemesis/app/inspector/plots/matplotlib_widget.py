@@ -12,8 +12,8 @@ from traitsui.qt4.clipboard import PyMimeData
 
 from nemesis.ui.file_dialog import FileDialogEx, file_type_filters
 from nemesis.ui.message_box import warning
-from .editable_plot import EditablePlot, XYPlotSettings
-from .plot_limits import PlotLimits
+from nemesis.app.inspector.plots.editable_plot import EditablePlot, XYPlotSettings
+from nemesis.app.inspector.plots.plot_limits import PlotLimits
 
 
 class MatplotlibWidget(MPLCanvas, EditablePlot):
