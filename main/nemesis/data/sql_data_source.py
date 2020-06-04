@@ -21,21 +21,10 @@ class SQLDataSource(DataSource):
     port = Int()
     username = Str()
     password = Str()
-    # The database and table to load from.
-    # Note: When using sqlite, `database` is the filename.
     database = Str()
     table = Str()
     query = Str()
-    conn = Str('odbc()')
-    driver = Str('IBM DB2 ODBC DRIVER')
     dsn = Str()
-    db2dsn = Str("Driver={IBM DB2 ODBC DRIVER};"
-                 "DATABASE=BLUDB;"
-                 "HOSTNAME=dashdb-txn-sbox-yp-dal09-03.services.dal.bluemix.net;"
-                 "PORT=50000;"
-                 "PROTOCOL=TCPIP;"
-                 "UID=xjv23492;"
-                 "PWD=fhg^61d4pw6114j3;")
 
     def sql_connection_str(self):
         return 'DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+str(self.host)+';DATABASE='+str(self.database)+\
@@ -103,19 +92,15 @@ class SQLDataSource(DataSource):
         """
         if self.dialect == 'db2':
             args = [
-                (ast.Name(self.conn)),
+                (ast.Name('odbc()')),
                 (ast.Name('.connection_string'), ast.Constant(self.DB2_connection_str())),
-                # (ast.Name('dsn'), ast.Constant(self.dsn)),
-                # (ast.Name('driver'), ast.Constant(self.driver)),
             ]
         else:
-            args = [ast.Call(ast.Name('dbDriver'), ast.Constant(R_DBI_DRIVERS[self.dialect]))]
+            args = [
+                ast.Call(ast.Name('dbDriver'), ast.Constant(R_DBI_DRIVERS[self.dialect]))
+            ]
         args += call_args
         args += [(ast.Name('dbname'), ast.Constant(self.database))]
-        # if self.dialect != 'sqlite':
-        #     args += [(ast.Name('user'), ast.Constant(self.username)),
-        #              (ast.Name('password'), ast.Constant(self.password)),
-        #              (ast.Name('host'), ast.Constant(self.host)), ]
         return ast.Call(call_name, args, libraries=['DBI', R_DBI_LIBRARIES[self.dialect]])
 
     def create_engine(self):
@@ -125,7 +110,7 @@ class SQLDataSource(DataSource):
             path = os.path.abspath(self.database)
             engine_str = 'sqlite:///{path}'.format(path=path)
         elif self.dialect == 'mssql':
-            engine_str = '{dialect}+pyodbc://{username}:{password}@{dsn}'.format(**self.__dict__)
+            engine_str = '{dialect}://{username}:{password}@{dsn}'.format(**self.__dict__)
         elif self.dialect == 'db2':
             engine_str = 'ibm_db_sa://{username}:{password}@{host}:{port}/{database}'.format(**self.__dict__)
         else:

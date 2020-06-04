@@ -17,8 +17,7 @@ from nemesis.app.inspector.plots.plot_limits import PlotLimits
 
 
 class MatplotlibWidget(MPLCanvas, EditablePlot):
-    """ An Enaml widget for displaying pandas/matplotlib plots of grouped
-    and population data.
+    """ An Enaml widget for displaying pandas/matplotlib plots of grouped and population data.
     """
     # MatplotlibWidget interface.
     
