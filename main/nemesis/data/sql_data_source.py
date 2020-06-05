@@ -115,7 +115,7 @@ class SQLDataSource(DataSource):
             engine_str = 'ibm_db_sa://{username}:{password}@{host}:{port}/{database}'.format(**self.__dict__)
         else:
             engine_str = '{dialect}://{username}:{password}@{host}:{port}/{database}'.format(**self.__dict__)
-        return sqlalchemy.create_engine(engine_str, echo=True)
+        return sqlalchemy.create_engine(engine_str, echo=False)
 
     def load_table(self, table, **kw):
         """ Load a table from the database.
