@@ -84,10 +84,11 @@ enamldef SQLDataSourceView(Form):
 
     Conditional:
         condition << data_source.dialect != 'sqlite'
-        Label:
-            text = 'DSN'
-        Field:
-            text := data_source.dsn
+
+#        Label:
+#            text = 'DSN'
+#        Field:
+#            text := data_source.dsn
 
         Label:
             text = 'Host'

@@ -7,26 +7,23 @@ from setuptools import find_packages, setup
 with open('README.rst') as readme_file:
     readme = readme_file.read()
 
-with open('HISTORY.rst') as history_file:
-    history = history_file.read()
-
 requirements = [
     'numpy',
     'enaml',
-    # 'chaco',
+    'chaco',
     'futures',
     'jsonpickle',
     'ibm_db_sa',
     'matplotlib',
     'pandas',
     'pygments',
-    # 'PySide',
+    'PySide',
     'pyzmq',
     'pyodbc',
     'seaborn',
     'sqlalchemy',
     'traits_enaml',
-    # 'rpy2>=2.7.8'
+    'rpy2==2.7.8'
 ]
 
 setup_requirements = []
@@ -55,7 +52,7 @@ setup(
         ],
     },
     install_requires=requirements,
-    long_description=readme + '\n\n' + history,
+    long_description=readme,
     include_package_data=True,
     keywords='nemesis',
     name='nemesis',
