@@ -1,60 +1,82 @@
+import itertools
+import string
 import sys
+
+import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
+import seaborn as sns
+
 
 def create_test_data(
-	entity = ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
-	group = ['W', 'X', 'Y', 'Z'],
-	categorical = ['Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Purple', 'Pink'],
-	continuous = [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
+        letters = list(string.ascii_uppercase)[-4:],
+        colors=['Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Purple', 'Pink'],
+        numbers=[1.0*number/10 for number in range(10)]
 ):
-	ncombos = len(entity) * len(group) * len(categorical) * len(continuous)
-	entity_X = []
-	group_X = []
-	categorical_X = []
-	continuous_X = []
+    ncombos = len(letters) * len(colors) * len(numbers)
+    group_X = []
+    categorical_X = []
+    continuous_X = []
 
-	for e in entity:
-		for g in group:
-			for cat in categorical:
-				for cont in continuous:
-					entity_X.append(e)
-					group_X.append(g)
-					categorical_X.append(cat)
-					continuous_X.append(cont)
+    for letter in letters:
+        for color in colors:
+            for number in numbers:
+                group_X.append(letter)
+                categorical_X.append(color)
+                continuous_X.append(number)
 
-	df = pd.DataFrame({
-		'Entity': entity_X,
-		'Group': group_X,
-		'Categorical': categorical_X,
-		'Continuous': continuous_X,
-	})
+    df = pd.DataFrame({
+        'Letter': group_X,
+        'Color': categorical_X,
+        'Number': continuous_X,
+    })
 
-	assert df.shape[0] == ncombos
-
-	return df
+    assert df.shape[0] == ncombos
+    return df
 
 
-file_path = sys.path[-1] + '/main/nemesis/tests/test_data_X0.csv'
-df0 = create_test_data()[['Entity', 'Group', 'Categorical', 'Continuous']]
-df0.to_csv(file_path, index_label='Index')
+df0 = create_test_data()[['Letter', 'Color', 'Number']]
 
-c1 = df0.Group == 'X'
-c2 = df0.Continuous == 1.0
+c1 = df0['Letter'] == 'X'
+c2 = df0['Number'] > 0.5
+c3 = df0['Letter'] == 'Y'
+c4 = df0['Number'] > 0.8
+c5 = df0['Letter'] == 'Z'
+c6 = df0['Number'] > 0.2
+
 df1 = df0.copy()
-df1.loc[c1 & c2, 'Continuous'] = 0.0
-file_path = sys.path[-1] + '/main/nemesis/tests/test_data_X1.csv'
-df1.to_csv(file_path, index_label='Index')
+df1.loc[c1 & c2, 'Number'] = 0.0
+df1.loc[c3 & c4, 'Number'] = 0.0
+df1.loc[c5 & c6, 'Number'] = 0.0
+df1_path = sys.path[-1] + '/main/nemesis/tests/test_letters_numbers_full.csv'
+df1.to_csv(df1_path, index_label='Id')
 
-c1 = df0.Group == 'X'
-c2 = df0.Continuous > 0.5
-df2 = df0.copy()
-df2.loc[c1 & c2, 'Continuous'] = 0.0
-file_path = sys.path[-1] + '/main/nemesis/tests/test_data_X2.csv'
-df2.to_csv(file_path, index_label='Index')
-
-c1 = df0.Group == 'X'
-c2 = df0.Continuous > 0.5
 df2 = df0.copy()
 df2 = df2[~(c1 & c2)]
-file_path = sys.path[-1] + '/main/nemesis/tests/test_data_X2.csv'
-df2.to_csv(file_path, index_label='Index')
+df2 = df2[~(c3 & c4)]
+df2 = df2[~(c5 & c6)]
+df2_path = sys.path[-1] + '/main/nemesis/tests/test_letters_numbers_with_missing.csv'
+df2.to_csv(df2_path, index_label='Id')
+
+# fig, axs = plt.subplots(nrows=4, ncols=1)
+for val in df1['Letter'].value_counts().index.values:
+    df1.loc[df1['Letter'] == val, 'Number'].plot.kde()
+plt.show()
+
+for val in df2['Letter'].value_counts().index.values:
+    df2.loc[df2['Letter'] == val, 'Number'].plot.kde()
+plt.show()
+
+arr = np.sort(df0['Number'].value_counts().index.values)
+[c for c in itertools.combinations(arr, len(arr))]
+
+df1.groupby('Letter')['Number'].unique()
+
+x = [
+    np.float(len(df1.groupby('Letter')['Number'].unique()[grp])) / \
+    np.float(len(df1['Number'].unique()))
+    for grp in df1['Letter'].unique()
+]
+
+sns.barplot(df1['Letter'].unique(), x)
+plt.show()
