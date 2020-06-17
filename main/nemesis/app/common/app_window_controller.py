@@ -4,11 +4,11 @@ import json
 import logging
 import os
 
-from traits.api import HasTraits, Bool, File, Instance, List, Property, \
-    Unicode, on_trait_change
 from enaml.widgets.api import FileDialogEx
-from nemesis.ui.message_box import details_escape, warning, DialogButton
+from traits.api import *
+
 from nemesis.app.common.etsconfig import ETSConfig
+from nemesis.ui.message_box import details_escape, warning, DialogButton
 
 logger = logging.getLogger('nemesis')
 
@@ -33,7 +33,7 @@ class ApplicationWindowController(HasTraits):
     # Files that have been opened recently, in descending chronological order.
     recent_files = List(File)
     # Name of the state file for the application
-    state_file = Unicode('state.json')
+    state_file = Str('state.json')
     # Private attributes.
     _state_path = File()
 
@@ -86,10 +86,8 @@ class ApplicationWindowController(HasTraits):
         self.recent_files = state.get('recent_files', [])
 
     # File interface
-
     def _new_file(self):
-        """ Handle a new file creation. This method should be implemented on
-        subclasses.
+        """ Handle a new file creation. This method should be implemented on subclasses.
         """
         pass
 
@@ -109,9 +107,7 @@ class ApplicationWindowController(HasTraits):
             self.load_file(path)
 
     def save_file(self):
-        """ Save the file to disk.
-
-        Returns whether the file was saved.
+        """ Save the file to disk. Returns whether the file was saved.
         """
         if self.file_path:
             self.save_file_to(self.file_path)
@@ -120,9 +116,7 @@ class ApplicationWindowController(HasTraits):
             return self.save_file_as()
 
     def save_file_as(self):
-        """ Show a dialog to save the file to disk.
-
-        Returns whether the file was saved.
+        """ Show a dialog to save the file to disk. Returns whether the file was saved.
         """
         path = FileDialogEx.get_save_file_name(
             parent=self.window, name_filters=self.file_filters)
@@ -205,14 +199,12 @@ class ApplicationWindowController(HasTraits):
             return True
 
     # --- Application actions ---
-
     def window_closed(self, event):
         """ Called when the window is closed, immediately before destruction.
         """
         self.destroy()
 
     # --- Private interface ---
-
     def _load_state(self):
         """ Load application state dictionary from previous run.
         """
@@ -233,12 +225,11 @@ class ApplicationWindowController(HasTraits):
         """
         try:
             with open(self._state_path, 'w') as f:
-                json.dump(state.encode(), f)
+                json.dump(state, f)
         except IOError:
             logger.exception('Error saving application state to disk')
 
     # Trait defaults
-
     def __state_path_default(self):
         home = ETSConfig.application_data
         if not os.path.exists(home):
@@ -246,7 +237,6 @@ class ApplicationWindowController(HasTraits):
         return os.path.join(home, self.state_filename)
 
     # Trait getters/setters
-
     def _get_file_name(self):
         if self.file_path:
             name = os.path.splitext(os.path.basename(self.file_path))[0]
@@ -261,7 +251,6 @@ class ApplicationWindowController(HasTraits):
         return title
 
     # Trait change handlers
-
     @on_trait_change('window')
     def _replace_controller(self):
         if self.window:
