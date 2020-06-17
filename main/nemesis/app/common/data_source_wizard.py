@@ -17,8 +17,8 @@ class DataSourceWizard(Wizard):
 
     # IWindow interface
 
-    #title = 'Select data sources'
-    title = ' '
+    title = 'Select data sources'
+
 
     # DataSourceWizard interface
 
