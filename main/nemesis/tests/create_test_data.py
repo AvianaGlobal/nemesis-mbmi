@@ -1,4 +1,5 @@
 import itertools
+import random
 import string
 import sys
 
@@ -7,11 +8,25 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 
+random.seed(12345)
+df = pd.DataFrame({
+    'A': [random.randint(45, 55) for i in range(100)],
+    'B': [random.randint(30, 70) for i in range(100)],
+    'C': [random.randint(10, 90) for i in range(100)],
+    'D': [random.randint(05, 95) for i in range(100)],
+}).melt()
+df.columns = ['Letter', 'Number']
+df_path = sys.path[-1] + '/main/nemesis/tests/test_letters_numbers_1.csv'
+df.to_csv(df_path, index_label='Id')
+
+dfs = df.sample(50)
+dfs_path = sys.path[-1] + '/main/nemesis/tests/test_letters_numbers_2.csv'
+dfs.to_csv(df_path, index_label='Id')
+
 
 def create_test_data(
-        letters = list(string.ascii_uppercase)[-4:],
-        colors=['Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Purple', 'Pink'],
-        numbers=[1.0*number/10 for number in range(10)]
+        letters=list(string.ascii_uppercase)[:4],
+        numbers=[1.0 * number / 10 for number in range(10)]
 ):
     ncombos = len(letters) * len(colors) * len(numbers)
     group_X = []
@@ -58,7 +73,6 @@ df2 = df2[~(c5 & c6)]
 df2_path = sys.path[-1] + '/main/nemesis/tests/test_letters_numbers_with_missing.csv'
 df2.to_csv(df2_path, index_label='Id')
 
-
 df3 = df0.copy()
 df3.loc[c1 & c2, 'Number'] = None
 df3.loc[c3 & c4, 'Number'] = None
@@ -89,4 +103,4 @@ x = [
 sns.barplot(df1['Letter'].unique(), x)
 plt.show()
 
-x-np.mean(x)/np.std(x)
+x - np.mean(x) / np.std(x)
