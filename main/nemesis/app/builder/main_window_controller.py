@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 
-import cPickle as pickle
+import pickle
 import os
 import tempfile
 
@@ -211,7 +211,7 @@ class MainWindowController(ApplicationWindowController):
         super(MainWindowController, self).restore_state(state)
         full_layout = state.get('full_layout')
         if full_layout is not None:
-            self.full_layout = pickle.loads(str(full_layout))
+            self.full_layout = pickle.loads(full_layout)
 
     # --- Private interface ---
 
