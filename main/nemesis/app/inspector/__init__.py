@@ -2,7 +2,7 @@ def init_plot_config():
     """ Configure global plotting settings.
     """
     import matplotlib
-    matplotlib.use('Qt5Agg')
+    # matplotlib.use('Qt5Agg')
 
     import seaborn
     seaborn.set_palette('Purples_r')
