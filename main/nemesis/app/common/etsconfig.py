@@ -8,4 +8,4 @@ from traits.etsconfig.api import ETSConfig
 
 
 # Use hyphen because this string is used in file names.
-ETSConfig.company = 'Aviana-Global-Technologies'
+ETSConfig.company = 'AvianaGlobal'
