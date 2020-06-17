@@ -91,7 +91,7 @@ class InputPage(EnamlWizardPage):
         if self.mode == 'open':
             return 'Load input data from SQL database'
         else:
-            return 'Load input data from a flat file or SQL database'
+            return 'Load input data from a csv file or SQL database'
     
     def _widget_default(self):
         if self.mode == 'open':
