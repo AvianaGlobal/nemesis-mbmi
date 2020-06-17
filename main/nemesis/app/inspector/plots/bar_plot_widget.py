@@ -85,7 +85,7 @@ class BarPlotWidget(MatplotlibWidget):
             df = proportions(df).reset_index()
             df.columns = [ col_name, 'p' ]
         # Create plot(s).
-        with seaborn.axes_style('whitegrid'):
+        with seaborn.axes_style('white'):
             axes = figure.gca()
             
             if self.settings.style == 'together':

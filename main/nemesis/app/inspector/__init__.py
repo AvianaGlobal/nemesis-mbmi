@@ -5,7 +5,7 @@ def init_plot_config():
     # matplotlib.use('Qt4Agg')
 
     import seaborn
-    seaborn.set_palette('deep')
+    seaborn.set_palette('Purples')
 
 
 def init_plot_editors():
