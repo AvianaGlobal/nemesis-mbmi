@@ -93,7 +93,7 @@ class ObjectRegistry(HasTraits):
         """ Returns all object factories whose instances are subclasses of a
         given type.
         """
-        return [ factory for factory in self._registry.itervalues()
+        return [ factory for factory in self._registry.values()
                  if issubclass(factory.type, klass) ]
     
     def get_closest_by_type(self, klass):
@@ -103,7 +103,7 @@ class ObjectRegistry(HasTraits):
         Returns an object factory or None. 
         """
         for t in klass.mro():
-            for factory in self._registry.itervalues():
+            for factory in self._registry.values():
                 if t == factory.type:
                     return factory
         return None
