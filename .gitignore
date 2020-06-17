@@ -140,3 +140,4 @@ launch_inspector.bat
 /**/*.Rproj
 /**/NemesisOutliers*.gz
 /**/NemesisOutliers*.zip
+/**/venv*/
