@@ -48,7 +48,7 @@ df1 = df0.copy()
 df1.loc[c1 & c2, 'Number'] = 0.0
 df1.loc[c3 & c4, 'Number'] = 0.0
 df1.loc[c5 & c6, 'Number'] = 0.0
-df1_path = sys.path[-1] + '/main/nemesis/tests/test_letters_numbers_full.csv'
+df1_path = sys.path[-1] + '/main/nemesis/tests/test_letters_numbers_with_zeros.csv'
 df1.to_csv(df1_path, index_label='Id')
 
 df2 = df0.copy()
@@ -57,6 +57,14 @@ df2 = df2[~(c3 & c4)]
 df2 = df2[~(c5 & c6)]
 df2_path = sys.path[-1] + '/main/nemesis/tests/test_letters_numbers_with_missing.csv'
 df2.to_csv(df2_path, index_label='Id')
+
+
+df3 = df0.copy()
+df3.loc[c1 & c2, 'Number'] = None
+df3.loc[c3 & c4, 'Number'] = None
+df3.loc[c5 & c6, 'Number'] = None
+df3_path = sys.path[-1] + '/main/nemesis/tests/test_letters_numbers_with_blanks.csv'
+df3.to_csv(df3_path, index_label='Id')
 
 # fig, axs = plt.subplots(nrows=4, ncols=1)
 for val in df1['Letter'].value_counts().index.values:
@@ -80,3 +88,5 @@ x = [
 
 sns.barplot(df1['Letter'].unique(), x)
 plt.show()
+
+x-np.mean(x)/np.std(x)
