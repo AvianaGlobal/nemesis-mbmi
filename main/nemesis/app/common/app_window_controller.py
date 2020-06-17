@@ -78,10 +78,10 @@ class ApplicationWindowController(HasTraits):
         if window is not None:
             if position is not None:
                 window.initial_position = tuple(position)
-                # window.set_position(position)
+                window.set_position(position)
             if size is not None:
                 window.initial_size = tuple(size)
-                # window.set_size(size)
+                window.set_size(size)
 
         self.recent_files = state.get('recent_files', [])
 
@@ -233,7 +233,7 @@ class ApplicationWindowController(HasTraits):
         """
         try:
             with open(self._state_path, 'w') as f:
-                json.dump(state, f)
+                json.dump(state.encode(), f)
         except IOError:
             logger.exception('Error saving application state to disk')
 
