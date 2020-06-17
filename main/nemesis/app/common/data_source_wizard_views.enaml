@@ -1,0 +1,83 @@
+from __future__ import absolute_import
+from enaml.core.api import Conditional
+from enaml.widgets.api import Container, GroupBox, Label, RadioButton
+from nemesis.data.sql_data_source import SQLDataSource
+from nemesis.data.ui.data_source_views import DataSourceSelector, SQLDataSourceView
+
+enamldef InputOpenPageView(Container):
+    attr data_source : SQLDataSource = None
+    attr _data_source : SQLDataSource = \
+        data_source if isinstance(data_source, SQLDataSource) else \
+        SQLDataSource(dialect = 'sqlite')
+    padding = 0
+    RadioButton:
+        text = 'From results database'
+        checked << data_source is None
+        toggled :: parent.data_source = None
+    Conditional:
+        condition << data_source is None
+        GroupBox:
+            padding = 0
+            Label:
+                text = 'Read the input data from the results database.\n'\
+                    'By default, the input data is copied to the results '\
+                    'database,\nbut if that option was disabled, you must '\
+                    'supply the input database.'
+    RadioButton:
+        text = 'Different SQL database'
+        checked << data_source is not None
+        toggled :: parent.data_source = _data_source
+    Conditional:
+        condition << data_source is not None
+        GroupBox:
+            padding = 0
+            SQLDataSourceView:
+                data_source << _data_source
+                open_mode = True
+                show_limit_rows = False
+                show_table = True
+
+
+enamldef OutputOpenPageView(Container):
+    attr data_source : SQLDataSource = SQLDataSource(dialect='sqlite')
+    padding = 0
+    SQLDataSourceView:
+        data_source << parent.data_source
+        open_mode = True
+        show_limit_rows = False
+        show_table = False
+
+
+enamldef OutputSavePageView(Container):
+    attr data_source : SQLDataSource = None
+    attr _data_source : SQLDataSource = \
+        data_source if isinstance(data_source, SQLDataSource) else \
+        SQLDataSource(dialect = 'sqlite')
+    padding = 0
+    RadioButton:
+        text = 'Temporary'
+        checked << data_source is None
+        toggled :: parent.data_source = None
+    Conditional:
+        condition << data_source is None
+        GroupBox:
+            padding = 0
+            Label:
+                text = 'The model output will be stored temporarily.\n'\
+                    'To recover the output after quitting the application,\n'\
+                    'you will be required to run the model again.'
+    RadioButton:
+        text = 'SQL database'
+        checked << data_source is not None
+        toggled :: parent.data_source = _data_source
+    Conditional:
+        condition << data_source is not None
+        GroupBox:
+            padding = 0
+            SQLDataSourceView:
+                data_source << _data_source
+                open_mode = False
+                show_table = False
+
+
+InputSavePageView = DataSourceSelector

@@ -1,0 +1,60 @@
+from __future__ import absolute_import
+import sys
+from enaml.core.api import Conditional
+from enaml.widgets.api import CheckBox, Label, SpinBox
+from nemesis.app.builder.model_views import BaseControlView
+from nemesis.r.float import r_float, r_format_number
+from nemesis.r.ui.expression_field import RExpressionField
+from nemesis.r.ui.validators import RFloatValidator
+from nemesis.ui.list_field import ListField
+
+
+enamldef FactorControlView(BaseControlView):
+    Label:
+        text = 'Value'
+    RExpressionField:
+        text := obj.expression
+
+
+enamldef NumericalControlView(BaseControlView):
+    Label:
+        text = 'Original value'
+    RExpressionField:
+        text := obj.expression
+    Label:
+        text = 'Automatic breaks?'
+    CheckBox:
+        checked := obj.auto_breaks
+    Conditional:
+        condition << obj.auto_breaks
+        Label:
+            text = 'Number of breaks'
+        SpinBox:
+            minimum = 2
+            maximum = sys.maxint
+            value := obj.num_breaks
+    Conditional:
+        condition << not obj.auto_breaks
+        Label:
+            text = 'Breaks'
+        ListField:
+            item_from_str = number_from_str
+            item_to_str = r_format_number
+            item_validator = RFloatValidator()
+            value := obj.breaks
+        Label:
+            text = 'Labels'
+        ListField:
+            value := obj.labels
+    Label:
+        text = 'Close intervals on left?'
+    CheckBox:
+        checked := obj.closed_on_left
+
+
+def number_from_str(text):
+    # Prefer ints to floats, if possible.
+    try:
+        return int(text)
+    except ValueError:
+        return r_float(text)

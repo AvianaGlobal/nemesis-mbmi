@@ -1,0 +1,226 @@
+{
+  "model": {
+    "py/reduce": [
+      "py/newobj", 
+      {
+        "py/tuple": [
+          {
+            "py/type": "nemesis.model.Model"
+          }
+        ]
+      }, 
+      {
+        "__traits_version__": "5.2.0", 
+        "cap_entity_score": true, 
+        "entity_name": "Id", 
+        "max_entity_score": 3.0, 
+        "composite_scores": [
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "nemesis.stdlib.composite_scores.LinearCombinationScore"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "5.2.0", 
+                "terms": [
+                  {
+                    "py/reduce": [
+                      "py/newobj", 
+                      {
+                        "py/tuple": [
+                          {
+                            "py/type": "nemesis.stdlib.composite_scores.LinearTerm"
+                          }
+                        ]
+                      }, 
+                      {
+                        "__traits_version__": "5.2.0", 
+                        "coeff": 1.0, 
+                        "metric": {
+                          "py/reduce": [
+                            "py/newobj", 
+                            {
+                              "py/tuple": [
+                                {
+                                  "py/type": "nemesis.stdlib.metrics.ValueMetric"
+                                }
+                              ]
+                            }, 
+                            {
+                              "__traits_version__": "5.2.0", 
+                              "expression": "Number", 
+                              "control_for": [], 
+                              "description": "", 
+                              "name": "Value"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }, 
+                  {
+                    "py/reduce": [
+                      "py/newobj", 
+                      {
+                        "py/tuple": [
+                          {
+                            "py/type": "nemesis.stdlib.composite_scores.LinearTerm"
+                          }
+                        ]
+                      }, 
+                      {
+                        "__traits_version__": "5.2.0", 
+                        "coeff": 1.0, 
+                        "metric": {
+                          "py/reduce": [
+                            "py/newobj", 
+                            {
+                              "py/tuple": [
+                                {
+                                  "py/type": "nemesis.stdlib.metrics.EntropyMetric"
+                                }
+                              ]
+                            }, 
+                            {
+                              "__traits_version__": "5.2.0", 
+                              "description": "", 
+                              "control_for": [], 
+                              "expression": "Number", 
+                              "method": "frequent", 
+                              "name": "Entropy"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ], 
+                "description": "", 
+                "name": "Score"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "nemesis.stdlib.composite_scores.PrincipalComponentScore"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "5.2.0", 
+                "is_percent": true, 
+                "description": "", 
+                "top_count": 1, 
+                "top_percent": 1.0, 
+                "name": "PCA1"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "nemesis.stdlib.composite_scores.PrincipalComponentScore"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "5.2.0", 
+                "is_percent": false, 
+                "description": "", 
+                "top_count": 1, 
+                "top_percent": 1.0, 
+                "name": "PCA2"
+              }
+            ]
+          }
+        ], 
+        "controls": [], 
+        "group_name": "Letter", 
+        "metrics": [
+          {
+            "py/id": 5
+          }, 
+          {
+            "py/id": 8
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "nemesis.stdlib.metrics.GraphDensityMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "5.2.0", 
+                "expression": "Number", 
+                "control_for": [], 
+                "description": "", 
+                "name": "GrphDns"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "nemesis.stdlib.metrics.DistributionMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "5.2.0", 
+                "kind": "chi_square", 
+                "custom_function": "", 
+                "description": "", 
+                "control_for": [], 
+                "expression": "Number", 
+                "name": "ChiSqStat"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "nemesis.stdlib.metrics.UniqueContinuousMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "5.2.0", 
+                "expression": "Number", 
+                "control_for": [], 
+                "description": "", 
+                "name": "NumUniq"
+              }
+            ]
+          }
+        ], 
+        "store_input": true, 
+        "min_group_size": 50, 
+        "limit_group_size": false, 
+        "user_code": ""
+      }
+    ]
+  }, 
+  "version": 1
+}

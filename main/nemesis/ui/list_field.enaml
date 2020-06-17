@@ -1,0 +1,35 @@
+from __future__ import absolute_import
+from atom.api import Instance
+from enaml.validator import Validator
+from nemesis.ui.field import Field
+
+
+class ListValidator(Validator):
+    item_validator = Instance(Validator)
+
+    def validate(self, text):
+        """ Check that the text is a list with valid items.
+        """
+        if self.item_validator:
+            raw_items = [ item.strip() for item in text.split(',') ]
+            return all(map(self.item_validator.validate, raw_items))
+        return True
+
+def list_to_str(value, item_to_str):
+    return u','.join(map(item_to_str, value))
+
+def list_from_str(text, item_from_str):
+    return [ item_from_str(item.strip()) for item in text.split(',') ]
+
+
+enamldef ListField(Field):
+    """ A Field that accepts a list in the form of comma-separated values.
+    Ignores whitespace.
+    """
+    attr value : list = []
+    attr item_to_str = unicode
+    attr item_from_str = lambda x: x
+    attr item_validator : Validator
+    text << list_to_str(value, item_to_str)
+    text :: self.value = list_from_str(text, item_from_str)
+    validator << ListValidator(item_validator = item_validator)
