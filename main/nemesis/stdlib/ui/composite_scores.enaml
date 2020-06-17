@@ -1,0 +1,96 @@
+from __future__ import absolute_import
+
+from enaml.core.api import Conditional
+from enaml.stdlib.fields import IntField, FloatField
+from enaml.widgets.api import Label, CheckBox
+from traits.api import HasTraits, List, Instance, on_trait_change
+from traitsui.api import View, Item, EditorFactory, TableEditor
+from traitsui.table_column import ObjectColumn
+from traits_enaml.widgets.traits_view import TraitsView
+from nemesis.app.builder.model_views import BaseCompositeScoreView
+from nemesis.r.ui.expression_field import RExpressionField
+from nemesis.stdlib.composite_scores import LinearTerm
+
+
+enamldef CustomScoreView(BaseCompositeScoreView):
+    Label:
+        text = 'Value'
+    RExpressionField:
+        text := obj.expression
+
+
+enamldef LinearCombinationScoreView(BaseCompositeScoreView):
+    attr score_controller << LinearCombinationScoreController(
+        model = model_controller.model, view = self)
+    #Label:
+    #    text = 'Weights'
+    TraitsView:
+        model << score_controller
+
+
+class LinearCombinationScoreController(HasTraits):
+    model = Instance('nemesis.model.Model')
+    terms = List(Instance(LinearTerm))
+    editor = Instance(EditorFactory)
+    view = Instance(LinearCombinationScoreView)
+        
+    def default_traits_view(self):
+        return View(Item('terms',
+                         editor = self.editor,
+                         show_label = False),
+                    resizable = True)
+        
+    def _editor_default(self):
+        return TableEditor(
+            columns = [
+                ObjectColumn(name = 'metric',
+                             editable = False, 
+                             label = 'Metric',
+                             width = 0.75,
+                             format_func = lambda m: m.name),
+                ObjectColumn(name = 'coeff',
+                             label = 'Weight',
+                             width = 0.25),
+            ],
+            editable = True,
+            sortable = False,
+        )
+    
+    def _terms_default(self):
+        terms = []
+        for metric in self.model.metrics:
+            for term in self.view.obj.terms:
+                if term.metric == metric:
+                    terms.append(term)
+                    break
+            else:
+                terms.append(LinearTerm(metric=metric))
+        return terms
+    
+    @on_trait_change('terms.coeff')
+    def _terms_update(self):
+        self.view.obj.terms = self.terms
+
+
+enamldef PrincipalComponentScoreView(BaseCompositeScoreView):
+    attr model << model_controller.model
+    Label:
+        text = 'By percentage'
+    CheckBox:
+        checked := obj.is_percent
+    Conditional:
+        condition << obj.is_percent
+        Label:
+            text = 'Top percentage'
+        FloatField:
+            minimum = 0.0
+            maximum = 1.0
+            value := obj.top_percent
+    Conditional:
+        condition << not obj.is_percent
+        Label:
+            text = 'Top count'
+        IntField:
+            minimum = 1
+            maximum << len(model.metrics)
+            value := obj.top_count

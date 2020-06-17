@@ -1,0 +1,10 @@
+from __future__ import absolute_import
+from nemesis.ui.code_editor import CodeEditor
+
+
+enamldef RCodeEditor(CodeEditor):
+    """ A code editor specialized for R code.
+    """
+    language = 'r'
+    tab_width = 2
+    tabs_as_spaces = True

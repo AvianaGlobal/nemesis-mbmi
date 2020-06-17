@@ -10,15 +10,17 @@ from pyface.api import OK
 from traits.api import Bool, List, Instance, Property, on_trait_change
 import traits_enaml
 
-from elite.data.data_source import DataSource
-from elite.data.sql_data_source import SQLDataSource
-from elite.model import Model, ModelError
-from elite.runner import Runner
-from elite.ui.message_box import warning
-from ..common.app_window_controller import ApplicationWindowController
-from ..common.data_source_wizard import DataSourceWizard
-from .gui_runner import GUIRunner
-from .model_editor_controller import ModelEditorController
+from nemesis.data.data_source import DataSource
+from nemesis.data.sql_data_source import SQLDataSource
+from nemesis.model import Model, ModelError
+from nemesis.runner import Runner
+import enaml
+with enaml.imports():
+    from enaml.stdlib.message_box import warning
+from nemesis.app.common.app_window_controller import ApplicationWindowController
+from nemesis.app.common.data_source_wizard import DataSourceWizard
+from nemesis.app.builder.gui_runner import GUIRunner
+from nemesis.app.builder.model_editor_controller import ModelEditorController
 
 
 class MainWindowController(ApplicationWindowController):
@@ -34,7 +36,7 @@ class MainWindowController(ApplicationWindowController):
     # The model being edited.
     model = Instance(Model)
     model_controller = Instance(ModelEditorController)
-    file_filters = ['Elite Anomaly Model (*.eam)']
+    file_filters = ['Nemesis Anomaly Model (*.nam)']
     # Whether the application is in debug mode.
     debug_mode = Bool(False)
     # The layout for the main window.
@@ -86,7 +88,7 @@ class MainWindowController(ApplicationWindowController):
         # If successful, show the results inspector.
         if runner.results:
             # Delay import to improve start-up time.
-            from elite.app.inspector.main import create_inspector
+            from nemesis.app.inspector.main import create_inspector
 
             # Close existing inspector window, if necessary.
             for window in Window.windows:
@@ -262,14 +264,15 @@ class MainWindowController(ApplicationWindowController):
     def _input_source_changed(self, ds):
         data = None
         if ds and ds.can_load:
-            try:
-                ds.load_metadata()
-                data = ds.load()
-            except Exception as exc:
-                warning(parent=self.window,
-                        title='Load error',
-                        text='Error loading data',
-                        content=str(exc))
+            #@try:
+            ds.load_metadata()
+            data = ds.load()
+            # except Exception as exc:
+            #     warning(parent=self.window,
+            #             title='Load error',
+            #             text='Error loading data',
+            #             #content=str(exc)
+            #             )
 
         self.input_data = data
 

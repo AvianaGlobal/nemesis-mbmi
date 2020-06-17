@@ -1,0 +1,197 @@
+""" An enaml widget and dialog for selecting a data source.
+"""
+from __future__ import absolute_import
+import sys
+from enaml.core.api import Conditional
+from enaml.layout.api import hbox, vbox, spacer
+from enaml.widgets.api import (
+    Container, Dialog, Form, GroupBox, CheckBox,
+    Label, ObjectCombo, PushButton, RadioButton, SpinBox)
+from traitsui.api import View, Item, FileEditor
+from traits_enaml.widgets.traits_view import TraitsView
+from nemesis.ui.field import Field, IntField
+from nemesis.data.data_source import DataSource
+from nemesis.data.file_data_source import FileDataSource
+from nemesis.data.sql_data_source import SQLDataSource
+
+
+enamldef DataSourceLimitRowsView(Container):
+    attr data_source : DataSource
+    constraints = [
+        hbox(limit_rows, num_rows, spacer),
+    ]
+    padding = 0
+    CheckBox: limit_rows:
+        text = 'Limit rows to'
+        checked := data_source.limit_rows
+    SpinBox: num_rows:
+        enabled << limit_rows.checked
+        minimum = 1
+        maximum = sys.maxint
+        value := data_source.num_rows
+
+
+enamldef FileDataSourceView(Container):
+    attr data_source : FileDataSource = FileDataSource()
+    attr show_limit_rows : bool = True
+    TraitsView: file_editor:
+        model << data_source
+        view = View(Item('path',
+                         editor = FileEditor(
+                             auto_set = True,
+                             filter = model.wildcard),
+                             style = 'simple',
+                         show_label = True),
+                    resizable = True)
+    Conditional:
+        condition << show_limit_rows
+        DataSourceLimitRowsView:
+            data_source := parent.data_source
+
+
+enamldef SQLDataSourceView(Form):
+    attr data_source : SQLDataSource = SQLDataSource()
+    attr open_mode : bool = True
+    attr show_limit_rows : bool = True
+    attr show_table : bool = True
+    Label:
+        text = 'Dialect'
+    ObjectCombo:
+        items = ['db2', 'mssql', 'sqlite']
+        selected := data_source.dialect
+        to_string = lambda item: {\
+                'db2': 'IBM DB2',
+                'mssql': 'Microsoft SQL Server',
+                'sqlite': 'SQLite',
+            }[item]
+    Conditional:
+        condition << data_source.dialect == 'sqlite'
+        Label:
+            text = 'Database'
+        TraitsView:
+            model << data_source
+            view = View(Item('database',
+                             editor = FileEditor(
+                                auto_set = True,
+                                dialog_style = 'open' if open_mode else 'save',
+                                filter = SQLITE_WILDCARD
+                                ),
+                             style = 'simple',
+                             show_label = False
+                             ),
+                        resizable = True
+                        )
+
+    Conditional:
+        condition << data_source.dialect != 'sqlite'
+
+#        Label:
+#            text = 'DSN'
+#        Field:
+#            text := data_source.dsn
+
+        Label:
+            text = 'Host'
+        Field:
+            text := data_source.host
+        
+        Label:
+            text = 'Port'
+        IntField:
+            value := data_source.port
+        
+        Label:
+            text = 'Username'
+        Field:
+            text := data_source.username
+        
+        Label:
+            text = 'Password'
+        Field:
+            echo_mode = 'password'
+            text := data_source.password
+        
+        Label:
+            text = 'Database'
+        Field:
+            text := data_source.database
+
+    Conditional:
+        condition << show_table
+        Label:
+            text = 'Table'
+        Field:
+            text := data_source.table
+
+        Label:
+                text = 'Query'
+        Field:
+            text := data_source.query
+
+    Conditional:
+        condition << open_mode and show_limit_rows
+        DataSourceLimitRowsView:
+            data_source := parent.data_source
+
+SQLITE_WILDCARD = [ 'SQLite Database (*.db *.db2 *.db3 *.sdb *.s2db *.s3sb ' \
+    '*.sqlite *.sqlite2 *.sqlite3 *.sl2 *.sl3)' ]
+
+
+enamldef DataSourceSelector(Container):
+    attr data_source : DataSource
+    attr file_data_source : FileDataSource = \
+        data_source if isinstance(data_source, FileDataSource) else FileDataSource()
+    attr sql_data_source : SQLDataSource = \
+        data_source if isinstance(data_source, SQLDataSource) else SQLDataSource()
+    RadioButton:
+        text = 'Flat data file'
+        checked << isinstance(data_source, FileDataSource)
+        toggled :: parent.data_source = file_data_source
+    Conditional:
+        condition << isinstance(data_source, FileDataSource)
+        GroupBox:
+            FileDataSourceView:
+                data_source << file_data_source
+    RadioButton:
+        text = 'SQL database'
+        checked << isinstance(data_source, SQLDataSource)
+        toggled :: parent.data_source = sql_data_source
+    Conditional:
+        condition << isinstance(data_source, SQLDataSource)    
+        GroupBox:
+            SQLDataSourceView:
+                data_source << sql_data_source
+        GroupBox:
+            Label:
+                text = 'Note: input either table name or SQL query. If using sql query, type NA in table field'
+
+
+enamldef DataSourceDialog(Dialog): dialog:
+    attr data_source : DataSource
+    title = 'Select Data'
+    Container:
+        constraints = [
+            vbox(label, selector,
+                 hbox(reject_button, spacer, accept_button))
+        ]        
+        Label: label:
+            text = 'Load data from'
+        DataSourceSelector: selector:
+            data_source := dialog.data_source
+        PushButton: reject_button:
+            text = 'Cancel'
+            clicked :: dialog.reject()
+        PushButton: accept_button:
+            text = 'OK'
+            enabled << data_source is not None and data_source.can_load
+            clicked :: dialog.accept()
+
+
+def get_data_source(parent=None, **kw):
+    """ Show a modal dialog for selecting a data source.
+    """
+    dialog = DataSourceDialog(parent, **kw)
+    result = dialog.exec_()
+    return dialog.data_source if result else None
+    
+DataSourceDialog.get_data_source = staticmethod(get_data_source)
