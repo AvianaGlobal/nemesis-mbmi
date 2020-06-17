@@ -143,6 +143,6 @@ class ExcelFileReader(FileReader):
 
 file_readers = [
     CsvFileReader(),
-    TsvFileReader(),
-    ExcelFileReader(),
+    # TsvFileReader(),
+    # ExcelFileReader(),
 ]

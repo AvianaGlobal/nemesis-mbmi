@@ -143,7 +143,7 @@ enamldef DataSourceSelector(Container):
     attr sql_data_source : SQLDataSource = \
         data_source if isinstance(data_source, SQLDataSource) else SQLDataSource()
     RadioButton:
-        text = 'Flat data file'
+        text = 'Flat data file (.csv)'
         checked << isinstance(data_source, FileDataSource)
         toggled :: parent.data_source = file_data_source
     Conditional:
