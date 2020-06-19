@@ -7,7 +7,7 @@ from elite.r import ast
 from traits.api import Bool, Enum, Int, Property, Str
 
 from .data_source import DataSource
-from .sql import read_sql_table, sample_sql_table
+from .sql import read_sql_table, sample_sql_table, query_limit
 from .variable import Variable
 from .file_data_source import FileDataSource, FileReader, CsvFileReader
 
@@ -141,10 +141,9 @@ class SQLDataSource(DataSource):
             query = self.query
             conn = engine.connect()
             data = pd.read_sql(query, conn)
-            return data
+            return query_limit(data, **kw)
 
         else:
-            print('loadtable')
             return read_sql_table(engine, table, **kw)
 
 
