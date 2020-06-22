@@ -88,7 +88,7 @@ class HistogramWidget(MatplotlibWidget):
         s.trim_bins(map(lambda g: g[0], grouped))
         pop_range = (df[col_name].min(), df[col_name].max())
 
-        with seaborn.axes_style('whitegrid'):
+        with seaborn.axes_style('ticks'):
             layout = self._plot_layout(len(grouped))
             pal = seaborn.color_palette('Purples_r')
 

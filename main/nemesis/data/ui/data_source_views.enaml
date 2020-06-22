@@ -27,7 +27,7 @@ enamldef DataSourceLimitRowsView(Container):
     SpinBox: num_rows:
         enabled << limit_rows.checked
         minimum = 1
-        maximum = sys.maxint
+        maximum = 10000
         value := data_source.num_rows
 
 

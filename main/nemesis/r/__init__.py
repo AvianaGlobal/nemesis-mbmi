@@ -71,10 +71,11 @@ def get_r_home():
 
 
 R_HOME = get_r_home()
-putenv('R_HOME', R_HOME)
 
 if R_HOME is None:
     raise EnvironmentError('Unable to find R_HOME')
 
 if os.name == 'nt':
     putenv('R_USER', get_windows_r_user())
+else:
+    putenv('R_HOME', R_HOME)
