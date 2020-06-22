@@ -40,7 +40,7 @@
                       }, 
                       {
                         "__traits_version__": "5.2.0", 
-                        "coeff": 1.0, 
+                        "coeff": -1.0, 
                         "metric": {
                           "py/reduce": [
                             "py/newobj", 
@@ -183,7 +183,7 @@
                       }, 
                       {
                         "__traits_version__": "5.2.0", 
-                        "coeff": 5.0, 
+                        "coeff": -5.0, 
                         "metric": {
                           "py/reduce": [
                             "py/newobj", 
@@ -205,10 +205,63 @@
                         }
                       }
                     ]
+                  }, 
+                  {
+                    "py/reduce": [
+                      "py/newobj", 
+                      {
+                        "py/tuple": [
+                          {
+                            "py/type": "nemesis.stdlib.composite_scores.LinearTerm"
+                          }
+                        ]
+                      }, 
+                      {
+                        "__traits_version__": "5.2.0", 
+                        "coeff": 1.0, 
+                        "metric": {
+                          "py/reduce": [
+                            "py/newobj", 
+                            {
+                              "py/tuple": [
+                                {
+                                  "py/type": "nemesis.stdlib.metrics.ValueMetric"
+                                }
+                              ]
+                            }, 
+                            {
+                              "__traits_version__": "5.2.0", 
+                              "expression": "Number", 
+                              "control_for": [], 
+                              "description": "", 
+                              "name": "MaxNumber"
+                            }
+                          ]
+                        }
+                      }
+                    ]
                   }
                 ], 
                 "description": "", 
                 "name": "Score"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "nemesis.stdlib.composite_scores.CustomScore"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "5.2.0", 
+                "expression": "NumUniq*-1", 
+                "description": "", 
+                "name": "CustomScore"
               }
             ]
           }
@@ -230,6 +283,9 @@
           }, 
           {
             "py/id": 17
+          }, 
+          {
+            "py/id": 20
           }
         ], 
         "store_input": true, 

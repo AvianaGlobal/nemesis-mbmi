@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 
-import cPickle as pickle
+import pickle
 import os
 import tempfile
 
@@ -48,7 +48,6 @@ class MainWindowController(ApplicationWindowController):
     state_filename = 'state_builder.json'
 
     # --- Application actions ---
-
     def run_model(self):
         """ Run the model.
         """
@@ -133,19 +132,16 @@ class MainWindowController(ApplicationWindowController):
         """
         from enaml.layout.api import FloatItem, RemoveItem
         from enaml.widgets.api import Window, Container, DockItem, IPythonConsole
-
         dock_area = self.dock_area
         name = 'ipython_console'
         item = DockItem(dock_area, name=name, title='Console')
         console_container = Container(item, padding=0)
-
         console = IPythonConsole(console_container, initial_ns={
             'main_controller': self,
             'windows': Window.windows,
         })
         console.observe('exit_requested', lambda change: \
             dock_area.update_layout(RemoveItem(item=name)))
-
         dock_area.update_layout(FloatItem(item=name))
 
     def reset_full_layout(self):
@@ -162,7 +158,6 @@ class MainWindowController(ApplicationWindowController):
             event.ignore()
 
     # --- Public interface ---
-
     def add_model_object(self, obj):
         """ An a ModelObject to the model.
         """
@@ -174,7 +169,6 @@ class MainWindowController(ApplicationWindowController):
         self.model_controller.remove_object(obj)
 
     # --- ApplicationWindowController interface ---
-
     def _new_file(self):
         """ Create a new model.
         """
@@ -203,18 +197,17 @@ class MainWindowController(ApplicationWindowController):
             self.full_layout = self.dock_area.save_layout()
 
         state = super(MainWindowController, self).create_state()
-        state['full_layout'] = pickle.dumps(self.full_layout)
+        # state['full_layout'] = pickle.dumps(self.full_layout)
 
         return state
 
     def restore_state(self, state):
         super(MainWindowController, self).restore_state(state)
-        full_layout = state.get('full_layout')
-        if full_layout is not None:
-            self.full_layout = pickle.loads(str(full_layout))
+        # full_layout = state.get('full_layout')
+        # if full_layout is not None:
+        #     self.full_layout = pickle.loads(full_layout)
 
     # --- Private interface ---
-
     def _get_layout(self):
         if self.input_data is not None:
             return self.full_layout
@@ -235,7 +228,6 @@ class MainWindowController(ApplicationWindowController):
         return [ModelItem(name='model', title_bar_visible=False)]
 
     # Trait defaults
-
     def _full_layout_default(self):
         return HSplitLayout(
             'attributes',
@@ -253,14 +245,12 @@ class MainWindowController(ApplicationWindowController):
         return ModelEditorController(model=self.model)
 
     # Trait property getter/setters
-
     def _get_dock_area(self):
         if self.window:
             return self.window.find('dock_area')
         return None
 
     # Trait change handlers
-
     def _input_source_changed(self, ds):
         data = None
         if ds and ds.can_load:

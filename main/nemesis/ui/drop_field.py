@@ -9,7 +9,7 @@ from nemesis.ui.field import Field
 class DropField(Field):
     """ A field that supports drops and text insertion.
     """
-    valid_types = d_(Tuple(default=(basestring,)))
+    valid_types = d_(Tuple(default=(str,)))
     features = set_default(Feature.DropEnabled)
 
     # Widget interface.

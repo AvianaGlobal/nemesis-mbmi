@@ -1,4 +1,4 @@
-import cPickle as pickle
+import pickle
 
 from atom.api import Typed, List, Bool, Str, Event, observe
 from enaml.core.api import d_

@@ -12,7 +12,7 @@
       {
         "__traits_version__": "5.2.0", 
         "cap_entity_score": true, 
-        "entity_name": "Id", 
+        "entity_name": "UNIQUE_CLM_ID", 
         "max_entity_score": 3.0, 
         "composite_scores": [
           {
@@ -53,10 +53,52 @@
                             }, 
                             {
                               "__traits_version__": "5.2.0", 
-                              "expression": "Number", 
-                              "control_for": [], 
+                              "expression": "CLM_DRPD_AMT", 
+                              "control_for": [
+                                {
+                                  "py/reduce": [
+                                    "py/newobj", 
+                                    {
+                                      "py/tuple": [
+                                        {
+                                          "py/type": "nemesis.stdlib.controls.FactorControl"
+                                        }
+                                      ]
+                                    }, 
+                                    {
+                                      "__traits_version__": "5.2.0", 
+                                      "expression": "PAT_SEX_CD", 
+                                      "description": "", 
+                                      "name": "sex"
+                                    }
+                                  ]
+                                }, 
+                                {
+                                  "py/reduce": [
+                                    "py/newobj", 
+                                    {
+                                      "py/tuple": [
+                                        {
+                                          "py/type": "nemesis.stdlib.controls.NumericalControl"
+                                        }
+                                      ]
+                                    }, 
+                                    {
+                                      "__traits_version__": "5.2.0", 
+                                      "description": "", 
+                                      "num_breaks": 10, 
+                                      "breaks": [], 
+                                      "labels": [], 
+                                      "name": "age", 
+                                      "expression": "PAT_AGE", 
+                                      "closed_on_left": true, 
+                                      "auto_breaks": true
+                                    }
+                                  ]
+                                }
+                              ], 
                               "description": "", 
-                              "name": "Value"
+                              "name": "amt"
                             }
                           ]
                         }
@@ -82,17 +124,30 @@
                             {
                               "py/tuple": [
                                 {
-                                  "py/type": "nemesis.stdlib.metrics.EntropyMetric"
+                                  "py/type": "nemesis.stdlib.metrics.RatioMetric"
                                 }
                               ]
                             }, 
                             {
                               "__traits_version__": "5.2.0", 
+                              "cap_above_with": 1.0, 
+                              "replace_na_with": 0.0, 
                               "description": "", 
+                              "numerator": "CLM_DRPD_AMT", 
+                              "cap_below_with": 0.0, 
                               "control_for": [], 
-                              "expression": "Number", 
-                              "method": "frequent", 
-                              "name": "Entropy"
+                              "denominator": "CLAIM_COMPONENTS", 
+                              "name": "ratio", 
+                              "cap_above_at": 1.0, 
+                              "replace_inf": false, 
+                              "replace_zero_with": 0.0, 
+                              "cap_above": false, 
+                              "replace_zero": false, 
+                              "cap_below_at": 0.0, 
+                              "replace_inf_with": 0.0, 
+                              "replace_na": false, 
+                              "log_transform": false, 
+                              "cap_below": false
                             }
                           ]
                         }
@@ -111,95 +166,24 @@
                       }, 
                       {
                         "__traits_version__": "5.2.0", 
-                        "coeff": 3.0, 
+                        "coeff": 1.0, 
                         "metric": {
                           "py/reduce": [
                             "py/newobj", 
                             {
                               "py/tuple": [
                                 {
-                                  "py/type": "nemesis.stdlib.metrics.GraphDensityMetric"
+                                  "py/type": "nemesis.stdlib.metrics.UniqueDiscreteMetric"
                                 }
                               ]
                             }, 
                             {
                               "__traits_version__": "5.2.0", 
-                              "expression": "Number", 
-                              "control_for": [], 
-                              "description": "", 
-                              "name": "GrphDns"
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }, 
-                  {
-                    "py/reduce": [
-                      "py/newobj", 
-                      {
-                        "py/tuple": [
-                          {
-                            "py/type": "nemesis.stdlib.composite_scores.LinearTerm"
-                          }
-                        ]
-                      }, 
-                      {
-                        "__traits_version__": "5.2.0", 
-                        "coeff": 4.0, 
-                        "metric": {
-                          "py/reduce": [
-                            "py/newobj", 
-                            {
-                              "py/tuple": [
-                                {
-                                  "py/type": "nemesis.stdlib.metrics.DistributionMetric"
-                                }
-                              ]
-                            }, 
-                            {
-                              "__traits_version__": "5.2.0", 
-                              "kind": "chi_square", 
-                              "custom_function": "", 
                               "description": "", 
                               "control_for": [], 
-                              "expression": "Number", 
-                              "name": "ChiSqStat"
-                            }
-                          ]
-                        }
-                      }
-                    ]
-                  }, 
-                  {
-                    "py/reduce": [
-                      "py/newobj", 
-                      {
-                        "py/tuple": [
-                          {
-                            "py/type": "nemesis.stdlib.composite_scores.LinearTerm"
-                          }
-                        ]
-                      }, 
-                      {
-                        "__traits_version__": "5.2.0", 
-                        "coeff": 5.0, 
-                        "metric": {
-                          "py/reduce": [
-                            "py/newobj", 
-                            {
-                              "py/tuple": [
-                                {
-                                  "py/type": "nemesis.stdlib.metrics.UniqueContinuousMetric"
-                                }
-                              ]
-                            }, 
-                            {
-                              "__traits_version__": "5.2.0", 
-                              "expression": "Number", 
-                              "control_for": [], 
-                              "description": "", 
-                              "name": "NumUniq"
+                              "expression": "CONSUMER_ID", 
+                              "method": "distinct", 
+                              "name": "uids"
                             }
                           ]
                         }
@@ -208,33 +192,34 @@
                   }
                 ], 
                 "description": "", 
-                "name": "Score"
+                "name": "score"
               }
             ]
           }
         ], 
-        "controls": [], 
-        "group_name": "Letter", 
+        "controls": [
+          {
+            "py/id": 7
+          }, 
+          {
+            "py/id": 8
+          }
+        ], 
+        "group_name": "DR_TAX_ID", 
         "metrics": [
           {
             "py/id": 5
           }, 
           {
-            "py/id": 8
+            "py/id": 12
           }, 
           {
-            "py/id": 11
-          }, 
-          {
-            "py/id": 14
-          }, 
-          {
-            "py/id": 17
+            "py/id": 15
           }
         ], 
         "store_input": true, 
         "min_group_size": 50, 
-        "limit_group_size": false, 
+        "limit_group_size": true, 
         "user_code": ""
       }
     ]
