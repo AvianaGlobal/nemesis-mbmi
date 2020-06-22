@@ -139,3 +139,11 @@ dmypy.json
 /main/EliteOutliers_0.5-2.zip
 /main/EliteOutliers.Rcheck/
 /nemesis_env/
+/**/venv*/
+/**/src-*/
+/**/nemesisoutliers.Rproj
+/**/oon*.db
+/**/vsp.db
+/**/oon*.csv
+/**/vsp*.csv
+/**/spr*.csv

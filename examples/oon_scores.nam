@@ -1,0 +1,286 @@
+{
+  "model": {
+    "py/reduce": [
+      "py/newobj", 
+      {
+        "py/tuple": [
+          {
+            "py/type": "nemesis.model.Model"
+          }
+        ]
+      }, 
+      {
+        "__traits_version__": "5.2.0", 
+        "cap_entity_score": true, 
+        "entity_name": "CONSUMER_ID", 
+        "max_entity_score": 3.0, 
+        "composite_scores": [
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "nemesis.stdlib.composite_scores.LinearCombinationScore"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "5.2.0", 
+                "terms": [
+                  {
+                    "py/reduce": [
+                      "py/newobj", 
+                      {
+                        "py/tuple": [
+                          {
+                            "py/type": "nemesis.stdlib.composite_scores.LinearTerm"
+                          }
+                        ]
+                      }, 
+                      {
+                        "__traits_version__": "5.2.0", 
+                        "coeff": 1.0, 
+                        "metric": {
+                          "py/reduce": [
+                            "py/newobj", 
+                            {
+                              "py/tuple": [
+                                {
+                                  "py/type": "nemesis.stdlib.metrics.ValueMetric"
+                                }
+                              ]
+                            }, 
+                            {
+                              "__traits_version__": "5.2.0", 
+                              "expression": "as.numeric('P (HAS_OON_CLM_POST_AS_OF_DATE=Y)')", 
+                              "control_for": [], 
+                              "description": "", 
+                              "name": "proba"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }, 
+                  {
+                    "py/reduce": [
+                      "py/newobj", 
+                      {
+                        "py/tuple": [
+                          {
+                            "py/type": "nemesis.stdlib.composite_scores.LinearTerm"
+                          }
+                        ]
+                      }, 
+                      {
+                        "__traits_version__": "5.2.0", 
+                        "coeff": 1.0, 
+                        "metric": {
+                          "py/reduce": [
+                            "py/newobj", 
+                            {
+                              "py/tuple": [
+                                {
+                                  "py/type": "nemesis.stdlib.metrics.ValueMetric"
+                                }
+                              ]
+                            }, 
+                            {
+                              "__traits_version__": "5.2.0", 
+                              "expression": "PRIOR_CLM_CNT", 
+                              "control_for": [
+                                {
+                                  "py/reduce": [
+                                    "py/newobj", 
+                                    {
+                                      "py/tuple": [
+                                        {
+                                          "py/type": "nemesis.stdlib.controls.FactorControl"
+                                        }
+                                      ]
+                                    }, 
+                                    {
+                                      "__traits_version__": "5.2.0", 
+                                      "expression": "STATE", 
+                                      "description": "", 
+                                      "name": "state"
+                                    }
+                                  ]
+                                }, 
+                                {
+                                  "py/reduce": [
+                                    "py/newobj", 
+                                    {
+                                      "py/tuple": [
+                                        {
+                                          "py/type": "nemesis.stdlib.controls.NumericalControl"
+                                        }
+                                      ]
+                                    }, 
+                                    {
+                                      "__traits_version__": "5.2.0", 
+                                      "description": "", 
+                                      "num_breaks": 10, 
+                                      "breaks": [], 
+                                      "labels": [], 
+                                      "name": "age", 
+                                      "expression": "AGE_AT_CVG_START", 
+                                      "closed_on_left": true, 
+                                      "auto_breaks": true
+                                    }
+                                  ]
+                                }
+                              ], 
+                              "description": "", 
+                              "name": "priors"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }, 
+                  {
+                    "py/reduce": [
+                      "py/newobj", 
+                      {
+                        "py/tuple": [
+                          {
+                            "py/type": "nemesis.stdlib.composite_scores.LinearTerm"
+                          }
+                        ]
+                      }, 
+                      {
+                        "__traits_version__": "5.2.0", 
+                        "coeff": 1.0, 
+                        "metric": {
+                          "py/reduce": [
+                            "py/newobj", 
+                            {
+                              "py/tuple": [
+                                {
+                                  "py/type": "nemesis.stdlib.metrics.RatioMetric"
+                                }
+                              ]
+                            }, 
+                            {
+                              "__traits_version__": "5.2.0", 
+                              "cap_above_with": 1.0, 
+                              "replace_na_with": 0.0, 
+                              "description": "", 
+                              "numerator": "ZIP_CLAIM_CNT", 
+                              "cap_below_with": 0.0, 
+                              "control_for": [], 
+                              "denominator": "ZIP_CONSUMER_CNT", 
+                              "name": "ziprate", 
+                              "cap_above_at": 1.0, 
+                              "replace_inf": true, 
+                              "replace_zero_with": 0.0, 
+                              "cap_above": true, 
+                              "replace_zero": true, 
+                              "cap_below_at": 0.0, 
+                              "replace_inf_with": 0.0, 
+                              "replace_na": true, 
+                              "log_transform": false, 
+                              "cap_below": true
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                ], 
+                "description": "", 
+                "name": "score"
+              }
+            ]
+          }
+        ], 
+        "controls": [
+          {
+            "py/id": 10
+          }, 
+          {
+            "py/id": 11
+          }
+        ], 
+        "group_name": "CLIENT_ID", 
+        "metrics": [
+          {
+            "py/id": 5
+          }, 
+          {
+            "py/id": 8
+          }, 
+          {
+            "py/id": 15
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "nemesis.stdlib.metrics.GraphDensityMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "5.2.0", 
+                "expression": "STATE", 
+                "control_for": [], 
+                "description": "", 
+                "name": "grfdns"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "nemesis.stdlib.metrics.UniqueDiscreteMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "5.2.0", 
+                "description": "", 
+                "control_for": [], 
+                "expression": "STATE", 
+                "method": "distinct", 
+                "name": "unqdstnct"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "nemesis.stdlib.metrics.UniqueDiscreteMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "5.2.0", 
+                "description": "", 
+                "control_for": [], 
+                "expression": "STATE", 
+                "method": "frequent", 
+                "name": "unqfrqunt"
+              }
+            ]
+          }
+        ], 
+        "store_input": true, 
+        "min_group_size": 50, 
+        "limit_group_size": true, 
+        "user_code": ""
+      }
+    ]
+  }, 
+  "version": 1
+}
