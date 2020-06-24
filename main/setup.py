@@ -22,8 +22,10 @@ requirements = [
     'pyodbc',
     'seaborn',
     'sqlalchemy',
-    'traits_enaml',
-    'rpy2==2.7.8'
+    'traits==5.2.0',
+    'traits-enaml==0.3.0',
+    'traitsui==6.1.3',
+    'rpy2==2.7.8',
 ]
 
 setup_requirements = []
