@@ -3,14 +3,13 @@ from __future__ import absolute_import
 import os.path
 import pandas as pd
 import sqlalchemy
-from nemesis.r import ast
+from elite.r import ast
 from traits.api import Bool, Enum, Int, Property, Str
 
-from nemesis.data.data_source import DataSource
-from nemesis.data.sql import read_sql_table, sample_sql_table
-from nemesis.data.variable import Variable
-from nemesis.data.file_data_source import FileDataSource, FileReader, CsvFileReader
-
+from .data_source import DataSource
+from .sql import read_sql_table, sample_sql_table, query_limit
+from .variable import Variable
+from .file_data_source import FileDataSource, FileReader, CsvFileReader
 
 class SQLDataSource(DataSource):
     """ A data source associated with a SQL database.
@@ -18,22 +17,33 @@ class SQLDataSource(DataSource):
     # The type of database.
     dialect = Enum('db2', 'mssql', 'sqlite')
     # Connection information.
-    host = Str('dashdb-txn-sbox-yp-dal09-03.services.dal.bluemix.net')
+    host = Str()
     port = Int()
-    username = Str('kfn42270')
-    password = Str('6kg39fqcqk+tqqpf')
-    database = Str('BLUDB')
+    username = Str()
+    password = Str()
+    # The database and table to load from.
+    # Note: When using sqlite, `database` is the filename.
+    database = Str()
     table = Str()
     query = Str()
+    conn = Str('odbc()')
+    driver = Str('IBM DB2 ODBC DRIVER')
+    dsn = Str()
+    db2dsn = Str("Driver={IBM DB2 ODBC DRIVER};"
+                 "DATABASE=BLUDB;"
+                 "HOSTNAME=dashdb-txn-sbox-yp-dal09-03.services.dal.bluemix.net;"
+                 "PORT=50000;"
+                 "PROTOCOL=TCPIP;"
+                 "UID=xjv23492;"
+                 "PWD=fhg^61d4pw6114j3;")
 
     def sql_connection_str(self):
-        return 'DRIVER={ODBC Driver 17 for SQL Server}; SERVER=' + str(self.host) + ';DATABASE=' + str(self.database) + \
-               ';UID=' + str(self.username) + ';PWD=' + str(self.password)
+        return 'DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+str(self.host)+';DATABASE='+str(self.database)+\
+               ';UID='+str(self.username)+';PWD='+str(self.password)
 
     def DB2_connection_str(self):
-        return 'DRIVER={IBM DB2 ODBC DRIVER}; DATABASE=' + str(self.database) + ';HOSTNAME=' + str(
-            self.host) + ';PORT=' + \
-               str(self.port) + ';PROTOCOL=TCPIP;UID=' + str(self.username) + ';PWD=' + str(self.password)
+        return 'DRIVER={IBM DB2 ODBC DRIVER}; DATABASE='+str(self.database)+';HOSTNAME='+str(self.host)+';PORT='+\
+               str(self.port)+';PROTOCOL=TCPIP;UID='+str(self.username)+';PWD='+str(self.password)
 
     def query_table(self):
         if self.table != 'NA':
@@ -48,7 +58,7 @@ class SQLDataSource(DataSource):
 
     def ast(self):
         conn = self.ast_for_dbi_call(ast.Name('dbConnect'))
-
+        print('ast')
         if self.dialect == 'mssql':
             return [(ast.Name('ConnStr'), ast.Constant(self.sql_connection_str())),
                     (ast.Name('input_table'), ast.Constant(self.query_table())),
@@ -70,10 +80,11 @@ class SQLDataSource(DataSource):
                     (ast.Name('Sqlite'), ast.Constant(0)),
                     (ast.Name('db2'), ast.Constant(0))]
 
+
     def load(self, variables=None):
 
         # if self.table is not None and self.table != "NA":
-        # print('load')
+        print('load')
         return self.load_table(
             self.table,
             columns=variables,
@@ -92,18 +103,19 @@ class SQLDataSource(DataSource):
         """
         if self.dialect == 'db2':
             args = [
-                ast.Name('odbc()'),
+                (ast.Name(self.conn)),
                 (ast.Name('.connection_string'), ast.Constant(self.DB2_connection_str())),
+                # (ast.Name('dsn'), ast.Constant(self.dsn)),
+                # (ast.Name('driver'), ast.Constant(self.driver)),
             ]
         else:
-            args = [
-                (ast.Call(ast.Name('dbDriver'), ast.Constant(R_DBI_DRIVERS[self.dialect])))
-            ]
+            args = [ast.Call(ast.Name('dbDriver'), ast.Constant(R_DBI_DRIVERS[self.dialect]))]
         args += call_args
-        if self.dialect == 'sqlite':
-            args += [
-                (ast.Name('dbname'), ast.Constant(self.database))
-            ]
+        args += [(ast.Name('dbname'), ast.Constant(self.database))]
+        # if self.dialect != 'sqlite':
+        #     args += [(ast.Name('user'), ast.Constant(self.username)),
+        #              (ast.Name('password'), ast.Constant(self.password)),
+        #              (ast.Name('host'), ast.Constant(self.host)), ]
         return ast.Call(call_name, args, libraries=['DBI', R_DBI_LIBRARIES[self.dialect]])
 
     def create_engine(self):
@@ -113,27 +125,27 @@ class SQLDataSource(DataSource):
             path = os.path.abspath(self.database)
             engine_str = 'sqlite:///{path}'.format(path=path)
         elif self.dialect == 'mssql':
-            engine_str = '{dialect}://{username}:{password}@{dsn}'.format(**self.__dict__)
+            engine_str = '{dialect}+pyodbc://{username}:{password}@{dsn}'.format(**self.__dict__)
         elif self.dialect == 'db2':
             engine_str = 'ibm_db_sa://{username}:{password}@{host}:{port}/{database}'.format(**self.__dict__)
         else:
             engine_str = '{dialect}://{username}:{password}@{host}:{port}/{database}'.format(**self.__dict__)
-        return sqlalchemy.create_engine(engine_str, echo=False)
+        return sqlalchemy.create_engine(engine_str, echo=True)
 
     def load_table(self, table, **kw):
         """ Load a table from the database.
         """
         engine = self.create_engine()
         if self.table == "NA":
+
             query = self.query
             conn = engine.connect()
-            # data = pd.read_sql(query, conn)
-            # data.to_sql('Nemesis_data', conn, if_exists='replace', index=False)
-            # table = 'Nemesis_data'
-            # return read_sql_table(engine, table, **kw)
-            return pd.read_sql(query, conn)
+            data = pd.read_sql(query, conn)
+            return query_limit(data, **kw)
+
         else:
             return read_sql_table(engine, table, **kw)
+
 
     def sample_table(self, table, n, **kw):
         """ Randomly sample from a table in the database.

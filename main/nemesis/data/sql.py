@@ -128,6 +128,13 @@ def read_sql_table(engine, table_name, index_col=None, columns=None,
     return pd_tbl.frame
 
 
+def query_limit(data,index_col=None, columns=None,
+                   select_from=None, limit=None, order_by=None, where=None,
+                   coerce_types=None, raise_on_missing=True):
+    if limit is not None:
+        data = data[0:int(limit)]
+    return data
+
 def sample_sql_table(engine, table_name, n, where=None, **kw):
     """ Sample rows randomly from a SQL table.
     
