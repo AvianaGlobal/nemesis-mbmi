@@ -8,14 +8,15 @@ with open('README.rst') as readme_file:
     readme = readme_file.read()
 
 requirements = [
-    'numpy',
-    'enaml',
-    'chaco',
+    'numpy==1.16.6',
+    'enaml==0.10.4',
+    'enable==4.8.1'
+    'chaco==4.8.0',
     'futures',
     'jsonpickle',
     'ibm_db_sa',
-    'matplotlib',
-    'pandas',
+    'matplotlib==2.2.5',
+    'pandas==0.24.2',
     'pyface==6.1.2',
     'pygments',
     'PySide',
