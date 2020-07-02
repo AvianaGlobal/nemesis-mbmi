@@ -167,7 +167,7 @@ DEFAULT_PORT_MAP = {
 }
 
 R_DBI_DRIVERS = {
-    'db2': '{IBM DB2 ODBC DRIVER - DB2COPY1}',
+    'db2': '{IBM DB2 ODBC DRIVER - IBMDBCL1}',
     'mssql': '{ODBC Driver 17 for SQL Server}',
     'sqlite': 'SQLite',
 }
