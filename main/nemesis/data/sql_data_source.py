@@ -3,7 +3,7 @@ from __future__ import absolute_import
 import os.path
 import pandas as pd
 import sqlalchemy
-from elite.r import ast
+from nemesis.r import ast
 from traits.api import Bool, Enum, Int, Property, Str
 
 from .data_source import DataSource
