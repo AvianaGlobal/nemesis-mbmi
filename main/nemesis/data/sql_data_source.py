@@ -27,9 +27,9 @@ class SQLDataSource(DataSource):
     table = Str()
     query = Str()
     conn = Str('odbc()')
-    driver = Str('IBM DB2 ODBC DRIVER')
+    driver = Str('IBM DB2 ODBC DRIVER - IBMDBCL1')
     dsn = Str()
-    db2dsn = Str("Driver={IBM DB2 ODBC DRIVER};"
+    db2dsn = Str("Driver={IBM DB2 ODBC DRIVER - IBMDBCL1};"
                  "DATABASE=BLUDB;"
                  "HOSTNAME=dashdb-txn-sbox-yp-dal09-03.services.dal.bluemix.net;"
                  "PORT=50000;"
@@ -42,7 +42,7 @@ class SQLDataSource(DataSource):
                ';UID='+str(self.username)+';PWD='+str(self.password)
 
     def DB2_connection_str(self):
-        return 'DRIVER={IBM DB2 ODBC DRIVER}; DATABASE='+str(self.database)+';HOSTNAME='+str(self.host)+';PORT='+\
+        return 'DRIVER={IBM DB2 ODBC DRIVER - IBMDBCL1}; DATABASE='+str(self.database)+';HOSTNAME='+str(self.host)+';PORT='+\
                str(self.port)+';PROTOCOL=TCPIP;UID='+str(self.username)+';PWD='+str(self.password)
 
     def query_table(self):
