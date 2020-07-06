@@ -12,7 +12,7 @@ enamldef RExpressionField(HGroup):
     """ A widget for editing numerical and boolean expressions.
     Consists of a text field plus a palette of available operators.
     """
-    attr text: str = u''
+    attr text: str = ''
     align_widths = False
     padding = 0
     spacing = 5
