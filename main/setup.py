@@ -10,7 +10,7 @@ with open('README.rst') as readme_file:
 requirements = [
     'numpy==1.16.6',
     'enaml==0.10.4',
-    'enable==4.8.1'
+    'enable==4.8.1',
     'chaco==4.8.0',
     'futures',
     'jsonpickle',
