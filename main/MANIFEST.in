@@ -1,5 +1,6 @@
 include LICENSE
 include README.rst
+include NemesisOutliers_0.6-1.zip
 include nemesis/app/common/images/*.png
 include nemesis/app/common/images/*.jpg
 include nemesis/app/common/images/*.svg
