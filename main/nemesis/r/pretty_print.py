@@ -9,7 +9,7 @@ TODO:
 from __future__ import absolute_import
 
 import math
-from io import StringIO
+from io import BytesIO as StringIO
 from textwrap import TextWrapper
 
 from nemesis.r import ast
