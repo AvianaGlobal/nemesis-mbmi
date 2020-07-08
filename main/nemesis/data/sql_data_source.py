@@ -27,7 +27,7 @@ class SQLDataSource(DataSource):
     table = Str()
     query = Str()
     conn = Str('odbc()')
-    driver = Str('IBM DB2 ODBC DRIVER - IBMDBCL1')
+    driver = Str('IBM DB2 ODBC DRIVER - DB2COPY1')
     dsn = Str()
     db2dsn = Str("Driver={IBM DB2 ODBC DRIVER - IBMDBCL1};"
                  "DATABASE=BLUDB;"
@@ -42,7 +42,7 @@ class SQLDataSource(DataSource):
                ';UID='+str(self.username)+';PWD='+str(self.password)
 
     def DB2_connection_str(self):
-        return 'DRIVER={IBM DB2 ODBC DRIVER - IBMDBCL1}; DATABASE='+str(self.database)+';HOSTNAME='+str(self.host)+';PORT='+\
+        return 'DRIVER={IBM DB2 ODBC DRIVER - DB2COPY1}; DATABASE='+str(self.database)+';HOSTNAME='+str(self.host)+';PORT='+\
                str(self.port)+';PROTOCOL=TCPIP;UID='+str(self.username)+';PWD='+str(self.password)
 
     def query_table(self):
@@ -179,7 +179,7 @@ DEFAULT_PORT_MAP = {
 }
 
 R_DBI_DRIVERS = {
-    'db2': '{IBM DB2 ODBC DRIVER - IBMDBCL1}',
+    'db2': '{IBM DB2 ODBC DRIVER - DB2COPY1}',
     'mssql': '{ODBC Driver 17 for SQL Server}',
     'sqlite': 'SQLite',
 }
