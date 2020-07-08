@@ -1,0 +1,894 @@
+{
+  "model": {
+    "py/reduce": [
+      "py/newobj", 
+      {
+        "py/tuple": [
+          {
+            "py/type": "elite.model.Model"
+          }
+        ]
+      }, 
+      {
+        "__traits_version__": "4.5.0", 
+        "cap_entity_score": true, 
+        "entity_name": "RegistrationID", 
+        "max_entity_score": 3.0, 
+        "composite_scores": [
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.composite_scores.CustomScore"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(ifelse(Time.TimeUsed>=2.0, Time.TimeUsed,0)+\nifelse(Time.TimeSTAT>=2.0, Time.TimeSTAT,0)+\nifelse((ifelse(is.na(Time.TimeCONTIN),0,as.numeric(Time.TimeCONTIN)))>=2.0,Time.TimeCONTIN,0)+\nifelse(Score.Overall>2.0, Score.Overall,0)+\nifelse(Score.DifferenceLess25>2.0, Score.DifferenceLess25,0)+\nifelse(Score.OverallSTAT>2.0, Score.OverallSTAT,0)+\nifelse((ifelse(is.na(Score.OverallCONTIN),0,as.numeric(Score.OverallCONTIN)))>=2.0,Score.OverallCONTIN,0)+\nifelse(Score.TravelHighScore>2.0, Score.TravelHighScore,0)+\nifelse(Score.Diff>2.0, Score.Diff,0)+\nifelse(Score.FirstAttmptPerfect>2.0, Score.FirstAttmptPerfect,0)+\nifelse(Score.Perfect>2.0, Score.Perfect,0)+\nifelse(Delivery.PVAdmOnly>2.0, Delivery.PVAdmOnly,0)+\nifelse(Delivery.PVNoAdmFlg>2.0, Delivery.PVNoAdmFlg,0)+\nifelse(Delivery.PVEntryExt>2.0, Delivery.PVEntryExt,0)+\nifelse(Delivery.Holds>=2.0, Delivery.Holds,0)+\nifelse(Distance.OOC>2.0, Distance.OOC,0)+\nifelse(Distance.OOS>2.0, Distance.OOS,0)+\nifelse(Distance.TraveltoRedZ>2.0, Distance.TraveltoRedZ,0)+\nifelse(Reg.DaysBtwnRegDel>2.0, Reg.DaysBtwnRegDel,0)+\nifelse(Reg.RegDiffSite>2.0, Reg.RegDiffSite,0)+\nifelse(Reg.Attempt>2.0, Reg.Attempt,0)+\nifelse(Reg.DaysBtwnRegLess2>2.0, Reg.DaysBtwnRegLess2,0)+\nifelse(GIM.SDPalmVein>2.0, GIM.SDPalmVein,0)+\nifelse(GIM.SDIDScan>2.0, GIM.SDIDScan,0)+\nifelse(GIM.SDSig>2.0, GIM.SDSig,0)+\nifelse(GIM.SDBackupAdmiss>2.0, GIM.SDBackupAdmiss,0)+\nifelse(GIM.SDPIIChg>2.0, GIM.SDPIIChg,0)>=3.0,\nifelse(Time.TimeUsed>=2.0, Time.TimeUsed,0)+\nifelse(Time.TimeSTAT>=2.0, Time.TimeSTAT,0)+\nifelse((ifelse(is.na(Time.TimeCONTIN),0,as.numeric(Time.TimeCONTIN)))>=2.0,Time.TimeCONTIN,0)+\nifelse(Score.Overall>2.0, Score.Overall,0)+\nifelse(Score.DifferenceLess25>2.0, Score.DifferenceLess25,0)+\nifelse(Score.OverallSTAT>2.0, Score.OverallSTAT,0)+\nifelse((ifelse(is.na(Score.OverallCONTIN),0,as.numeric(Score.OverallCONTIN)))>=2.0,Score.OverallCONTIN,0)+\nifelse(Score.TravelHighScore>2.0, Score.TravelHighScore,0)+\nifelse(Score.Diff>2.0, Score.Diff,0)+\nifelse(Score.FirstAttmptPerfect>2.0, Score.FirstAttmptPerfect,0)+\nifelse(Score.Perfect>2.0, Score.Perfect,0)+\nifelse(Delivery.PVAdmOnly>2.0, Delivery.PVAdmOnly,0)+\nifelse(Delivery.PVNoAdmFlg>2.0, Delivery.PVNoAdmFlg,0)+\nifelse(Delivery.PVEntryExt>2.0, Delivery.PVEntryExt,0)+\nifelse(Delivery.Holds>=2.0, Delivery.Holds,0)+\nifelse(Distance.OOC>2.0, Distance.OOC,0)+\nifelse(Distance.OOS>2.0, Distance.OOS,0)+\nifelse(Distance.TraveltoRedZ>2.0, Distance.TraveltoRedZ,0)+\nifelse(Reg.DaysBtwnRegDel>2.0, Reg.DaysBtwnRegDel,0)+\nifelse(Reg.RegDiffSite>2.0, Reg.RegDiffSite,0)+\nifelse(Reg.Attempt>2.0, Reg.Attempt,0)+\nifelse(Reg.DaysBtwnRegLess2>2.0, Reg.DaysBtwnRegLess2,0)+\nifelse(GIM.SDPalmVein>2.0, GIM.SDPalmVein,0)+\nifelse(GIM.SDIDScan>2.0, GIM.SDIDScan,0)+\nifelse(GIM.SDSig>2.0, GIM.SDSig,0)+\nifelse(GIM.SDBackupAdmiss>2.0, GIM.SDBackupAdmiss,0)+\nifelse(GIM.SDPIIChg>2.0, GIM.SDPIIChg,0),0)", 
+                "description": "", 
+                "name": "InsightsTrigger"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.composite_scores.CustomScore"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(Time.TimeUsed>=2.0, Time.TimeUsed,0)+\nifelse(Time.TimeSTAT>=2.0, Time.TimeSTAT,0)+\nifelse((ifelse(is.na(Time.TimeCONTIN),0,as.numeric(Time.TimeCONTIN)))>=2.0,Time.TimeCONTIN,0)+\nifelse(Score.Overall>2.0, Score.Overall,0)+\nifelse(Score.DifferenceLess25>2.0, Score.DifferenceLess25,0)+\nifelse(Score.OverallSTAT>2.0, Score.OverallSTAT,0)+\nifelse((ifelse(is.na(Score.OverallCONTIN),0,as.numeric(Score.OverallCONTIN)))>=2.0,Score.OverallCONTIN,0)+\nifelse(Score.TravelHighScore>2.0, Score.TravelHighScore,0)+\nifelse(Score.Diff>2.0, Score.Diff,0)+\nifelse(Score.FirstAttmptPerfect>2.0, Score.FirstAttmptPerfect,0)+\nifelse(Score.Perfect>2.0, Score.Perfect,0)+\nifelse(Delivery.PVAdmOnly>2.0, Delivery.PVAdmOnly,0)+\nifelse(Delivery.PVNoAdmFlg>2.0, Delivery.PVNoAdmFlg,0)+\nifelse(Delivery.PVEntryExt>2.0, Delivery.PVEntryExt,0)+\nifelse(Delivery.Holds>=2.0, Delivery.Holds,0)+\nifelse(Distance.OOC>2.0, Distance.OOC,0)+\nifelse(Distance.OOS>2.0, Distance.OOS,0)+\nifelse(Distance.TraveltoRedZ>2.0, Distance.TraveltoRedZ,0)+\nifelse(Reg.DaysBtwnRegDel>2.0, Reg.DaysBtwnRegDel,0)+\nifelse(Reg.RegDiffSite>2.0, Reg.RegDiffSite,0)+\nifelse(Reg.Attempt>2.0, Reg.Attempt,0)+\nifelse(Reg.DaysBtwnRegLess2>2.0, Reg.DaysBtwnRegLess2,0)+\nifelse(GIM.SDPalmVein>2.0, GIM.SDPalmVein,0)+\nifelse(GIM.SDIDScan>2.0, GIM.SDIDScan,0)+\nifelse(GIM.SDSig>2.0, GIM.SDSig,0)+\nifelse(GIM.SDBackupAdmiss>2.0, GIM.SDBackupAdmiss,0)+\nifelse(GIM.SDPIIChg>2.0, GIM.SDPIIChg,0)", 
+                "description": "", 
+                "name": "AnomalyScoreTotal"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.composite_scores.CustomScore"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "\nifelse(Time.TimeUsed>=2.0,1,0)+\nifelse(Time.TimeSTAT>=2.0,1,0)+\nifelse((ifelse(is.na(Time.TimeCONTIN),0,as.numeric(Time.TimeCONTIN)))>=2.0,1,0)+\nifelse(Score.Overall>2.0,1,0)+\nifelse(Score.DifferenceLess25>2.0,1,0)+\nifelse(Score.OverallSTAT>2.0,1,0)+\nifelse((ifelse(is.na(Score.OverallCONTIN),0,as.numeric(Score.OverallCONTIN)))>=2.0,1,0)+\nifelse(Score.TravelHighScore>2.0,1,0)+\nifelse(Score.Diff>2.0,1,0)+\nifelse(Score.FirstAttmptPerfect>2.0,1,0)+\nifelse(Score.Perfect>2.0,1,0)+\nifelse(Delivery.PVAdmOnly>2.0,1,0)+\nifelse(Delivery.PVNoAdmFlg>2.0,1,0)+\nifelse(Delivery.PVEntryExt>2.0,1,0)+\nifelse(Delivery.Holds>=2.0,1,0)+\nifelse(Distance.OOC>2.0,1,0)+\nifelse(Distance.OOS>2.0,1,0)+\nifelse(Distance.TraveltoRedZ>2.0,1,0)+\nifelse(Reg.DaysBtwnRegDel>2.0,1,0)+\nifelse(Reg.RegDiffSite>2.0,1,0)+\nifelse(Reg.Attempt>2.0,1,0)+\nifelse(Reg.DaysBtwnRegLess2>2.0,1,0)+\nifelse(GIM.SDPalmVein>2.0,1,0)+\nifelse(GIM.SDIDScan>2.0,1,0)+\nifelse(GIM.SDSig>2.0,1,0)+\nifelse(GIM.SDBackupAdmiss>2.0,1,0)+\nifelse(GIM.SDPIIChg>2.0,1,0)", 
+                "description": "", 
+                "name": "AnomalyCount"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.composite_scores.CustomScore"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(Time.TimeUsed>=2.0,Time.TimeUsed,0)+ifelse(Time.TimeSTAT>=2.0,Time.Time.TimeSTAT,0)+ifelse((ifelse(is.na(Time.TimeCONTIN),0,as.numeric(Time.TimeCONTIN)))>=2.0,Time.TimeCONTIN,0)", 
+                "description": "", 
+                "name": "TimeScore"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.composite_scores.CustomScore"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(Score.Overall>=2.0,Score.Overall,0)+ifelse(Score.OverallSTAT>=2.0, Score.OverallSTAT,0)+ifelse((ifelse(is.na(Score.OverallCONTIN),0,as.numeric(Score.OverallCONTIN)))>=2.0,Score.OverallCONTIN,0)+ifelse(Score.DifferenceLess25>=2.0, Score.DifferenceLess25,0)+ifelse(Score.Diff>=2.0,Score.Diff,0)+ifelse(Score.FirstAttmptPerfect>=2.0, Score.FirstAttmptPerfect,0)+ifelse(Score.Perfect>=2.0, Score.Perfect,0)+ifelse(Score.TravelHighScore>=2.0, Score.TravelHighScore,0)\n", 
+                "description": "", 
+                "name": "ScoreScore"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.composite_scores.CustomScore"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(Reg.DaysBtwnRegDel>=2.0,Reg.DaysBtwnRegDel,0)+ifelse(Reg.Attempt>=2.0,Reg.Attempt,0)+ifelse(Reg.DaysBtwnRegLess2>=2.0,Reg.DaysBtwnRegLess2,0)+ifelse(Reg.RegDiffSite>=2.0,Reg.RegDiffSite,0)", 
+                "description": "", 
+                "name": "RegScore"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.composite_scores.CustomScore"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(Distance.TraveltoRedZ>=2.0,Distance.TraveltoRedZ,0)+ifelse(Distance.OOC>=2.0,Distance.OOC,0)+ifelse(Distance.OOS>=2.0,Distance.OOS,0)", 
+                "description": "", 
+                "name": "DistanceScore"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.composite_scores.CustomScore"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(Delivery.PVAdmOnly>=2.0,Delivery.PVAdmOnly,0)+\nifelse(Delivery.PVNoAdmFlg>=2.0,Delivery.PVNoAdmFlg,0)+\nifelse(Delivery.PVEntryExt>=2.0,Delivery.PVEntryExt,0)+\nifelse(Delivery.Holds>=2.0,Delivery.Holds,0)+\nifelse(Delivery.CFMCount>2.0,Delivery.CFMCount,0)", 
+                "description": "", 
+                "name": "DeliveryScore"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.composite_scores.CustomScore"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(GIM.SDPalmVein>=2.0,GIM.SDPalmVein,0)+ifelse(GIM.SDIDScan>=2.0,GIM.SDIDScan,0)+ifelse(GIM.SDSig>=2.0,GIM.SDSig,0)+ifelse(GIM.SDBackupAdmiss>=2.0,GIM.SDBackupAdmiss,0)+ifelse(GIM.SDPIIChg>=2.0,GIM.SDPIIChg,0)", 
+                "description": "", 
+                "name": "GIMScore"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.composite_scores.CustomScore"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(Time.TimeUsed>=2.0,1,0)+ifelse(Time.TimeSTAT>=2.0,1,0)+ifelse((ifelse(is.na(Time.TimeCONTIN),0,as.numeric(Time.TimeCONTIN)))>=2.0,1,0)", 
+                "description": "", 
+                "name": "TimeCount"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.composite_scores.CustomScore"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(Score.Overall>=2.0,1,0)+ifelse(Score.OverallSTAT>=2.0,1,0)+ifelse((ifelse(is.na(Score.OverallCONTIN),0,as.numeric(Score.OverallCONTIN)))>=2.0,1,0)+ifelse(Score.DifferenceLess25>=2.0,1,0)+ifelse(Score.Diff>=2.0,1,0)+ifelse(Score.FirstAttmptPerfect>=2.0,1,0)+ifelse(Score.Perfect>=2.0,1,0)+ifelse(Score.TravelHighScore>=2.0,1,0)\n", 
+                "description": "", 
+                "name": "ScoreCount"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.composite_scores.CustomScore"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(Reg.DaysBtwnRegDel>=2.0,1,0)+ifelse(Reg.Attempt>=2.0,1,0)+ifelse(Reg.DaysBtwnRegLess2>=2.0,1,0)+ifelse(Reg.RegDiffSite>=2.0,1,0)", 
+                "description": "", 
+                "name": "RegCount"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.composite_scores.CustomScore"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(Distance.TraveltoRedZ>=2.0,1,0)+ifelse(Distance.OOC>=2.0,1,0)+ifelse(Distance.OOS>=2.0,1,0)", 
+                "description": "", 
+                "name": "DistantCount"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.composite_scores.CustomScore"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(Delivery.PVAdmOnly>=2.0,1,0)+\nifelse(Delivery.PVNoAdmFlg>=2.0,1,0)+\nifelse(Delivery.PVEntryExt>=2.0,1,0)+\nifelse(Delivery.Holds>=2.0,1,0)+\nifelse(Delivery.CFMCount>2.0,1,0)", 
+                "description": "", 
+                "name": "DeliveryCount"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.composite_scores.CustomScore"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(GIM.SDPalmVein>=2.0,1,0)+ifelse(GIM.SDIDScan>=2.0,1,0)+ifelse(GIM.SDSig>=2.0,1,0)+ifelse(GIM.SDBackupAdmiss>=2.0,1,0)+ifelse(GIM.SDPIIChg>=2.0,1,0)", 
+                "description": "", 
+                "name": "GIMCount"
+              }
+            ]
+          }
+        ], 
+        "controls": [], 
+        "group_name": "TestCenterID", 
+        "metrics": [
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.ValueMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(is.na(PLTOverallScore),0,as.numeric(PLTOverallScore))", 
+                "control_for": [], 
+                "description": "", 
+                "name": "Score.Overall"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.ValueMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "Delivered==1&\n(ifelse(is.na(PLTOverallScoreDifference),0,as.numeric(PLTOverallScoreDifference)))<=-25", 
+                "control_for": [], 
+                "description": "", 
+                "name": "Score.DifferenceLess25"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.DistributionMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "kind": "chi_square", 
+                "custom_function": "", 
+                "description": "", 
+                "control_for": [], 
+                "expression": "ifelse(is.na(PLTOverallScore),0,as.numeric(PLTOverallScore))", 
+                "name": "Score.OverallSTAT"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.UniqueContinuousMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(is.na(PLTOverallScore),0,as.numeric(PLTOverallScore))", 
+                "control_for": [], 
+                "description": "", 
+                "name": "Score.OverallCONTIN"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.ValueMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(is.na(TimeUsedMinutes),0,as.numeric(TimeUsedMinutes))", 
+                "control_for": [], 
+                "description": "", 
+                "name": "Time.TimeUsed"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.DistributionMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "kind": "chi_square", 
+                "custom_function": "", 
+                "description": "", 
+                "control_for": [], 
+                "expression": "ifelse(is.na(TimeUsedMinutes),0,as.numeric(TimeUsedMinutes))", 
+                "name": "Time.TimeSTAT"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.UniqueContinuousMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(is.na(TimeUsedMinutes),0,as.numeric(TimeUsedMinutes))", 
+                "control_for": [], 
+                "description": "", 
+                "name": "Time.TimeCONTIN"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.ValueMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(RegistrationStatus==\"Delivered\"&ADMT>0&ENTR==0&EXIT==0,1,0)", 
+                "control_for": [], 
+                "description": "", 
+                "name": "Delivery.PVAdmOnly"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.ValueMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(RegistrationStatus==\"Delivered\"&ADMT==0,1,0)", 
+                "control_for": [], 
+                "description": "", 
+                "name": "Delivery.PVNoAdmFlg"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.ValueMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(as.character(CandidateCountry)!=TestCenterCountry,1, 0)", 
+                "control_for": [], 
+                "description": "", 
+                "name": "Distance.OOC"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.ValueMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(as.character(CandidateCountry)==TestCenterCountry&as.character(CandidateStateProvince)!=TestCenterStateProvince,1, 0)", 
+                "control_for": [], 
+                "description": "", 
+                "name": "Distance.OOS"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.ValueMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(as.character(CandidateCountry)!=TestCenterCountry&TestCenterCountry==\"India\",1,0)|ifelse(as.character(CandidateCountry)!=TestCenterCountry&TestCenterCountry==\"China\",1,0)", 
+                "control_for": [], 
+                "description": "", 
+                "name": "Distance.TraveltoRedZ"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.ValueMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "DaysBetweenRegistrationandAppointment", 
+                "control_for": [], 
+                "description": "", 
+                "name": "Reg.DaysBtwnRegDel"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.ValueMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(Test_Centre_Match==\"N\",1,0)", 
+                "control_for": [], 
+                "description": "", 
+                "name": "Reg.RegDiffSite"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.ValueMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "RegistrationStatus==\"Delivered\"&AttemptNumber", 
+                "control_for": [], 
+                "description": "", 
+                "name": "Reg.Attempt"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.ValueMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(is.na(CFMCaseCount),0,as.numeric(CFMCaseCount))", 
+                "control_for": [], 
+                "description": "", 
+                "name": "Delivery.CFMCount"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.ValueMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "RegistrationStatus==\"Delivered\"&(ifelse((ifelse(is.na(EENTotalOutMin),0,as.numeric(EENTotalOutMin)))<5,1,0))", 
+                "control_for": [], 
+                "description": "", 
+                "name": "Delivery.EENOutageBlip"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.ValueMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(TestCenterCountry==\"India\"|TestCenterCountry==\"Australia\"&as.character(TestCenterStateProvince)!=CandidateStateProvince&Delivered==1&PLTOverallScore>=79&PLTOverallScore<90, 1, 0)", 
+                "control_for": [], 
+                "description": "", 
+                "name": "Score.TravelHighScore"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.ValueMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(is.na(PLTOverallScoreDifference),0,as.numeric(PLTOverallScoreDifference))", 
+                "control_for": [], 
+                "description": "", 
+                "name": "Score.Diff"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.ValueMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(AttemptNumber==1&PLTOverallScore==90,1,0)", 
+                "control_for": [], 
+                "description": "", 
+                "name": "Score.FirstAttmptPerfect"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.ValueMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": " ifelse(RegistrationStatus==\"Delivered\"&ENTR!=EXIT,1,0)", 
+                "control_for": [], 
+                "description": "", 
+                "name": "Delivery.PVEntryExt"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.ValueMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(DaysBetweenRegistrationandAppointment<2, 1, 0)", 
+                "control_for": [], 
+                "description": "", 
+                "name": "Reg.DaysBtwnRegLess2"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.ValueMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(substr(SDCaseType1,1,9)=='Palm vein' | substr(SDCaseType2,1,9)=='Palm vein' | substr(SDCaseType3,1,9)=='Palm vein' | substr(SDCaseType4,1,9)=='Palm vein',1,0)", 
+                "control_for": [], 
+                "description": "", 
+                "name": "GIM.SDPalmVein"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.ValueMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(substr(SDCaseType1,1,3)=='DIA' | substr(SDCaseType2,1,3)=='DIA' | substr(SDCaseType3,1,3)=='DIA' | substr(SDCaseType4,1,3)=='DIA',1,0)+\nifelse(substr(SDCaseType1,1,8)=='Passport' | substr(SDCaseType2,1,8)=='Passport' | substr(SDCaseType3,1,8)=='Passport' | substr(SDCaseType4,1,8)=='Passport',1,0)", 
+                "control_for": [], 
+                "description": "", 
+                "name": "GIM.SDIDScan"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.ValueMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(substr(SDCaseType1,1,9)=='Signature' | substr(SDCaseType2,1,9)=='Signature' | substr(SDCaseType3,1,9)=='Signature' | substr(SDCaseType4,1,9)=='Signature',1,0)", 
+                "control_for": [], 
+                "description": "", 
+                "name": "GIM.SDSig"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.ValueMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(SDCaseType1=='Backup admissions data' | SDCaseType2=='Backup admissions data' | SDCaseType3=='Backup admissions data' | SDCaseType4=='Backup admissions data',1,0)", 
+                "control_for": [], 
+                "description": "", 
+                "name": "GIM.SDBackupAdmiss"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.ValueMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "\nifelse(substr(SDCaseType1,1,4)=='Name' | substr(SDCaseType2,1,4)=='Name' | substr(SDCaseType3,1,4)=='Name' | substr(SDCaseType4,1,4)=='Name',1,0)+\nifelse(substr(SDCaseType1,1,9)=='Duplicate' | substr(SDCaseType2,1,9)=='Duplicate' | substr(SDCaseType3,1,9)=='Duplicate' | substr(SDCaseType4,1,9)=='Duplicate',1,0)+\nifelse(substr(SDCaseType1,1,7)=='Request' | substr(SDCaseType2,1,7)=='Request' | substr(SDCaseType3,1,7)=='Request' | substr(SDCaseType4,1,7)=='Request',1,0)+\nifelse(SDCaseType1=='Problem with candidate ID' | SDCaseType2=='Problem with candidate ID' | SDCaseType3=='Problem with candidate ID' | SDCaseType4=='Problem with candidate ID',1,0)", 
+                "control_for": [], 
+                "description": "", 
+                "name": "GIM.SDPIIChg"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.ValueMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "ifelse(is.na(PLTOverallScore),0,as.numeric(PLTOverallScore==90))", 
+                "control_for": [], 
+                "description": "", 
+                "name": "Score.Perfect"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.ValueMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "OnHold=='Yes'", 
+                "control_for": [], 
+                "description": "", 
+                "name": "Delivery.Holds"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.ValueMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "(ifelse((ifelse(is.na(EENTotalOutMin),0,as.numeric(EENTotalOutMin)))>=200,1,0))", 
+                "control_for": [], 
+                "description": "", 
+                "name": "Delivery.EENOutageFullDay"
+              }
+            ]
+          }, 
+          {
+            "py/reduce": [
+              "py/newobj", 
+              {
+                "py/tuple": [
+                  {
+                    "py/type": "elite.stdlib.metrics.ValueMetric"
+                  }
+                ]
+              }, 
+              {
+                "__traits_version__": "4.5.0", 
+                "expression": "RegistrationStatus==\"Delivered\"&((ifelse((ifelse(is.na(EENTotalOutMin),0,as.numeric(EENTotalOutMin)))>=5&(ifelse(is.na(EENTotalOutMin),0,as.numeric(EENTotalOutMin)))<=200,1,0)))", 
+                "control_for": [], 
+                "description": "", 
+                "name": "Delivery.EENOutageExam"
+              }
+            ]
+          }
+        ], 
+        "store_input": true, 
+        "min_group_size": 15, 
+        "limit_group_size": true, 
+        "user_code": ""
+      }
+    ]
+  }, 
+  "version": 1
+}
