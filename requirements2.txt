@@ -58,7 +58,7 @@ PySide==1.2.4
 python-dateutil==2.8.1
 pytz==2019.3
 pywin32==227
-PyYAML==5.3.1
+PyYAML==5.4
 pyzmq==19.0.0
 QtPy==1.9.0
 readme-renderer==25.0
