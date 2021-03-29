@@ -51,7 +51,7 @@ py==1.8.1
 pycodestyle==2.5.0
 pyface==6.1.2
 pyflakes==2.1.1
-Pygments==2.5.2
+Pygments==2.7.4
 pyparsing==2.4.6
 PyQt4-windows-whl==4.11.4.1
 PySide==1.2.4
