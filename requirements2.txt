@@ -37,7 +37,7 @@ MarkupSafe==1.1.1
 matplotlib==2.2.5
 mccabe==0.6.1
 mkl==2019.0
-numpy==1.16.6
+numpy==1.22.0
 packaging==20.3
 pandas==0.24.2
 pandasql==0.7.3
